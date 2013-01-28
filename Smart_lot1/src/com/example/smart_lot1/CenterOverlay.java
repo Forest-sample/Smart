@@ -21,8 +21,7 @@ public class CenterOverlay extends Overlay{
 	@Override
 	protected void draw(Canvas arg0, MapView arg1, boolean arg2) {
 		
-		
-		
+		//TODO
 	}
 	
 	
