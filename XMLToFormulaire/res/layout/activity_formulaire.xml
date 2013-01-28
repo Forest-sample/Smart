@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+android:orientation = "vertical"
+android:layout_width = "fill_parent"
+android:layout_height = "fill_parent"
+android:id = "@+id/mainlayout" >
+
+    <TextView android:layout_width = "fill_parent"
+	android:layout_height = "wrap_content"
+	android:gravity ="center"
+	android:id = "@+id/title" 
+	android:text="Formulaire"/>
+    
+    
+	<TableRow android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        
+		<TextView android:layout_width = "fill_parent"
+		android:layout_height = "wrap_content"
+		android:padding="10dip"
+		android:id = "@+id/date" 
+		android:text="Date"/>
+		
+		<TextView android:layout_width = "fill_parent"
+		android:layout_height = "wrap_content"
+		android:padding="10dip"
+		android:id = "@+id/datecourante" />
+	
+	</TableRow>
+	
+	<TableRow android:id="@+id/tableRow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        
+		<TextView android:layout_width = "fill_parent"
+		android:layout_height = "wrap_content"
+		android:padding="10dip"
+		android:id = "@+id/date" 
+		android:text="Coordonnées"/>
+		
+		<TextView android:layout_width = "fill_parent"
+		android:layout_height = "wrap_content"
+		android:padding="10dip"
+		android:text="coordGPS"
+		android:id = "@+id/coordGPS" />
+	
+	</TableRow>
+	
+
+       
+		
+	
+
+	
+	
+	<TableLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+	android:orientation = "vertical"
+	android:layout_width = "fill_parent"
+	android:layout_height = "fill_parent"
+	android:id = "@+id/layoutOfDynamicContent" >
+	</TableLayout >
+	
+	
+
+	
+	
+
+		
+	
+
+</LinearLayout >

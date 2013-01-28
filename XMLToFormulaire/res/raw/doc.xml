@@ -1,0 +1,6 @@
+<formulaire>
+	<champ type="text" name="Arbre" length="20"/>
+	<champ type="text" name="Couleur" />	
+	<champ type="numeric" name="Nombre" length="10" max="100" min="10"/>
+	<champ type="boolean" name="Type" value1="Feuilles" value2="Epines"/>
+</formulaire>
