@@ -24,7 +24,7 @@ public class CenterOverlay extends Overlay{
 		//TODO
 	}
 	
-	public void isPouet(){
+	public void isLalalaalalala(){
 		//TODO
 	}
 	
