@@ -24,7 +24,7 @@ public class CenterOverlay extends Overlay{
 		//TODO
 	}
 	
-	public void isToto(){
+	public void isBoolean(){
 		//TODO
 	}
 	
