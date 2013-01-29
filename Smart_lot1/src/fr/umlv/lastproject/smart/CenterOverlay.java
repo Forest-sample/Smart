@@ -10,11 +10,11 @@ import android.widget.ImageView;
 
 public class CenterOverlay extends Overlay{
 
-	private ImageView imageView;
+	private ImageView image;
 	
-	public CenterOverlay(Context ctx) {
-		super(ctx);
-		imageView = new ImageView(null);
+	public CenterOverlay(Context c) {
+		super(c);
+		image = new ImageView(null);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -24,6 +24,9 @@ public class CenterOverlay extends Overlay{
 		//TODO
 	}
 	
+	public void isBoolean(){
+		
+	}
 	
 	
 
