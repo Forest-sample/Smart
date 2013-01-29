@@ -27,7 +27,7 @@ public class GPS {
 		this.lm = lm;
 	}
 	
-	public boolean titi(){return true;}
+	public boolean toto(){return false;}
 	
 	
 
