@@ -12,8 +12,8 @@ public class CenterOverlay extends Overlay{
 
 	private ImageView image;
 	
-	public CenterOverlay(Context ctx) {
-		super(ctx);
+	public CenterOverlay(Context c) {
+		super(c);
 		image = new ImageView(null);
 		// TODO Auto-generated constructor stub
 	}
