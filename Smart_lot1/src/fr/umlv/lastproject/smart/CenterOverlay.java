@@ -24,7 +24,7 @@ public class CenterOverlay extends Overlay{
 		//TODO
 	}
 	
-	public void isMaelle(){
+	public void isMaelleAndTanios(){
 		int marc = 17 ;
 	}
 	
