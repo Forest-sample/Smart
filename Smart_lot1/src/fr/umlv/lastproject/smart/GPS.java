@@ -1,4 +1,4 @@
-package com.example.smart_lot1;
+package fr.umlv.lastproject.smart;
 
 import java.util.ArrayList;
 
