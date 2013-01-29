@@ -29,6 +29,7 @@ public class GPS {
 	
 	public boolean toto(){
 		int i = 0;
+		int var = 4;
 		return false;}
 	
 	
