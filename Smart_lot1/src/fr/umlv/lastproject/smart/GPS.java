@@ -27,13 +27,6 @@ public class GPS {
 		this.lm = lm;
 	}
 	
-	public boolean toto(){
-		int i = 0;
-		int j = 5;
-		return false;}
-	
-	
-
 	public boolean isEnabled(LocationManager lm){
 		return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
 	}
