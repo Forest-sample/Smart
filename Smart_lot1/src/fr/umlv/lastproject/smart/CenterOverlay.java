@@ -10,11 +10,11 @@ import android.widget.ImageView;
 
 public class CenterOverlay extends Overlay{
 
-	private ImageView image;
+	private ImageView imageTOto;
 	
 	public CenterOverlay(Context c) {
 		super(c);
-		image = new ImageView(null);
+		imageTOto = new ImageView(null);
 		// TODO Auto-generated constructor stub
 	}
 
