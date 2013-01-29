@@ -1,4 +1,4 @@
-package com.example.smart_lot1;
+package fr.umlv.smart;
 
 public class GPSEvent {
 	
