@@ -13,6 +13,24 @@
             <version>2.2.1</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>diewald_shapeFile</groupId>
+            <artifactId>shpreader</artifactId>
+            <version>2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osmdroid</groupId>
+            <artifactId>osmdroid</artifactId>
+            <version>3.0.8</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j</artifactId>
+            <version>1.5.8</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
