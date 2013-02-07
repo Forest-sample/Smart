@@ -10,6 +10,7 @@ public class SmartActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_smart);
+		System.out.println();
 	}
 
 	@Override
