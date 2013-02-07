@@ -1,5 +1,8 @@
 package fr.umlv.lastproject.smart;
 
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -10,6 +13,14 @@ public class SmartActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_smart);
+		MapView map = new MapView(this, 256);
+		map.getController().setCenter(new GeoPoint(48.0,3.0));
+		map.getController().setZoom(5);
+		map.setClickable(true);
+		setContentView(map);
+
+
+		
 		
 	}
 
