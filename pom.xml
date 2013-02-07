@@ -19,25 +19,22 @@
             <version>2</version>
             <scope>provided</scope>
         </dependency>
-               <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-        </dependency>
-
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>osmdroid-android</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>osmdroid-third-party</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.osmdroid</groupId>
+            <artifactId>osmdroid</artifactId>
+            <version>3.0.8</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-android</artifactId>
+            <version>1.5.8</version>
         </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+        </dependency>
+        
     </dependencies>
 
     <build>
