@@ -11,26 +11,21 @@
             <groupId>com.google.android</groupId>
             <artifactId>android</artifactId>
             <version>2.2.1</version>
-            <scope>provided</scope>
         </dependency>
+      
         <dependency>
             <groupId>diewald_shapeFile</groupId>
             <artifactId>shpreader</artifactId>
             <version>2</version>
-            <scope>provided</scope>
         </dependency>
+       
         <dependency>
             <groupId>org.osmdroid</groupId>
             <artifactId>osmdroid</artifactId>
             <version>3.0.8</version>
-            <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-android</artifactId>
-            <version>1.5.8</version>
-            <scope>provided</scope>
-        </dependency>
+      
+      
         <dependency>
 			<groupId>org.slf4j</groupId> <artifactId>slf4j-android</artifactId> <version>1.6.1-RC1</version>
 		<dependency>
