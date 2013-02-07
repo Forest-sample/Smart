@@ -36,7 +36,6 @@
  			 <artifactId>osmdroid-android</artifactId>
  			 <version>3.0.8</version>
 		</dependency>
-		</dependency>
         
     </dependencies>
 
