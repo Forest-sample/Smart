@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-public class SmartActivity extends Activity {
+public class MenuActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
