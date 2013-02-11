@@ -7,6 +7,14 @@ public class GPSEvent {
 	private double altitude;
 	private float accuracy;
 
+	/**
+	 * GPSEvent constructor
+	 * 
+	 * @param latitude
+	 * @param longitude
+	 * @param altitude
+	 * @param accuracy
+	 */
 	public GPSEvent(double latitude, double longitude, double altitude,
 			float accuracy) {
 		this.latitude = latitude;
