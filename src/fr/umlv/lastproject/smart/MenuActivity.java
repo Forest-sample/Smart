@@ -1,21 +1,18 @@
 package fr.umlv.lastproject.smart;
 
 
-import org.osmdroid.events.MapListener;
-import org.osmdroid.events.ScrollEvent;
-import org.osmdroid.events.ZoomEvent;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.OverlayManager;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,7 +34,6 @@ public class MenuActivity extends Activity {
 	private GPS gps ;
 	private LocationManager locationManager;
 	private InfoOverlay infoOverlay;
-	private boolean mapFollow = true ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
