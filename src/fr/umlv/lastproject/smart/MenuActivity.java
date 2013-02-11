@@ -14,7 +14,7 @@ public class MenuActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_smart);
 		MapView map = new MapView(this, 256);
-		map.getController().setCenter(new GeoPoint(48.0,3.0));
+		map.getController().setCenter(new GeoPoint(50.0,3.0));
 		map.getController().setZoom(5);
 		map.setClickable(true);
 		setContentView(map);
