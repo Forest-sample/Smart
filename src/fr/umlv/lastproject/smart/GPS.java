@@ -17,6 +17,12 @@ public class GPS {
 	private float accuracy;
 	private ArrayList<IGPSListener> GPSListeners = new ArrayList<IGPSListener>();
 
+	/**
+	 * GPS Constructor
+	 * 
+	 * @param lm
+	 *            : LocationManager of the GPS
+	 */
 	public GPS(LocationManager lm) {
 		this.locationManager = lm;
 		this.criteria = new Criteria();
@@ -48,6 +54,11 @@ public class GPS {
 
 	/**
 	 * Function which start the GPS Location Updates
+	 * 
+	 * @param ms
+	 *            : time to refresh location
+	 * @param meter
+	 *            : distance to refresh location
 	 */
 	public void start(int ms, int meter) {
 		// TODO Attention: test isEnabled a faire dans la classe qui appel le

@@ -1,25 +1,31 @@
 package fr.umlv.lastproject.smart;
 
 
-import org.metalev.multitouch.controller.MultiTouchController.PositionAndScale;
+import org.osmdroid.events.MapListener;
+import org.osmdroid.events.ScrollEvent;
+import org.osmdroid.events.ZoomEvent;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.OverlayManager;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
-
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.DragEvent;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+
 public class MenuActivity extends Activity {
 
 	/**
 	 * 
 	 * @author thibault Brun
-	 * 
+	 * @author tanios Faddoul
 	 * Description : This class contains the Menus container
 	 *
 	 */
@@ -29,8 +35,9 @@ public class MenuActivity extends Activity {
 	private OverlayManager overlayManager;
 	private MyPositionOverlay myPositionOverlay ;
 	private GPS gps ;
-	private GeoPoint lastPosition ;
-	
+	private LocationManager locationManager;
+	private InfoOverlay infoOverlay;
+	private boolean mapFollow = true ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,8 @@ public class MenuActivity extends Activity {
 		setContentView(R.layout.activity_smart);
 		initMap();
 		initGps();
+		infoOverlay = new InfoOverlay(findViewById(R.id.table));
+
 
 	}
 
@@ -45,6 +54,7 @@ public class MenuActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_smart, menu);
+		menu.add(0, 1, 0, "Hide informations");
 		return true;
 	}
 
@@ -54,7 +64,6 @@ public class MenuActivity extends Activity {
 	public void initMap(){
 		mapView = (MapView) findViewById(R.id.mapview) ;
 		mapController = mapView.getController() ;
-		overlayManager = mapView.getOverlayManager();
 		myPositionOverlay = new MyPositionOverlay(this);
 		mapView.setTileSource(TileSourceFactory.MAPNIK);
 		mapView.setClickable(true);
@@ -69,19 +78,48 @@ public class MenuActivity extends Activity {
 	 * This methode is use to connect the gps to the positionOverlay
 	 */
 	public void initGps(){
-		gps = new GPS((LocationManager) getSystemService(Context.LOCATION_SERVICE)) ;
+
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE) ;
+		gps = new GPS(locationManager) ;
+		
+		if(!gps.isEnabled(locationManager)){
+			Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS) ;
+			startActivity(intent);
+		}
+		
 		gps.start(5000, 10);
 		gps.addGPSListener(new IGPSListener() {
 			
 			@Override
 			public void actionPerformed(GPSEvent event) {
-				myPositionOverlay.setAccurency(event.getAccuracy());
-				myPositionOverlay.setLatitiude(event.getLatitude()) ;
-				myPositionOverlay.setLongitude(event.getLongitude()) ;
-				mapController.setCenter(new GeoPoint(event.getLatitude(), gps.getLongitude()));
+				/* Init Position Overlay*/
+				
+				myPositionOverlay.updatePosition(event);
+				
+				mapController.setCenter(new GeoPoint(event.getLatitude(), event.getLongitude()));
+			
+				/* Init Informations zone */
+				infoOverlay.updateInfo(event) ;
+
 			}
 		});
 	}
 	
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case 1:
+			if (findViewById(R.id.table).getVisibility() == View.INVISIBLE) {
+				item.setTitle("Hide informations");
+				findViewById(R.id.table).setVisibility(View.VISIBLE);
+			} else {
+				item.setTitle("Show informations");
+				findViewById(R.id.table).setVisibility(View.INVISIBLE);
+
+			}
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 }

@@ -67,4 +67,12 @@ public class MyPositionOverlay extends Overlay{
 	}
 
 
+	public void updatePosition(GPSEvent event) {
+		setAccurency(event.getAccuracy());
+		setLatitiude(event.getLatitude()) ;
+		setLongitude(event.getLongitude()) ;
+		
+	}
+
+
 }
