@@ -61,6 +61,7 @@ public class MenuActivity extends Activity {
 		mapView = (MapView) findViewById(R.id.mapview) ;
 		mapController = mapView.getController() ;
 		myPositionOverlay = new MyPositionOverlay(this);
+		overlayManager = mapView.getOverlayManager();
 		mapView.setTileSource(TileSourceFactory.MAPNIK);
 		mapView.setClickable(true);
 		mapView.setMultiTouchControls(true);
