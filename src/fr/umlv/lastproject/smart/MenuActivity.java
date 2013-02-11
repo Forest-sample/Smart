@@ -5,9 +5,10 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.OverlayManager;
+import org.osmdroid.views.overlay.ScaleBarOverlay;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
 public class MenuActivity extends Activity {
 
@@ -18,13 +19,13 @@ public class MenuActivity extends Activity {
 	 * Description : This class contains the Menus container
 	 *
 	 */
-	
-	MapView mapView ;
-	MapController mapController ;
-	OverlayManager overlayManager;
+
+	private MapView mapView ;
+	private MapController mapController ;
+	private OverlayManager overlayManager;
 
 
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,7 +40,10 @@ public class MenuActivity extends Activity {
 		getMenuInflater().inflate(R.menu.activity_smart, menu);
 		return true;
 	}
-	
+
+	/**
+	 * This method is use to init the map
+	 */
 	public void initMap(){
 		mapView = (MapView) findViewById(R.id.mapview) ;
 		mapController = mapView.getController() ;
@@ -48,6 +52,7 @@ public class MenuActivity extends Activity {
 		mapView.setClickable(true);
 		mapView.setMultiTouchControls(true);
 		mapController.setZoom(15);
+		overlayManager.add(new ScaleBarOverlay(this));
 
 	}
 
