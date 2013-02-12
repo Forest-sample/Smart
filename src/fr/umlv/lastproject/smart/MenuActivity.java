@@ -103,6 +103,7 @@ public class MenuActivity extends Activity {
 				/* change position marker */
 				dlo.setLocation(new GeoPoint(event.getLatitude(), event.getLongitude()));
 				dlo.setAccuracy((int) event.getAccuracy());
+				dlo.setBearing(event.getBearing());
 				
 
 			}
