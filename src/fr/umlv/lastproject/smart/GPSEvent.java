@@ -6,6 +6,8 @@ public class GPSEvent {
 	private double longitude;
 	private double altitude;
 	private float accuracy;
+	private float bearing;
+	private float speed;
 
 	/**
 	 * GPSEvent constructor
@@ -14,13 +16,18 @@ public class GPSEvent {
 	 * @param longitude
 	 * @param altitude
 	 * @param accuracy
+	 * @param bearing
+	 * @param speed
 	 */
 	public GPSEvent(double latitude, double longitude, double altitude,
-			float accuracy) {
+			float accuracy, float bearing, float speed) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.altitude = altitude;
 		this.accuracy = accuracy;
+		this.bearing = bearing;
+		this.speed = speed;
+
 	}
 
 	/**
@@ -53,6 +60,22 @@ public class GPSEvent {
 	 */
 	public float getAccuracy() {
 		return accuracy;
+	}
+
+	/**
+	 * 
+	 * @return the bearing
+	 */
+	public float getBearing() {
+		return bearing;
+	}
+
+	/**
+	 * 
+	 * @return the speed
+	 */
+	public float getSpeed() {
+		return speed;
 	}
 
 }
