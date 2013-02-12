@@ -6,6 +6,7 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.DirectedLocationOverlay;
 import org.osmdroid.views.overlay.OverlayManager;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 
@@ -32,10 +33,10 @@ public class MenuActivity extends Activity {
 	private MapView mapView;
 	private MapController mapController;
 	private OverlayManager overlayManager;
-	private MyPositionOverlay myPositionOverlay;
 	private GPS gps;
 	private LocationManager locationManager;
 	private InfoOverlay infoOverlay;
+	private DirectedLocationOverlay dlo;
 	private CenterOverlay centerOverlay;
 	private View centerMap;
 	private boolean isMapTracked = true;
@@ -65,14 +66,15 @@ public class MenuActivity extends Activity {
 	public void initMap() {
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapController = mapView.getController();
-		myPositionOverlay = new MyPositionOverlay(this);
 		overlayManager = mapView.getOverlayManager();
 		mapView.setTileSource(TileSourceFactory.MAPNIK);
 		mapView.setClickable(true);
 		mapView.setMultiTouchControls(true);
 		mapController.setZoom(15);
 		overlayManager.add(new ScaleBarOverlay(this));
-		overlayManager.add(myPositionOverlay);
+		dlo = new DirectedLocationOverlay(this);
+		dlo.setShowAccuracy(true);
+		overlayManager.add(dlo);
 
 		mapView.setMapListener(new MapAdapter() {
 			@Override
@@ -117,7 +119,6 @@ public class MenuActivity extends Activity {
 			public void actionPerformed(GPSEvent event) {
 				/* Init Position Overlay */
 
-				myPositionOverlay.updatePosition(event);
 				lastPosition = new GeoPoint(event.getLatitude(), event
 						.getLongitude());
 
@@ -126,6 +127,12 @@ public class MenuActivity extends Activity {
 				}
 				/* Init Informations zone */
 				infoOverlay.updateInfo(event);
+
+				/* change position marker */
+				dlo.setLocation(new GeoPoint(event.getLatitude(), event
+						.getLongitude()));
+				dlo.setAccuracy((int) event.getAccuracy());
+				dlo.setBearing(event.getBearing());
 
 			}
 		});
