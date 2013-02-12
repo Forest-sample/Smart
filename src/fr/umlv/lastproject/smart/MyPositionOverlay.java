@@ -46,6 +46,7 @@ public class MyPositionOverlay extends Overlay{
 		Point p = arg1.getProjection().toMapPixels(new GeoPoint(latitude, longitude), null);
 		arg0.drawCircle(p.x, p.y, arg1.getProjection().metersToEquatorPixels(accurency), paint);
 		paint.setStrokeWidth(5);
+		
 
 		paint.setStyle(Style.FILL_AND_STROKE);
 		paint.setColor(Color.BLUE);

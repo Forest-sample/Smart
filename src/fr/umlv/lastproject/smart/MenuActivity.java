@@ -5,9 +5,9 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.DirectedLocationOverlay;
 import org.osmdroid.views.overlay.OverlayManager;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +34,7 @@ public class MenuActivity extends Activity {
 	private GPS gps ;
 	private LocationManager locationManager;
 	private InfoOverlay infoOverlay;
+	private DirectedLocationOverlay dlo ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,10 @@ public class MenuActivity extends Activity {
 		mapView.setMultiTouchControls(true);
 		mapController.setZoom(15);
 		overlayManager.add(new ScaleBarOverlay(this));
-		overlayManager.add(myPositionOverlay);
+	//	overlayManager.add(myPositionOverlay);
+		dlo = new DirectedLocationOverlay(this);
+		dlo.setShowAccuracy(true);
+		overlayManager.add(dlo);
 		
 	}
 
@@ -89,14 +93,17 @@ public class MenuActivity extends Activity {
 			
 			@Override
 			public void actionPerformed(GPSEvent event) {
-				/* Init Position Overlay*/
 				
-				myPositionOverlay.updatePosition(event);
-				
+				/* Center the map */
 				mapController.setCenter(new GeoPoint(event.getLatitude(), event.getLongitude()));
 			
 				/* Init Informations zone */
 				infoOverlay.updateInfo(event) ;
+				
+				/* change position marker */
+				dlo.setLocation(new GeoPoint(event.getLatitude(), event.getLongitude()));
+				dlo.setAccuracy((int) event.getAccuracy());
+				
 
 			}
 		});
