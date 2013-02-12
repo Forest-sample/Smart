@@ -18,6 +18,7 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center"
         android:clickable="true"
+        android:visibility="invisible"
         android:src="@drawable/centermap" />
 
     <TableLayout
