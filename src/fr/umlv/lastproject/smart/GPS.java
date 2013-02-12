@@ -15,6 +15,9 @@ public class GPS {
 	private double longitude;
 	private double altitude;
 	private float accuracy;
+	private float bearing;
+	private float speed;
+
 	private ArrayList<IGPSListener> GPSListeners = new ArrayList<IGPSListener>();
 
 	/**
@@ -93,11 +96,13 @@ public class GPS {
 						latitude = location.getLatitude();
 						altitude = location.getAltitude();
 						accuracy = location.getAccuracy();
+						bearing = location.getBearing();
+						speed = location.getSpeed();
 
 						for (int i = 0; i < GPSListeners.size(); i++) {
 							GPSListeners.get(i).actionPerformed(
 									new GPSEvent(latitude, longitude, altitude,
-											accuracy));
+											accuracy, bearing, speed));
 						}
 
 						// Log.d("GPS", "Latitude " + location.getLatitude()
@@ -147,5 +152,21 @@ public class GPS {
 	 */
 	public float getAccuracy() {
 		return accuracy;
+	}
+
+	/**
+	 * 
+	 * @return the bearing
+	 */
+	public float getBearing() {
+		return bearing;
+	}
+
+	/**
+	 * 
+	 * @return the speed
+	 */
+	public float getSpeed() {
+		return speed;
 	}
 }

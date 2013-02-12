@@ -5,6 +5,12 @@ import java.text.DecimalFormat;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * This class is
+ * 
+ * @author Fad's
+ * 
+ */
 public class InfoOverlay {
 	private DecimalFormat locationFormat = new DecimalFormat("####0.00000");
 	private DecimalFormat accuracyFormat = new DecimalFormat("####0.00");
@@ -66,7 +72,7 @@ public class InfoOverlay {
 	 * Function which update the locations infos
 	 */
 	public void updateInfo(GPSEvent event) {
-		
+
 		setLatitude(event.getLatitude());
 		setLongitude(event.getLongitude());
 		setAltitude(event.getAltitude());

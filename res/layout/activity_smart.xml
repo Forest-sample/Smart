@@ -4,51 +4,72 @@
     android:layout_height="match_parent"
     tools:context=".MenuActivity" >
 
-        <org.osmdroid.views.MapView
+    <org.osmdroid.views.MapView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mapview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        />
-    
+        android:layout_height="fill_parent" />
+
+    <ImageView
+        android:id="@+id/centermap"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:src="@drawable/centermap" />
+
     <TableLayout
         android:id="@+id/table"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="#6F000000" >
 
-        <TextView
-            android:id="@+id/latitude"
+        <TableRow
+            android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Recherche de signal.."
-            android:textColor="#FFFFFF" />
+            android:padding="5dip" >
 
-       
-        <TextView
-            android:id="@+id/longitude"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="#FFFFFF" />
+            <TextView
+                android:id="@+id/latitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Recherche de signal.."
+                android:textColor="#FFFFFF" />
 
-        <TextView
-            android:id="@+id/altitude"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="#FFFFFF" />
+            <TextView
+                android:id="@+id/longitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="#FFFFFF" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/precision"
+        <TableRow
+            android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="#FFFFFF" />
+            android:padding="5dip" >
+
+            <TextView
+                android:id="@+id/altitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/precision"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="#FFFFFF" />
+        </TableRow>
     </TableLayout>
 
-    
 </RelativeLayout>
