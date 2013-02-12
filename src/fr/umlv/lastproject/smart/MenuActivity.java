@@ -32,7 +32,6 @@ public class MenuActivity extends Activity {
 	private MapView mapView;
 	private MapController mapController;
 	private OverlayManager overlayManager;
-	private MyPositionOverlay myPositionOverlay;
 	private GPS gps;
 	private LocationManager locationManager;
 	private InfoOverlay infoOverlay;
@@ -66,7 +65,6 @@ public class MenuActivity extends Activity {
 	public void initMap() {
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapController = mapView.getController();
-		myPositionOverlay = new MyPositionOverlay(this);
 		overlayManager = mapView.getOverlayManager();
 		mapView.setTileSource(TileSourceFactory.MAPNIK);
 		mapView.setClickable(true);
@@ -76,7 +74,6 @@ public class MenuActivity extends Activity {
 		dlo = new DirectedLocationOverlay(this);
 		dlo.setShowAccuracy(true);
 		overlayManager.add(dlo);
-		overlayManager.add(myPositionOverlay);
 
 		mapView.setMapListener(new MapAdapter() {
 			@Override
@@ -121,7 +118,6 @@ public class MenuActivity extends Activity {
 			public void actionPerformed(GPSEvent event) {
 				/* Init Position Overlay */
 
-				myPositionOverlay.updatePosition(event);
 				lastPosition = new GeoPoint(event.getLatitude(), event
 						.getLongitude());
 
