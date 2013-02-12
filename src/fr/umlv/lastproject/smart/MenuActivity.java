@@ -1,6 +1,8 @@
 package fr.umlv.lastproject.smart;
 
 
+import org.osmdroid.events.MapAdapter;
+import org.osmdroid.events.ScrollEvent;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
@@ -30,7 +32,6 @@ public class MenuActivity extends Activity {
 	private MapView mapView ;
 	private MapController mapController ;
 	private OverlayManager overlayManager;
-	private MyPositionOverlay myPositionOverlay ;
 	private GPS gps ;
 	private LocationManager locationManager;
 	private InfoOverlay infoOverlay;
@@ -61,17 +62,22 @@ public class MenuActivity extends Activity {
 	public void initMap(){
 		mapView = (MapView) findViewById(R.id.mapview) ;
 		mapController = mapView.getController() ;
-		myPositionOverlay = new MyPositionOverlay(this);
 		overlayManager = mapView.getOverlayManager();
 		mapView.setTileSource(TileSourceFactory.MAPNIK);
 		mapView.setClickable(true);
 		mapView.setMultiTouchControls(true);
 		mapController.setZoom(15);
 		overlayManager.add(new ScaleBarOverlay(this));
-	//	overlayManager.add(myPositionOverlay);
 		dlo = new DirectedLocationOverlay(this);
 		dlo.setShowAccuracy(true);
 		overlayManager.add(dlo);
+		mapView.setMapListener(new MapAdapter() {
+			@Override
+			public boolean onScroll(ScrollEvent event) {
+				// TODO Auto-generated method stub
+				return super.onScroll(event);
+			}
+		});
 		
 	}
 
