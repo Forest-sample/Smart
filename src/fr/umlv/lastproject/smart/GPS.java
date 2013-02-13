@@ -105,9 +105,6 @@ public class GPS {
 											accuracy, bearing, speed));
 						}
 
-						// Log.d("GPS", "Latitude " + location.getLatitude()
-						// + " Longitude " + location.getLongitude());
-
 					}
 				});
 	}

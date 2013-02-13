@@ -36,8 +36,8 @@ public class MenuActivity extends Activity {
 	private GPS gps;
 	private LocationManager locationManager;
 	private InfoOverlay infoOverlay;
-	private DirectedLocationOverlay dlo ;
-	private CenterOverlay centerOverlay;
+	private DirectedLocationOverlay dlo;
+
 	private View centerMap;
 	private boolean isMapTracked = true;
 	private GeoPoint lastPosition = new GeoPoint(0, 0);
@@ -126,13 +126,15 @@ public class MenuActivity extends Activity {
 					mapController.setCenter(lastPosition);
 				}
 				/* Init Informations zone */
-				infoOverlay.updateInfo(event) ;
-				
+
+				infoOverlay.updateInfo(event);
+
 				/* change position marker */
-				dlo.setLocation(new GeoPoint(event.getLatitude(), event.getLongitude()));
+				dlo.setLocation(new GeoPoint(event.getLatitude(), event
+						.getLongitude()));
 				dlo.setAccuracy((int) event.getAccuracy());
 				dlo.setBearing(event.getBearing());
-				
+
 			}
 		});
 	}
