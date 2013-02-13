@@ -1,7 +1,5 @@
 package fr.umlv.lastproject.smart;
 
-import java.util.ArrayList;
-
 import org.osmdroid.events.MapAdapter;
 import org.osmdroid.events.ScrollEvent;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -15,18 +13,12 @@ import org.osmdroid.views.overlay.ScaleBarOverlay;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
-import fr.umlv.lastproject.smart.layers.GeometryLayer;
-import fr.umlv.lastproject.smart.layers.Line;
-import fr.umlv.lastproject.smart.layers.LineSymbology;
-import fr.umlv.lastproject.smart.layers.Point;
 
 public class MenuActivity extends Activity {
 
@@ -45,6 +37,7 @@ public class MenuActivity extends Activity {
 	private LocationManager locationManager;
 	private InfoOverlay infoOverlay;
 	private DirectedLocationOverlay dlo;
+
 	private View centerMap;
 	private boolean isMapTracked = true;
 	private GeoPoint lastPosition = new GeoPoint(0, 0);
@@ -82,32 +75,6 @@ public class MenuActivity extends Activity {
 		dlo = new DirectedLocationOverlay(this);
 		dlo.setShowAccuracy(true);
 		overlayManager.add(dlo);
-
-		// TODO test
-
-		Point point = new Point(new GeoPoint(0, 0));
-		Point point2 = new Point(new GeoPoint(44, 2));
-		Point point3 = new Point(new GeoPoint(2, 44));
-
-		ArrayList<Point> points = new ArrayList<Point>();
-		points.add(point);
-		points.add(point2);
-		points.add(point3);
-
-		Line polygon = new Line(points);
-		// Polygon polygon = new Polygon(new GeoPoint(0, 0));
-		// polygon.addPoint(point2);
-		// polygon.addPoint(point3);
-
-		GeometryLayer geometryLayer = new GeometryLayer(this);
-		geometryLayer.addGeometry(polygon);
-		// geometryLayer.addGeometry(point2);
-		// geometryLayer.addGeometry(point3);
-		geometryLayer.setType(GeometryType.LINE);
-		geometryLayer.setSymbology(new LineSymbology(10, Color.BLACK));
-		overlayManager.add(geometryLayer);
-
-		// TODO fin test
 
 		mapView.setMapListener(new MapAdapter() {
 			@Override
@@ -159,6 +126,7 @@ public class MenuActivity extends Activity {
 					mapController.setCenter(lastPosition);
 				}
 				/* Init Informations zone */
+
 				infoOverlay.updateInfo(event);
 
 				/* change position marker */
