@@ -6,6 +6,10 @@ import org.osmdroid.util.GeoPoint;
 
 public class Polygon extends Geometry {
 	private ArrayList<Point> points;
+	
+	public Polygon(){
+		points = new ArrayList<Point>();
+	}
 
 	public Polygon(ArrayList<Point> points) {
 		this.points = points;

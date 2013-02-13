@@ -6,6 +6,10 @@ import org.osmdroid.util.GeoPoint;
 
 public class Line extends Geometry {
 	private ArrayList<Point> points;
+	
+	public Line(){
+		points = new ArrayList<Point>();
+	}
 
 	public Line(ArrayList<Point> points) {
 		this.points = points;

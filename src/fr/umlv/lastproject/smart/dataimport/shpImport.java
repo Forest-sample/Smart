@@ -5,10 +5,13 @@ import diewald_shapeFile.files.shp.shapeTypes.ShpPolyLine;
 import diewald_shapeFile.files.shp.shapeTypes.ShpPolygon;
 import diewald_shapeFile.files.shp.shapeTypes.ShpShape;
 import diewald_shapeFile.shapeFile.ShapeFile;
+import fr.umlv.lastproject.smart.layers.Geometry;
+import fr.umlv.lastproject.smart.layers.Layer;
+import fr.umlv.lastproject.smart.layers.Line;
 
 public class shpImport {
 
-	public static Object getLayerFromShp(String file){
+	public static Layer getLayerFromShp(String file){
 
 		try {
 			ShapeFile shp = new ShapeFile("", file).READ();
@@ -35,9 +38,10 @@ public class shpImport {
 		return null ;
 	}
 	
-	private static Object getLayerFromPolygonShp(ShapeFile shp) {
+	private static Layer getLayerFromPolygonShp(ShapeFile shp) {
 		for(int i=0;i<shp.getSHP_shapeCount() ; i++){
-			// creation d'une ligne 
+			
+
 			ShpPolygon polygon = shp.getSHP_shape(i);
 			double[][] points = polygon.getPoints() ;
 			// point.x = points[i][0]
@@ -47,7 +51,7 @@ public class shpImport {
 		return null;
 	}
 
-	private static Object getLayerFromPointShp(ShapeFile shp){
+	private static Layer getLayerFromPointShp(ShapeFile shp){
 		//creation du layer point
 		for ( int i=0 ; i < shp.getSHP_shapeCount() ; i++){
 			ShpPoint point = shp.getSHP_shape(i);
@@ -62,7 +66,7 @@ public class shpImport {
 	}
 	
 	
-	private static Object getLayerFromPolylineShp(ShapeFile shp){
+	private static Layer getLayerFromPolylineShp(ShapeFile shp){
 		// creation du layer ligne
 		for(int i=0;i<shp.getSHP_shapeCount() ; i++){
 			// creation d'une ligne 
