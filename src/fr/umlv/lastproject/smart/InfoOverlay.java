@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 
 import android.view.View;
 import android.widget.TextView;
-import fr.umlv.lastproject.smart.*;
 
 /**
  * This class is
