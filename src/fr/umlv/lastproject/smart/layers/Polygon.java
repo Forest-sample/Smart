@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.osmdroid.util.GeoPoint;
 
-public class Polygon {
+public class Polygon extends Geometry {
 	private ArrayList<Point> points;
 
 	public Polygon(ArrayList<Point> points) {
@@ -23,5 +23,9 @@ public class Polygon {
 
 	public void addPoint(Point point) {
 		this.points.add(point);
+	}
+
+	public ArrayList<Point> getPoints() {
+		return this.points;
 	}
 }

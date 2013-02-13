@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.osmdroid.util.GeoPoint;
 
-public class Line {
+public class Line extends Geometry {
 	private ArrayList<Point> points;
 
 	public Line(ArrayList<Point> points) {
@@ -24,4 +24,9 @@ public class Line {
 	public void addPoint(Point point) {
 		this.points.add(point);
 	}
+
+	public ArrayList<Point> getPoints() {
+		return this.points;
+	}
+
 }

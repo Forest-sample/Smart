@@ -2,7 +2,7 @@ package fr.umlv.lastproject.smart.layers;
 
 import org.osmdroid.util.GeoPoint;
 
-public class Point {
+public class Point extends Geometry {
 	private GeoPoint coordinates;
 
 	public Point(GeoPoint coordinate) {
@@ -17,11 +17,12 @@ public class Point {
 		return this.coordinates;
 	}
 
-	public double getLatitude() {
+	public float getLatitude() {
 		return coordinates.getLatitudeE6();
 	}
 
-	public double getLongitude() {
+	public float getLongitude() {
 		return coordinates.getLongitudeE6();
 	}
+
 }
