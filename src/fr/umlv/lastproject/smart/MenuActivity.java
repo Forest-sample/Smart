@@ -9,6 +9,7 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.DirectedLocationOverlay;
 import org.osmdroid.views.overlay.OverlayManager;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
