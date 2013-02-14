@@ -10,12 +10,20 @@ import org.osmdroid.views.overlay.DirectedLocationOverlay;
 import org.osmdroid.views.overlay.OverlayManager;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 
+import fr.umlv.lastproject.smart.dataimport.DataImport;
+import fr.umlv.lastproject.smart.layers.GeometryLayer;
+import fr.umlv.lastproject.smart.layers.LineSymbology;
+import fr.umlv.lastproject.smart.layers.PointSymbology;
+import fr.umlv.lastproject.smart.layers.PolygonSymbology;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -75,6 +83,7 @@ public class MenuActivity extends Activity {
 		dlo = new DirectedLocationOverlay(this);
 		dlo.setShowAccuracy(true);
 		overlayManager.add(dlo);
+		
 
 		mapView.setMapListener(new MapAdapter() {
 			@Override
@@ -96,6 +105,11 @@ public class MenuActivity extends Activity {
 				centerMap.setVisibility(View.INVISIBLE);
 			}
 		});
+		
+		/*GeometryLayer gltest = DataImport.importShapeFile(this, "/storage/sdcard0/Download/shp/TestPoints.shp");
+		Log.d("layer retourne", "Layer retourne"+gltest.toString());
+		gltest.setSymbology(new PointSymbology(20, Color.BLACK));
+		overlayManager.add(gltest) ;*/
 	}
 
 	/**
@@ -134,6 +148,8 @@ public class MenuActivity extends Activity {
 						.getLongitude()));
 				dlo.setAccuracy((int) event.getAccuracy());
 				dlo.setBearing(event.getBearing());
+				
+				
 
 			}
 		});

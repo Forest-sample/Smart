@@ -2,25 +2,24 @@ package fr.umlv.lastproject.smart.layers;
 
 import java.util.ArrayList;
 
-import org.osmdroid.util.BoundingBoxE6;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.MapView.Projection;
+import org.osmdroid.views.overlay.Overlay;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
 
-public class GeometryLayer extends Layer {
+public class GeometryLayer extends Overlay {
 
 	private GeometryType type;
 	private ArrayList<Geometry> geometries;
 	private Projection projection;
 	private Paint paint;
 	private Symbology symbology;
-	private BoundingBoxE6 boundingBox;
-	private BoundingBoxE6 boundingBoxPoints;
 
 	/**
 	 * 
@@ -33,6 +32,9 @@ public class GeometryLayer extends Layer {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	public ArrayList<Geometry> getGeometries(){ return geometries;}
+	
 	public void editSymbology() {
 
 	}
@@ -92,17 +94,12 @@ public class GeometryLayer extends Layer {
 				int radius = pointSymbology.getRadius();
 
 				// Si le point est contenu dans la boundinBox
-				if (mapView.getBoundingBox().contains(
-						new GeoPoint(pointGeometry.getLatitude(), pointGeometry
-								.getLongitude()))) {
 
 					// Transforme les coordonnées (lat/long) en pixels
-					android.graphics.Point point = projection.toPixels(
-							new GeoPoint(pointGeometry.getLatitude(),
-									pointGeometry.getLongitude()), null);
+					android.graphics.Point point = projection.toPixels(pointGeometry.getCoordinates(), null);
 					// Dessin du point
 					canvas.drawCircle(point.x, point.y, radius, paint);
-				}
+				
 
 				break;
 
@@ -119,15 +116,15 @@ public class GeometryLayer extends Layer {
 					Point pointB = linePoints.get(j + 1);
 
 					android.graphics.Point pointT = projection.toPixels(
-							new GeoPoint(pointA.getLatitude(), pointA
-									.getLongitude()), null);
+							pointA.getCoordinates(), null);
 
 					android.graphics.Point pointD = projection.toPixels(
-							new GeoPoint(pointB.getLatitude(), pointB
-									.getLongitude()), null);
+							pointB.getCoordinates(), null);
 
 					canvas.drawLine(pointT.x, pointT.y, pointD.x, pointD.y,
 							paint);
+					Log.d("coordonnee ecran", "cpprd"+pointT.x + " "+pointT.y);
+
 				}
 
 				break;
@@ -145,13 +142,11 @@ public class GeometryLayer extends Layer {
 					Point pointB = polygonPoints.get((j + 1)
 							% polygonPoints.size());
 
-					android.graphics.Point pointT = projection.toPixels(
-							new GeoPoint(pointA.getLatitude(), pointA
-									.getLongitude()), null);
+					android.graphics.Point pointT = projection.toPixels(pointA.getCoordinates(), null);
 
 					android.graphics.Point pointD = projection.toPixels(
-							new GeoPoint(pointB.getLatitude(), pointB
-									.getLongitude()), null);
+							pointB.getCoordinates(), null);
+					
 
 					canvas.drawLine(pointT.x, pointT.y, pointD.x, pointD.y,
 							paint);
@@ -164,5 +159,11 @@ public class GeometryLayer extends Layer {
 				break;
 			}
 		}
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return type.toString();
 	}
 }
