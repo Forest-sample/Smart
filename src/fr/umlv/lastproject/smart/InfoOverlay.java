@@ -78,13 +78,25 @@ public class InfoOverlay {
 		setAltitude(event.getAltitude());
 		setAccuracy(event.getAccuracy());
 
-		((TextView) infoView.findViewById(R.id.latitude)).setText("Latitude : "
-				+ locationFormat.format(latitude));
+		((TextView) infoView.findViewById(R.id.latitude))
+				.setText(R.string.latitude);
+		((TextView) infoView.findViewById(R.id.latitudeValue))
+				.setText(locationFormat.format(latitude));
+
 		((TextView) infoView.findViewById(R.id.longitude))
-				.setText("Longitude : " + locationFormat.format(longitude));
-		((TextView) infoView.findViewById(R.id.altitude)).setText("Altitude : "
-				+ locationFormat.format(altitude));
+				.setText(R.string.longitude);
+		((TextView) infoView.findViewById(R.id.longitudeValue))
+				.setText(locationFormat.format(longitude));
+
+		((TextView) infoView.findViewById(R.id.altitude))
+				.setText(R.string.altitude);
+		((TextView) infoView.findViewById(R.id.altitudeValue))
+				.setText(locationFormat.format(altitude));
+
 		((TextView) infoView.findViewById(R.id.precision))
-				.setText("Precision : " + accuracyFormat.format(accuracy) + "m");
+				.setText(R.string.accuracy);
+		((TextView) infoView.findViewById(R.id.precisionValue))
+				.setText(locationFormat.format(accuracy));
+
 	}
 }

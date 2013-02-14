@@ -12,6 +12,7 @@
 
     <ImageView
         android:id="@+id/centermap"
+        android:contentDescription="@string/centerMap"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
@@ -40,11 +41,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Recherche de signal.."
+                android:text="@string/findGPS"
                 android:textColor="#FFFFFF" />
-
+            <TextView
+                android:id="@+id/latitudeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="#FFFFFF" />
             <TextView
                 android:id="@+id/longitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="#FFFFFF" />
+             <TextView
+                android:id="@+id/longitudeValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -52,7 +64,7 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/tableRow1"
+            android:id="@+id/tableRow2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dip" >
@@ -63,9 +75,23 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:textColor="#FFFFFF" />
+            
+             <TextView
+                android:id="@+id/altitudeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/precision"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="#FFFFFF" />
+            
+             <TextView
+                android:id="@+id/precisionValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"

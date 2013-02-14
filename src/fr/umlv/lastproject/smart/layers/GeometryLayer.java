@@ -8,6 +8,7 @@ import org.osmdroid.views.MapView.Projection;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.Log;
 import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
@@ -102,7 +103,7 @@ public class GeometryLayer extends Layer {
 	}
 
 	/**
-	 * Function which draw the geometry if it is containes in the boundingBox
+	 * Function which draw the geometry if it is contained in the boundingBox
 	 */
 	@Override
 	protected void draw(Canvas canvas, MapView mapView, boolean b) {
@@ -115,12 +116,12 @@ public class GeometryLayer extends Layer {
 			switch (type) {
 			case POINT:
 				// Récupération de la géometrie et de la symbologie
-				Point pointGeometry = (Point) geometries.get(i);
+				PointGeometry pointGeometry = (PointGeometry) geometries.get(i);
 				PointSymbology pointSymbology = (PointSymbology) symbology;
 				int radius = pointSymbology.getRadius();
 
 				// Transforme les coordonnées (lat/long) en pixels
-				android.graphics.Point point = projection.toPixels(
+				Point point = projection.toPixels(
 						pointGeometry.getCoordinates(), null);
 
 				// Si le point est contenu dans la boundinBox
@@ -133,23 +134,23 @@ public class GeometryLayer extends Layer {
 
 			case LINE:
 				// Récupération de la géometrie et de sa symbologie
-				Line lineGeometry = (Line) geometries.get(i);
+				LineGeometry lineGeometry = (LineGeometry) geometries.get(i);
 				LineSymbology lineSymbology = (LineSymbology) symbology;
 				paint.setStrokeWidth(lineSymbology.getThickness());
 
 				// Récupéartion de la liste de points de la géometrie
-				ArrayList<Point> linePoints = lineGeometry.getPoints();
+				ArrayList<PointGeometry> linePoints = lineGeometry.getPoints();
 
 				for (int j = 0; j < linePoints.size() - 1; j++) {
 
-					Point pointA = linePoints.get(j);
-					Point pointB = linePoints.get(j + 1);
+					PointGeometry pointA = linePoints.get(j);
+					PointGeometry pointB = linePoints.get(j + 1);
 
 					// Projection des coordonnées en pixel
-					android.graphics.Point pixelA = projection.toPixels(
-							pointA.getCoordinates(), null);
-					android.graphics.Point pixelB = projection.toPixels(
-							pointB.getCoordinates(), null);
+					Point pixelA = projection.toPixels(pointA.getCoordinates(),
+							null);
+					Point pixelB = projection.toPixels(pointB.getCoordinates(),
+							null);
 
 					// Dessine la geometrie si elle est contenue dans la
 					// boundingBox
@@ -169,24 +170,27 @@ public class GeometryLayer extends Layer {
 
 			case POLYGON:
 				// Récupération de la géometrie et de sa symbologie
-				Polygon polygonGeometry = (Polygon) geometries.get(i);
+				PolygonGeometry polygonGeometry = (PolygonGeometry) geometries
+						.get(i);
 				PolygonSymbology polygonSymbology = (PolygonSymbology) symbology;
 				paint.setStrokeWidth(polygonSymbology.getThickness());
 
 				// Récupéartion de la liste de points de la géometrie
-				ArrayList<Point> polygonPoints = polygonGeometry.getPoints();
+				ArrayList<PointGeometry> polygonPoints = polygonGeometry
+						.getPoints();
 
 				for (int j = 0; j < polygonPoints.size(); j++) {
 
-					Point pointA = polygonPoints.get(j % polygonPoints.size());
-					Point pointB = polygonPoints.get((j + 1)
+					PointGeometry pointA = polygonPoints.get(j
+							% polygonPoints.size());
+					PointGeometry pointB = polygonPoints.get((j + 1)
 							% polygonPoints.size());
 
 					// Projection des coordonnées en pixel
-					android.graphics.Point pixelA = projection.toPixels(
-							pointA.getCoordinates(), null);
-					android.graphics.Point pixelB = projection.toPixels(
-							pointB.getCoordinates(), null);
+					Point pixelA = projection.toPixels(pointA.getCoordinates(),
+							null);
+					Point pixelB = projection.toPixels(pointB.getCoordinates(),
+							null);
 
 					// Dessine la geometrie si elle est contenue dans la
 					// boundingBox

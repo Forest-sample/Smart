@@ -3,35 +3,35 @@ package fr.umlv.lastproject.smart.layers;
 import java.util.ArrayList;
 
 /**
- * This class represent the Polygon geometry to draw
+ * This class represent the line geometry to draw
  * 
  * @author Fad's
  * 
  */
-public class Polygon extends Geometry {
-	private ArrayList<Point> points;
+public class LineGeometry extends Geometry {
+	private ArrayList<PointGeometry> points;
 
 	/**
-	 * Polygon constructor
+	 * Line constructor
 	 * 
 	 * @param points
 	 *            : list of points to draw
 	 */
-	public Polygon(ArrayList<Point> points) {
+	public LineGeometry(ArrayList<PointGeometry> points) {
 		this.points = points;
 	}
 
 	/**
-	 * Polygon constructor
+	 * Line constructor
 	 * 
 	 * @param latitude
 	 *            : latitude of the point
 	 * @param longitude
 	 *            : longitude of the point
 	 */
-	public Polygon(double latitude, double longitude) {
-		this.points = new ArrayList<Point>();
-		this.points.add(new Point(latitude, longitude));
+	public LineGeometry(double latitude, double longitude) {
+		this.points = new ArrayList<PointGeometry>();
+		this.points.add(new PointGeometry(latitude, longitude));
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class Polygon extends Geometry {
 	 * @param point
 	 *            : point to add
 	 */
-	public void addPoint(Point point) {
+	public void addPoint(PointGeometry point) {
 		this.points.add(point);
 	}
 
@@ -49,7 +49,8 @@ public class Polygon extends Geometry {
 	 * 
 	 * @return the list of points
 	 */
-	public ArrayList<Point> getPoints() {
+	public ArrayList<PointGeometry> getPoints() {
 		return this.points;
 	}
+
 }

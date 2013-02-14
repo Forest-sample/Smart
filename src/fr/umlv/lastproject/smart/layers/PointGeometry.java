@@ -8,7 +8,7 @@ import org.osmdroid.util.GeoPoint;
  * @author Fad's
  * 
  */
-public class Point extends Geometry {
+public class PointGeometry extends Geometry {
 	private GeoPoint coordinates;
 
 	/**
@@ -17,7 +17,7 @@ public class Point extends Geometry {
 	 * @param latitude
 	 * @param longitude
 	 */
-	public Point(double latitude, double longitude) {
+	public PointGeometry(double latitude, double longitude) {
 		this.coordinates = new GeoPoint(latitude, longitude);
 	}
 

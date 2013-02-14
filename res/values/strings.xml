@@ -2,7 +2,30 @@
 <resources>
 
     <string name="app_name">Smart</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+    <string name="latitude">Latitude :</string>
+    <string name="longitude">Longitude :</string>
+    <string name="altitude">Altitude :</string>
+    <string name="accuracy">Accuracy :</string>
+    <string name="centerMap">Recentering the map</string>
+    <string name="findGPS">Finding GPS signal..</string>
+    
+    <string name="gpsSettings">GPS settings</string>
+	<string name="gpsMessage">	This application required GPS.\nYou should activate it.\nYou can also activated it by setting menu.</string>
+	
+	<string name="cancel">Cancel</string>	
+	<string name="validate">Validate</string>
+	
+	<string name="hideInfoZone">Hide informations</string>
+	<string name="showInfoZone">Show informations</string>
+	
+	<string name="exit">Exit ?</string>
+	<string name="exitMsg">Are you sure you want to quit SMART ?</string>
+	<string name="yes">Yes</string>	
+	<string name="no">No</string>
+	
+	
+	
+
 
 </resources>

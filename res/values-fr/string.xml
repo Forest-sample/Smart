@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Smart</string>
+    <string name="menu_settings">Paramètres</string>
+    <string name="latitude">Latitude :</string>
+    <string name="longitude">Longitude :</string>
+    <string name="altitude">Altitude :</string>
+    <string name="accuracy">Précision :</string>
+    <string name="centerMap">Recentrage de la carte</string>
+    <string name="findGPS">Recherche du signal GPS..</string>
+    
+    <string name="gpsSettings">Paramétrages du GPS</string>
+	<string name="gpsMessage">Cette application require le GPS.\nValider pour accéder aux paramétrages. \nVous pouvez également y accéder par le menu de paramétrages.</string>
+	<string name="cancel">Annuler</string>	
+	<string name="validate">Valider</string>
+	
+	<string name="hideInfoZone">Cacher la zone d\'informations</string>
+	<string name="showInfoZone">Afficher la zone d\'informations</string>
+	
+		<string name="exit">Quitter ?</string>
+	<string name="exitMsg">Êtes-vous sûr de vouloir quitter SMART ?</string>
+	<string name="yes">Oui</string>	
+	<string name="no">Non</string>
+
+</resources>
