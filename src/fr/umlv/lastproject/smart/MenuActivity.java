@@ -105,10 +105,10 @@ public class MenuActivity extends Activity {
 			}
 		});
 		
-		GeometryLayer gltest = DataImport.importShapeFile(this, "/storage/sdcard0/Download/shp/TestPoints.shp");
+		/*GeometryLayer gltest = DataImport.importShapeFile(this, "/storage/sdcard0/Download/shp/TestPoints.shp");
 		Log.d("layer retourne", "Layer retourne"+gltest.toString());
 		gltest.setSymbology(new PointSymbology(20, Color.BLACK));
-		overlayManager.add(gltest) ;
+		overlayManager.add(gltest) ;*/
 	}
 
 	/**
