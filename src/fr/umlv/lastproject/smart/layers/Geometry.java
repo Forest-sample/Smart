@@ -8,17 +8,26 @@ package fr.umlv.lastproject.smart.layers;
  */
 public class Geometry {
 
-	// Type og geometry
+	// Type of geometry
 	public enum GeometryType {
 		POINT, LINE, POLYGON
 	}
 
 	private Symbology symbology;
 
+	/**
+	 * 
+	 * @return the symbology
+	 */
 	public Symbology getSymbology() {
 		return this.symbology;
 	}
 
+	/**
+	 * 
+	 * @param symbology
+	 *            : symbology to set
+	 */
 	public void setSymbology(Symbology symbology) {
 		this.symbology = symbology;
 	}
