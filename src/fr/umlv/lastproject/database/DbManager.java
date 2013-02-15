@@ -19,9 +19,11 @@ import fr.umlv.lastproject.smart.form.Field;
 import fr.umlv.lastproject.smart.form.Form;
 import fr.umlv.lastproject.smart.form.HeightField;
 import fr.umlv.lastproject.smart.form.ListField;
+import fr.umlv.lastproject.smart.form.Mission;
 import fr.umlv.lastproject.smart.form.NumericField;
 import fr.umlv.lastproject.smart.form.PictureField;
 import fr.umlv.lastproject.smart.form.TextField;
+import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
 
 /**
  * Class to manage the database and the static tables (missions, geometries,
@@ -37,7 +39,7 @@ public class DbManager {
 	public static final String DB_PATH = Environment
 			.getExternalStorageDirectory() + "/SMART/DB/";
 
-	private static final String TABLE_MISSIONS = "missions";
+	public static final String TABLE_MISSIONS = "missions";
 	private static final String MISSIONS_COL_ID = "id";
 	private static final int MISSIONS_NUM_COL_ID = 0;
 	private static final String MISSIONS_COL_TITLE = "title";
@@ -47,7 +49,7 @@ public class DbManager {
 	private static final String MISSIONS_COL_DATE = "date";
 	private static final int MISSIONS_NUM_COL_DATE = 3;
 
-	private static final String TABLE_GEOMETRIES = "geometries";
+	public static final String TABLE_GEOMETRIES = "geometries";
 	private static final String GEOMETRIES_COL_ID = "id";
 	private static final int GEOMETRIES_NUM_COL_ID = 0;
 	private static final String GEOMETRIES_COL_TYPE = "type";
@@ -55,7 +57,7 @@ public class DbManager {
 	private static final String GEOMETRIES_COL_ID_MISSION = "idMission";
 	private static final int GEOMETRIES_NUM_COL_ID_MISSION = 2;
 
-	private static final String TABLE_POINTS = "points";
+	public static final String TABLE_POINTS = "points";
 	private static final String POINTS_COL_ID = "id";
 	private static final int POINTS_NUM_COL_ID = 0;
 	private static final String POINTS_COL_X = "x";
@@ -88,7 +90,7 @@ public class DbManager {
 			+ "id INTEGER PRIMARY KEY,"
 			+ "x REAL NOT NULL,"
 			+ "y REAL NOT NULL,"
-			+ "z REAL NOT NULL,"
+			+ "z REAL,"
 			+ "idGeometry INTEGER NOT NULL,"
 			+ "FOREIGN KEY (idGeometry) REFERENCES "
 			+ TABLE_GEOMETRIES
@@ -319,7 +321,7 @@ public class DbManager {
 	 */
 	public int insertMission(MissionRecord mission) {
 
-		createTableForm(mission.getForm());
+		//createTableForm(mission.getForm());
 
 		ContentValues values = new ContentValues();
 
@@ -332,12 +334,32 @@ public class DbManager {
 		values.put(MISSIONS_COL_DATE, mission.getDate());
 		try {
 			mDb.insertOrThrow(TABLE_MISSIONS, null, values);
+			int id = getLastIndex(TABLE_MISSIONS);
+			Log.d("","id mission "+id);
+			mission.setId(id);
 			return 0;
 
 		} catch (SQLException e) {
 			Log.d("TEST", "doublon");
+			int id = getMission(Mission.getInstance().getTitle());
+			Log.d("","id mission "+id);
+			mission.setId(id);
+
 			return -1;
 		}
+	}
+	
+	public int getMission(String name) {
+
+		Cursor c = mDb
+				.rawQuery(
+						"SELECT "+MISSIONS_COL_ID+" FROM "+TABLE_MISSIONS+" WHERE "+MISSIONS_COL_TITLE+" = '"
+								+ name+"'", null);
+
+		c.moveToNext();
+		int id = c.getInt(MISSIONS_NUM_COL_ID);
+		//c.close();
+		return id;
 	}
 
 	/**
@@ -393,12 +415,36 @@ public class DbManager {
 	public int insertGeometry(GeometryRecord geometry) {
 
 		ContentValues values = new ContentValues();
+		
+		int type ;
+		switch (geometry.getType()) {
+		case POINT:
+			type = 0;
+			break;
+		case LINE:
+			type = 1;
+			break;
+		case POLYGON:
+			type = 2;
+			break;
 
-		values.put(GEOMETRIES_COL_TYPE, geometry.getType());
+
+		default:
+			type = 0;
+		}
+		
+		values.put(GEOMETRIES_COL_TYPE, type);
+		Log.d("", "id g :"+geometry.getIdMission());
+
 		values.put(GEOMETRIES_COL_ID_MISSION, geometry.getIdMission());
 
 		try {
 			mDb.insertOrThrow(TABLE_GEOMETRIES, null, values);
+			int id = getLastIndex(TABLE_GEOMETRIES);
+			for(PointRecord pr : geometry.getPointsRecord()){
+				pr.setIdGeometry(id);
+				insertPoint(pr);
+			}
 			return 0;
 
 		} catch (SQLException e) {
@@ -439,9 +485,28 @@ public class DbManager {
 
 		GeometryRecord geometry = new GeometryRecord();
 
+		GeometryType type ;
+		switch (c.getInt(GEOMETRIES_NUM_COL_TYPE)) {
+		case 0:
+			type = GeometryType.POINT;
+			break;
+		case 1:
+			type = GeometryType.LINE;
+			break;
+		case 2:
+			type = GeometryType.POLYGON;
+			break;
+
+
+		default:
+			type = GeometryType.POINT;
+		}
+
 		geometry.setId(c.getInt(GEOMETRIES_NUM_COL_ID));
-		geometry.setType(c.getInt(GEOMETRIES_NUM_COL_TYPE));
+		geometry.setType(type);
 		geometry.setIdMission(c.getInt(GEOMETRIES_NUM_COL_ID_MISSION));
+		
+		
 
 		return geometry;
 	}
@@ -524,6 +589,17 @@ public class DbManager {
 		point.setIdGeometry(c.getInt(POINTS_NUM_COL_ID_GEOMETRY));
 
 		return point;
+	}
+	
+	public int getLastIndex(String table) {
+		Cursor c = mDb
+				.rawQuery(
+						"SELECT last_insert_rowid() FROM "
+								+ table, null);
+		c.moveToNext();
+		int id = c.getInt(0);
+		
+		return id;
 	}
 
 }

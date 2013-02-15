@@ -109,6 +109,10 @@ public class MenuActivity extends Activity {
 			}
 		});
 		
+		
+		/**
+		 * Exemple d'utilisation d'un shapefile
+		 */
 	/*	GeometryLayer gltest = DataImport.importShapeFile(this, "/storage/sdcard0/Download/shp/TestPolygon.shp");
 		
 		Log.d("layer retourne", "Layer retourne "+gltest.toString());
@@ -117,13 +121,21 @@ public class MenuActivity extends Activity {
 		
 		overlayManager.add(gltest) ;
 		
-		Mission m = new Mission("ma mission", this, mapView);
-		m.startMission();
-		overlayManager.add(m.getPolygonLayer() ) ;
-		overlayManager.add(m.getLineLayer() ) ;
-		overlayManager.add(m.getPointLayer() ) ;
+		*/
+		
+		/**
+		 * Exemple d'utilisation d'une mission
+		 */
+		/*Mission.createMission("ma mission thibault yoyo", getApplicationContext(), mapView);
+		Mission.getInstance().startMission();
+		overlayManager.add(Mission.getInstance().getPolygonLayer() ) ;
+		overlayManager.add(Mission.getInstance().getLineLayer() ) ;
+		overlayManager.add(Mission.getInstance().getPointLayer() ) ;
+		Mission.getInstance().startSurvey(GeometryType.POLYGON
+				);
+		Mission.getInstance().stopMission();*/
 
-		m.startSurvey(GeometryType.POLYGON); */
+		
 	}
 
 	/**

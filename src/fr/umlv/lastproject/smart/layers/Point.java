@@ -2,6 +2,8 @@ package fr.umlv.lastproject.smart.layers;
 
 import org.osmdroid.util.GeoPoint;
 
+import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
+
 /**
  * This class represent the Point geometry to draw
  * 
@@ -19,6 +21,9 @@ public class Point extends Geometry {
 	 */
 	public Point(double latitude, double longitude) {
 		this.coordinates = new GeoPoint(latitude, longitude);
+		setType(GeometryType.POINT);
+
+		
 	}
 
 	/**
@@ -28,6 +33,7 @@ public class Point extends Geometry {
 	 */
 	public GeoPoint getCoordinates() {
 		return this.coordinates;
+
 	}
 
 	/**

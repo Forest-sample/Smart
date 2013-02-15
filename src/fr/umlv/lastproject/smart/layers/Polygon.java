@@ -13,6 +13,7 @@ public class Polygon extends Geometry {
 	
 	public Polygon(){
 		points = new ArrayList<Point>();
+		setType(GeometryType.POLYGON);
 	}
 
 	/**
@@ -23,6 +24,8 @@ public class Polygon extends Geometry {
 	 */
 	public Polygon(ArrayList<Point> points) {
 		this.points = points;
+		setType(GeometryType.POLYGON);
+
 	}
 
 	/**
@@ -36,6 +39,8 @@ public class Polygon extends Geometry {
 	public Polygon(double latitude, double longitude) {
 		this.points = new ArrayList<Point>();
 		this.points.add(new Point(latitude, longitude));
+		setType(GeometryType.POLYGON);
+
 	}
 
 	/**

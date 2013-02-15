@@ -82,7 +82,7 @@ public class Survey {
 					l.addPoint(p);
 					layer.addGeometry(l);
 					for(int i = 0 ; i < stopListeners.size() ; i++){
-						stopListeners.get(i).actionPerformed(p) ;
+						stopListeners.get(i).actionPerformed(l) ;
 					}
 					layer.setEditable(false);
 					mapView.invalidate();
@@ -113,7 +113,7 @@ public class Survey {
 					poly.addPoint(p);
 					layer.addGeometry(poly);
 					for(int i = 0 ; i < stopListeners.size() ; i++){
-						stopListeners.get(i).actionPerformed(p) ;
+						stopListeners.get(i).actionPerformed(poly) ;
 					}
 					layer.setEditable(false);
 					mapView.invalidate();

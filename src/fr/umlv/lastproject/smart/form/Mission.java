@@ -2,8 +2,13 @@ package fr.umlv.lastproject.smart.form;
 
 import org.osmdroid.views.MapView;
 
+import android.R.string;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
+import fr.umlv.lastproject.database.DbManager;
+import fr.umlv.lastproject.database.GeometryRecord;
+import fr.umlv.lastproject.database.MissionRecord;
 import fr.umlv.lastproject.smart.layers.Geometry;
 import fr.umlv.lastproject.smart.layers.GeometryLayer;
 import fr.umlv.lastproject.smart.layers.LineSymbology;
@@ -22,32 +27,38 @@ import fr.umlv.lastproject.smart.survey.SurveyStopListener;
  */
 public class Mission {
 	
+	private static Mission mission = null  ;
+		
 	/* three type of survey are available : line, polygon, point */
-	private GeometryLayer pointLayer ;
-	private GeometryLayer lineLayer ;
-	private GeometryLayer polygonLayer ;
+	private  GeometryLayer pointLayer ;
+	private  GeometryLayer lineLayer ;
+	private  GeometryLayer polygonLayer ;
+	
+	private   Context context ;
 	
 	/* the name of the mission */
-	private String name ;
+	private  int id ;
+	private  String name ;
 	
 	/* the status (on / off) */
-	private boolean status ;
+	private  boolean status = false ;
 	
-	private MapView mapView;
+	private  MapView mapView;
 	
-	/*Form form ;*/
+	private  Form form ;
 	
 	
-	Survey survey;
+	private  Survey survey;
 
 	/**
 	 * 
 	 * @param name of the mission
 	 * @param context the context
 	 */
-	public Mission(String name, Context context, final MapView mapview) {
+	private Mission(String name,final Context context, final MapView mapview) {
 		
 		this.name = name ;
+		this.context = context;
 		this.mapView = mapview;
 		pointLayer = new GeometryLayer(context) ;
 		pointLayer.setType(GeometryType.POINT);
@@ -62,8 +73,38 @@ public class Mission {
 		polygonLayer.setSymbology(new PolygonSymbology(10, Color.BLACK));
 		
 		survey = new Survey(mapview);
+		
+		
+		
 	}
 	
+	public static  Mission getInstance(){
+		return mission ;
+	}
+	
+	/**
+	 * 
+	 * @param name of the mission
+	 * @param context of the application
+	 * @param mapview of the mission
+	 * @return the new mission
+	 */
+	public static Mission createMission(String name, Context context, MapView mapview){
+		//if(Mission.getInstance().getStatus()) return null ;
+		mission = new Mission(name, context, mapview);
+		// ecriture en base 
+		DbManager dbm = new DbManager() ;
+		dbm.open(context);
+		dbm.insertMission(new MissionRecord());
+		dbm.close();
+
+		return mission ;
+	}
+
+	private boolean getStatus() {
+		return status;
+	}
+
 	/**
 	 * 
 	 * @return status of the mission
@@ -108,9 +149,9 @@ public class Mission {
 	 * 
 	 * @return the form of this mission
 	 */
-	/*public Form getForm(){
+	public Form getForm(){
 		return form ;
-	}*/
+	}
 	
 	/**
 	 * 
@@ -125,6 +166,10 @@ public class Mission {
 			survey.addStopListeners(new SurveyStopListener() {
 				@Override
 				public void actionPerformed(Geometry g) {
+					DbManager dbManager = new DbManager() ;
+					dbManager.open(context);
+					dbManager.insertGeometry(new GeometryRecord(g,id));
+					dbManager.close();
 				}
 			});
 						
@@ -136,7 +181,11 @@ public class Mission {
 				
 				@Override
 				public void actionPerformed(Geometry g) {
-							
+					DbManager dbManager = new DbManager() ;
+					dbManager.open(context);
+					dbManager.insertGeometry(new GeometryRecord(g,id));
+					dbManager.close();
+
 				}
 			});
 			
@@ -148,7 +197,14 @@ public class Mission {
 				
 				@Override
 				public void actionPerformed(Geometry g) {
+					DbManager dbManager = new DbManager() ;
+					dbManager.open(context);
+					Log.d("","id m : "+id);
+
+					dbManager.insertGeometry(new GeometryRecord(g,id) );
 					
+					dbManager.close();
+
 				}
 			});
 			break ;
@@ -156,5 +212,14 @@ public class Mission {
 		default:
 			break;
 		}		
+	}
+	
+	public String getTitle(){
+		return name;
+	}
+	
+	public void setId(int id){
+		this.id = id;
+		Log.d("", "id mission setid"+id);
 	}
 }

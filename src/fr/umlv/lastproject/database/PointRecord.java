@@ -1,5 +1,7 @@
 package fr.umlv.lastproject.database;
 
+import fr.umlv.lastproject.smart.layers.Point;
+
 public class PointRecord {
 
 	private int id;
@@ -10,13 +12,21 @@ public class PointRecord {
 
 	public PointRecord() {
 	}
+	
+	public PointRecord(Point p) {
+		
+		this.x = p.getLatitude() ;
+		this.y = p.getLongitude() ;
+		this.z = -1 ;
+		
+	}
 
-	public PointRecord(double x, double y, double z, int idGeometry) {
+
+	public PointRecord(double x, double y, double z) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.idGeometry = idGeometry;
 	}
 
 	public int getId() {

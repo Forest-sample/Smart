@@ -13,6 +13,7 @@ public class Line extends Geometry {
 	
 	public Line(){
 		points = new ArrayList<Point>();
+		setType(GeometryType.LINE);
 	}
 
 	/**
@@ -23,6 +24,8 @@ public class Line extends Geometry {
 	 */
 	public Line(ArrayList<Point> points) {
 		this.points = points;
+		setType(GeometryType.LINE);
+
 	}
 
 	/**
@@ -36,6 +39,8 @@ public class Line extends Geometry {
 	public Line(double latitude, double longitude) {
 		this.points = new ArrayList<Point>();
 		this.points.add(new Point(latitude, longitude));
+		setType(GeometryType.LINE);
+
 	}
 
 	/**
