@@ -9,18 +9,24 @@
     <string name="accuracy">Précision :</string>
     <string name="centerMap">Recentrage de la carte</string>
     <string name="findGPS">Recherche du signal GPS..</string>
-    
     <string name="gpsSettings">Paramétrages du GPS</string>
-	<string name="gpsMessage">Cette application require le GPS.\nValider pour accéder aux paramétrages. \nVous pouvez également y accéder par le menu de paramétrages.</string>
-	<string name="cancel">Annuler</string>	
-	<string name="validate">Valider</string>
-	
-	<string name="hideInfoZone">Cacher la zone d\'informations</string>
-	<string name="showInfoZone">Afficher la zone d\'informations</string>
-	
-		<string name="exit">Quitter ?</string>
-	<string name="exitMsg">Êtes-vous sûr de vouloir quitter SMART ?</string>
-	<string name="yes">Oui</string>	
-	<string name="no">Non</string>
+    <string name="gpsMessage">Cette application require le GPS.\nValider pour accéder aux paramétrages. \nVous pouvez également y accéder par le menu de paramétrages.</string>
+    <string name="cancel">Annuler</string>
+    <string name="validate">Valider</string>
+    <string name="hideInfoZone">Cacher la zone d\'informations</string>
+    <string name="showInfoZone">Afficher la zone d\'informations</string>
+    <string name="exit">Quitter ?</string>
+    <string name="exitMsg">Êtes-vous sûr de vouloir quitter SMART ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    
+    <string name="addShortcut">Ajouter un raccouci</string>
+    <string name="removeShortcut">Retirer le raccourci</string>
+
+    <string-array name="items">
+        <item>Relevé</item>
+        <item>Relevé à distance</item>
+        <item>Mesurer une distance</item>
+    </string-array>
 
 </resources>

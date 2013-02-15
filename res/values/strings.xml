@@ -9,23 +9,27 @@
     <string name="accuracy">Accuracy :</string>
     <string name="centerMap">Recentering the map</string>
     <string name="findGPS">Finding GPS signal..</string>
-    
     <string name="gpsSettings">GPS settings</string>
-	<string name="gpsMessage">	This application required GPS.\nYou should activate it.\nYou can also activated it by setting menu.</string>
-	
-	<string name="cancel">Cancel</string>	
-	<string name="validate">Validate</string>
-	
-	<string name="hideInfoZone">Hide informations</string>
-	<string name="showInfoZone">Show informations</string>
-	
-	<string name="exit">Exit ?</string>
-	<string name="exitMsg">Are you sure you want to quit SMART ?</string>
-	<string name="yes">Yes</string>	
-	<string name="no">No</string>
-	
-	
-	
+    <string name="gpsMessage">	This application required GPS.\nYou should activate it.\nYou can also activated it by setting menu.</string>
+    <string name="cancel">Cancel</string>
+    <string name="validate">Validate</string>
+    <string name="hideInfoZone">Hide informations</string>
+    <string name="showInfoZone">Show informations</string>
+    <string name="exit">Exit ?</string>
+    <string name="exitMsg">Are you sure you want to quit SMART ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="addShortcut">Add shortcut</string>
+    <string name="removeShortcut">Remove shortcut</string>
 
+    <string-array name="items">
+        <item>Survay</item>
+        <item>Distance survay</item>
+        <item>Measure distance</item>
+    </string-array>
+
+    <string name="title_activity_layers">LayersActivity</string>
 
 </resources>

@@ -1,7 +1,5 @@
 package fr.umlv.lastproject.smart;
 
-import java.util.ArrayList;
-
 import org.osmdroid.events.MapAdapter;
 import org.osmdroid.events.ScrollEvent;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -18,21 +16,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
-import fr.umlv.lastproject.smart.layers.GeometryLayer;
-import fr.umlv.lastproject.smart.layers.LineGeometry;
-import fr.umlv.lastproject.smart.layers.LineSymbology;
-import fr.umlv.lastproject.smart.layers.PointGeometry;
-import fr.umlv.lastproject.smart.layers.PointSymbology;
-import fr.umlv.lastproject.smart.layers.PolygonGeometry;
-import fr.umlv.lastproject.smart.layers.PolygonSymbology;
+import android.view.Window;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class MenuActivity extends Activity {
 
@@ -44,6 +36,8 @@ public class MenuActivity extends Activity {
 	 * 
 	 */
 
+	private static final int HOME_VIEW = 1;
+	private static final int LAYERS_VIEW = 2;
 	private MapView mapView;
 	private MapController mapController;
 	private OverlayManager overlayManager;
@@ -58,10 +52,29 @@ public class MenuActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_smart);
 		initMap();
 		initGps();
 
+		ImageButton home = (ImageButton) findViewById(R.id.home);
+		home.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				Intent home = new Intent(MenuActivity.this, HomeActivity.class);
+				startActivityForResult(home, HOME_VIEW);
+			}
+		});
+
+		ImageButton layers = (ImageButton) findViewById(R.id.layers);
+		layers.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				Intent home = new Intent(MenuActivity.this,
+						LayersActivity.class);
+				startActivityForResult(home, LAYERS_VIEW);
+			}
+		});
 	}
 
 	@Override
@@ -104,65 +117,6 @@ public class MenuActivity extends Activity {
 		directedLocationOverlay = new DirectedLocationOverlay(this);
 		directedLocationOverlay.setShowAccuracy(true);
 		overlayManager.add(directedLocationOverlay);
-
-		// TODO dessin d'un polygon
-		{
-			PointGeometry point = new PointGeometry(0, 0);
-			PointGeometry point2 = new PointGeometry(10, 20);
-			PointGeometry point3 = new PointGeometry(20, 30);
-
-			ArrayList<PointGeometry> points = new ArrayList<PointGeometry>();
-			points.add(point);
-			points.add(point2);
-			points.add(point3);
-
-			PolygonGeometry polygon = new PolygonGeometry(points);
-
-			GeometryLayer geometryLayer = new GeometryLayer(this);
-			geometryLayer.addGeometry(polygon);
-			geometryLayer.setType(GeometryType.POLYGON);
-			geometryLayer.setSymbology(new PolygonSymbology(10, Color.BLACK));
-			overlayManager.add(geometryLayer);
-		}
-		// TODO fin test
-
-		// TODO dessin d'un polygon
-		{
-			PointGeometry point = new PointGeometry(40, 20);
-			PointGeometry point2 = new PointGeometry(40, 50);
-			PointGeometry point3 = new PointGeometry(50, 60);
-
-			ArrayList<PointGeometry> points = new ArrayList<PointGeometry>();
-			points.add(point);
-			points.add(point2);
-			points.add(point3);
-
-			LineGeometry line = new LineGeometry(points);
-
-			GeometryLayer geometryLayer = new GeometryLayer(this);
-			geometryLayer.addGeometry(line);
-			geometryLayer.setType(GeometryType.LINE);
-			geometryLayer.setSymbology(new LineSymbology(10, Color.GREEN));
-			overlayManager.add(geometryLayer);
-		}
-		// TODO fin test
-
-		// TODO dessin d'un polygon
-		{
-
-			PointGeometry point1 = new PointGeometry(60, 60);
-			PointGeometry point2 = new PointGeometry(70, 70);
-			PointGeometry point3 = new PointGeometry(80, 80);
-
-			GeometryLayer geometryLayer = new GeometryLayer(this);
-			geometryLayer.addGeometry(point1);
-			geometryLayer.addGeometry(point2);
-			geometryLayer.addGeometry(point3);
-			geometryLayer.setType(GeometryType.POINT);
-			geometryLayer.setSymbology(new PointSymbology(10, Color.RED));
-			overlayManager.add(geometryLayer);
-		}
-		// TODO fin test
 
 		mapView.setMapListener(new MapAdapter() {
 			@Override
@@ -261,6 +215,17 @@ public class MenuActivity extends Activity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		if (requestCode == 1) {
+			if (resultCode == RESULT_OK) {
+				String s = (String) data.getSerializableExtra("function");
+				Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+			}
+		}
 	}
 
 }

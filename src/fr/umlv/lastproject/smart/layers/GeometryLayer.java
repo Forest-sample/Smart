@@ -10,7 +10,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.util.Log;
 import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
 
 /**
@@ -90,11 +89,6 @@ public class GeometryLayer extends Layer {
 	 */
 	public boolean isInBoundingBox(Rect clipBound, Rect geometryBoundingBox) {
 
-		Log.d("clibBound", "" + clipBound);
-		Log.d("geometryBoundingBox",
-				"" + geometryBoundingBox + " "
-						+ Rect.intersects(clipBound, geometryBoundingBox));
-
 		if (clipBound.contains(geometryBoundingBox)
 				|| geometryBoundingBox.contains(clipBound)) {
 			return true;
@@ -126,7 +120,6 @@ public class GeometryLayer extends Layer {
 
 				// Si le point est contenu dans la boundinBox
 				if (canvas.getClipBounds().contains(point.x, point.y)) {
-					Log.d("dessin", "dessin du point " + i);
 					canvas.drawCircle(point.x, point.y, radius, paint);
 				}
 
@@ -160,7 +153,6 @@ public class GeometryLayer extends Layer {
 									pixelA.y, pixelB.y), Math.min(pixelA.x,
 									pixelB.x), Math.min(pixelA.y, pixelB.y)))) {
 
-						Log.d("dessin", "dessin de la ligne " + j);
 						canvas.drawLine(pixelA.x, pixelA.y, pixelB.x, pixelB.y,
 								paint);
 					}
@@ -200,7 +192,6 @@ public class GeometryLayer extends Layer {
 									pixelA.y, pixelB.y), Math.min(pixelA.x,
 									pixelB.x), Math.min(pixelA.y, pixelB.y)))) {
 
-						Log.d("dessin", "dessin du polygon " + j);
 						canvas.drawLine(pixelA.x, pixelA.y, pixelB.x, pixelB.y,
 								paint);
 					}
