@@ -19,6 +19,8 @@ public class PointGeometry extends Geometry {
 	 */
 	public PointGeometry(double latitude, double longitude) {
 		this.coordinates = new GeoPoint(latitude, longitude);
+		setType(GeometryType.POINT);
+
 	}
 
 	/**
@@ -28,6 +30,7 @@ public class PointGeometry extends Geometry {
 	 */
 	public GeoPoint getCoordinates() {
 		return this.coordinates;
+
 	}
 
 	/**

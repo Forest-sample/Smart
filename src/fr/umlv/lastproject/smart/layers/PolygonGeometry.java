@@ -10,6 +10,11 @@ import java.util.ArrayList;
  */
 public class PolygonGeometry extends Geometry {
 	private ArrayList<PointGeometry> points;
+	
+	public PolygonGeometry(){
+		points = new ArrayList<PointGeometry>();
+		setType(GeometryType.POLYGON);
+	}
 
 	/**
 	 * Polygon constructor
@@ -19,6 +24,8 @@ public class PolygonGeometry extends Geometry {
 	 */
 	public PolygonGeometry(ArrayList<PointGeometry> points) {
 		this.points = points;
+		setType(GeometryType.POLYGON);
+
 	}
 
 	/**
@@ -32,6 +39,8 @@ public class PolygonGeometry extends Geometry {
 	public PolygonGeometry(double latitude, double longitude) {
 		this.points = new ArrayList<PointGeometry>();
 		this.points.add(new PointGeometry(latitude, longitude));
+		setType(GeometryType.POLYGON);
+
 	}
 
 	/**

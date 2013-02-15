@@ -12,6 +12,8 @@ public class Geometry {
 	public enum GeometryType {
 		POINT, LINE, POLYGON
 	}
+	
+	GeometryType type ;
 
 	private Symbology symbology;
 
@@ -30,6 +32,14 @@ public class Geometry {
 	 */
 	public void setSymbology(Symbology symbology) {
 		this.symbology = symbology;
+	}
+	
+	public GeometryType getType(){
+		return type;
+	}
+	
+	public void setType(GeometryType type){
+		this.type = type ;
 	}
 
 }

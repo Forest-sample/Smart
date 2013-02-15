@@ -5,7 +5,6 @@ import org.osmdroid.events.ScrollEvent;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
-import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.DirectedLocationOverlay;
 import org.osmdroid.views.overlay.OverlayManager;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
@@ -24,7 +23,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import fr.umlv.lastproject.smart.form.Mission;
+import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
 
 public class MenuActivity extends Activity {
 
@@ -38,7 +38,8 @@ public class MenuActivity extends Activity {
 
 	private static final int HOME_VIEW = 1;
 	private static final int LAYERS_VIEW = 2;
-	private MapView mapView;
+	private SmartMapView mapView;
+
 	private MapController mapController;
 	private OverlayManager overlayManager;
 	private GPS gps;
@@ -106,7 +107,7 @@ public class MenuActivity extends Activity {
 	 * This method is use to init the map
 	 */
 	public void initMap() {
-		mapView = (MapView) findViewById(R.id.mapview);
+		mapView = (SmartMapView) findViewById(R.id.mapview);
 		mapController = mapView.getController();
 		overlayManager = mapView.getOverlayManager();
 		mapView.setTileSource(TileSourceFactory.MAPNIK);
@@ -114,6 +115,7 @@ public class MenuActivity extends Activity {
 		mapView.setMultiTouchControls(true);
 		mapController.setZoom(15);
 		overlayManager.add(new ScaleBarOverlay(this));
+
 		directedLocationOverlay = new DirectedLocationOverlay(this);
 		directedLocationOverlay.setShowAccuracy(true);
 		overlayManager.add(directedLocationOverlay);
@@ -126,9 +128,11 @@ public class MenuActivity extends Activity {
 				return super.onScroll(event);
 			}
 		});
+
 		infoOverlay = new InfoOverlay(findViewById(R.id.table));
 		// centerOverlay = new CenterOverlay(findViewById(R.id.centermap));
 		centerMap = findViewById(R.id.centermap);
+
 		centerMap.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -138,6 +142,35 @@ public class MenuActivity extends Activity {
 				centerMap.setVisibility(View.INVISIBLE);
 			}
 		});
+
+		/**
+		 * Exemple d'utilisation d'un shapefile
+		 */
+		/*
+		 * GeometryLayer gltest = DataImport.importShapeFile(this,
+		 * "/storage/sdcard0/Download/shp/TestPolygon.shp");
+		 * 
+		 * Log.d("layer retourne", "Layer retourne "+gltest.toString());
+		 * 
+		 * gltest.setSymbology(new PolygonSymbology(30, Color.BLACK));
+		 * 
+		 * overlayManager.add(gltest) ;
+		 */
+
+		/**
+		 * Exemple d'utilisation d'une mission
+		 */
+		/*
+		 * Mission.createMission("ma mission thibault yoyo",
+		 * getApplicationContext(), mapView);
+		 * Mission.getInstance().startMission();
+		 * overlayManager.add(Mission.getInstance().getPolygonLayer() ) ;
+		 * overlayManager.add(Mission.getInstance().getLineLayer() ) ;
+		 * overlayManager.add(Mission.getInstance().getPointLayer() ) ;
+		 * Mission.getInstance().startSurvey(GeometryType.POLYGON );
+		 * Mission.getInstance().stopMission();
+		 */
+
 	}
 
 	/**
@@ -192,6 +225,7 @@ public class MenuActivity extends Activity {
 				directedLocationOverlay.setAccuracy((int) event.getAccuracy());
 				directedLocationOverlay.setBearing(event.getBearing());
 				mapView.invalidate();
+
 			}
 		});
 	}
@@ -223,7 +257,34 @@ public class MenuActivity extends Activity {
 		if (requestCode == 1) {
 			if (resultCode == RESULT_OK) {
 				String s = (String) data.getSerializableExtra("function");
-				Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+				Integer index = (Integer) data.getSerializableExtra("position");
+
+				switch (index) {
+				case 0:
+					Mission.createMission("ma mission thibault yoyo",
+							getApplicationContext(), mapView);
+					Mission.getInstance().startMission();
+					overlayManager.add(Mission.getInstance().getPolygonLayer());
+					overlayManager.add(Mission.getInstance().getLineLayer());
+					overlayManager.add(Mission.getInstance().getPointLayer());
+
+					break;
+
+				case 1:
+					Mission.getInstance().startSurvey(GeometryType.POINT);
+					break;
+
+				case 2:
+					Mission.getInstance().startSurvey(GeometryType.LINE);
+					break;
+
+				case 3:
+					Mission.getInstance().startSurvey(GeometryType.POLYGON);
+				default:
+					// Mission.getInstance().stopMission();
+					break;
+				}
+
 			}
 		}
 	}

@@ -2,40 +2,52 @@ package fr.umlv.lastproject.smart.layers;
 
 import java.util.ArrayList;
 
+import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.MapView.Projection;
+import org.osmdroid.views.overlay.Overlay;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
+import android.view.MotionEvent;
 import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
 
 /**
  * This class represent the geometry layer and draw it if it is contained in the
  * screen
  * 
- * @author Fad's
+ * @author Fad's, thibault brun
  * 
  */
-public class GeometryLayer extends Layer {
+public class GeometryLayer extends Overlay {
 
 	private GeometryType type;
 	private ArrayList<Geometry> geometries;
 	private Projection projection;
 	private Paint paint;
 	private Symbology symbology;
+	private boolean editable = false;
+	private ArrayList<GeometryLayerSingleTapListener> singleTapListeners = new ArrayList<GeometryLayerSingleTapListener>();
+	private ArrayList<GeometryLayerDoubleTapListener> doubleTapListeners = new ArrayList<GeometryLayerDoubleTapListener>();
 
 	/**
 	 * 
 	 * @param ctx
 	 *            : context for the GeometryLayer
+	 * 
 	 */
 	public GeometryLayer(Context ctx) {
 		super(ctx);
 		this.geometries = new ArrayList<Geometry>();
 		// TODO Auto-generated constructor stub
+	}
+
+	public ArrayList<Geometry> getGeometries() {
+		return geometries;
 	}
 
 	public void editSymbology() {
@@ -58,6 +70,10 @@ public class GeometryLayer extends Layer {
 	 */
 	public void setType(GeometryType type) {
 		this.type = type;
+	}
+
+	public GeometryType getType() {
+		return type;
 	}
 
 	/**
@@ -88,7 +104,6 @@ public class GeometryLayer extends Layer {
 	 * @return true the geometry is contened in the screen else false
 	 */
 	public boolean isInBoundingBox(Rect clipBound, Rect geometryBoundingBox) {
-
 		if (clipBound.contains(geometryBoundingBox)
 				|| geometryBoundingBox.contains(clipBound)) {
 			return true;
@@ -114,15 +129,17 @@ public class GeometryLayer extends Layer {
 				PointSymbology pointSymbology = (PointSymbology) symbology;
 				int radius = pointSymbology.getRadius();
 
+				// Si le point est contenu dans la boundinBox
 				// Transforme les coordonnées (lat/long) en pixels
+
 				Point point = projection.toPixels(
 						pointGeometry.getCoordinates(), null);
-
+				// Dessin du point
 				// Si le point est contenu dans la boundinBox
 				if (canvas.getClipBounds().contains(point.x, point.y)) {
 					canvas.drawCircle(point.x, point.y, radius, paint);
-				}
 
+				}
 				break;
 
 			case LINE:
@@ -139,19 +156,28 @@ public class GeometryLayer extends Layer {
 					PointGeometry pointA = linePoints.get(j);
 					PointGeometry pointB = linePoints.get(j + 1);
 
+					Point pointT = projection.toPixels(pointA.getCoordinates(),
+							null);
 					// Projection des coordonnées en pixel
+
 					Point pixelA = projection.toPixels(pointA.getCoordinates(),
 							null);
 					Point pixelB = projection.toPixels(pointB.getCoordinates(),
 							null);
 
+					Point pointD = projection.toPixels(pointB.getCoordinates(),
+							null);
 					// Dessine la geometrie si elle est contenue dans la
 					// boundingBox
 					if (isInBoundingBox(
 							canvas.getClipBounds(),
 							new Rect(Math.max(pixelA.x, pixelB.x), Math.max(
 									pixelA.y, pixelB.y), Math.min(pixelA.x,
-									pixelB.x), Math.min(pixelA.y, pixelB.y)))) {
+
+							pixelB.x), Math.min(pixelA.y, pixelB.y)))) {
+
+						canvas.drawLine(pointT.x, pointT.y, pointD.x, pointD.y,
+								paint);
 
 						canvas.drawLine(pixelA.x, pixelA.y, pixelB.x, pixelB.y,
 								paint);
@@ -161,6 +187,8 @@ public class GeometryLayer extends Layer {
 				break;
 
 			case POLYGON:
+
+				Log.d("", "polygon draw");
 				// Récupération de la géometrie et de sa symbologie
 				PolygonGeometry polygonGeometry = (PolygonGeometry) geometries
 						.get(i);
@@ -194,6 +222,9 @@ public class GeometryLayer extends Layer {
 
 						canvas.drawLine(pixelA.x, pixelA.y, pixelB.x, pixelB.y,
 								paint);
+
+						Log.d("", "polygon draw " + pixelA.x);
+
 					}
 				}
 				break;
@@ -203,4 +234,74 @@ public class GeometryLayer extends Layer {
 			}
 		}
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return type.toString();
+	}
+
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
+
+	@Override
+	public boolean onDoubleTap(MotionEvent e, MapView mapView) {
+
+		if (editable) {
+			float x = e.getX();
+			float y = e.getY();
+
+			IGeoPoint p = mapView.getProjection().fromPixels(x, y);
+			float latitude = (float) (p.getLatitudeE6() / 1E6);
+			float longitude = (float) (p.getLongitudeE6() / 1E6);
+
+			for (int i = 0; i < singleTapListeners.size(); i++) {
+				doubleTapListeners.get(i).actionPerformed(
+						new PointGeometry(latitude, longitude));
+			}
+		}
+
+		return super.onDoubleTap(e, mapView);
+	}
+
+	@Override
+	public boolean onSingleTapUp(MotionEvent e, MapView mapView) {
+
+		if (editable) {
+			float x = e.getX();
+			float y = e.getY();
+
+			IGeoPoint p = mapView.getProjection().fromPixels(x, y);
+			float latitude = (float) (p.getLatitudeE6() / 1E6);
+			float longitude = (float) (p.getLongitudeE6() / 1E6);
+
+			for (int i = 0; i < singleTapListeners.size(); i++) {
+				singleTapListeners.get(i).actionPerformed(
+						new PointGeometry(latitude, longitude));
+			}
+		}
+		return super.onSingleTapUp(e, mapView);
+	}
+
+	public void addGeometryLayerSingleTapListener(
+			GeometryLayerSingleTapListener listener) {
+		singleTapListeners.add(listener);
+	}
+
+	public void removeGeometryLayerSingleTapListener(
+			GeometryLayerSingleTapListener listener) {
+		singleTapListeners.remove(listener);
+	}
+
+	public void addGeometryLayerDoubleTapListener(
+			GeometryLayerDoubleTapListener listener) {
+		doubleTapListeners.add(listener);
+	}
+
+	public void removeGeometryLayerDoubleTapListener(
+			GeometryLayerDoubleTapListener listener) {
+		doubleTapListeners.remove(listener);
+	}
+
 }

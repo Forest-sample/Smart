@@ -24,6 +24,7 @@
     <string name="removeShortcut">Retirer le raccourci</string>
 
       <string-array name="items">
+        <item>Créer mission</item>
         <item>Relevé de point</item>
         <item>Relevé de ligne</item>
         <item>Relevé de polygon</item>
@@ -32,6 +33,13 @@
         <item>Import de ShapeFile</item>
     </string-array>
     
+    <string name="title_activity_browser">BrowserActivity</string>
+    <string name="empty_directory">Répertoire vide</string>
+    <string name="storage_removed">Espace disque non disponible.</string>
+    <string name="choose_file">Sélectionner un fichier</string>
+    <string name="error_selecting_file">Erreur lors de sélection du fichier</string>  
+    <string name="zoomIn">Do you really want to zoom in even if tiles are missing?</string>  
+    <string name="zoomOut">Do you really want to zoom out even if tiles are missing?</string> 
     
 
 </resources>
