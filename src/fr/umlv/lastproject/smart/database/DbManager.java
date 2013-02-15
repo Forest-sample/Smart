@@ -1,4 +1,4 @@
-package fr.umlv.lastproject.database;
+package fr.umlv.lastproject.smart.database;
 
 import java.io.File;
 import java.util.ArrayList;

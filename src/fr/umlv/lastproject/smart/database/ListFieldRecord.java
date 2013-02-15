@@ -1,15 +1,13 @@
-package fr.umlv.lastproject.database;
+package fr.umlv.lastproject.smart.database;
 
 import fr.umlv.lastproject.smart.form.Field;
 
-public class PictureFieldRecord extends FieldRecord {
+public class ListFieldRecord extends FieldRecord {
 
 	private String value;
 
-	public PictureFieldRecord(Field field, String value) {
+	public ListFieldRecord(Field field, String value) {
 		super(field);
-		this.value = value;
-
 	}
 
 	public String getValue() {

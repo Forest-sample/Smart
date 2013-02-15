@@ -1,4 +1,4 @@
-package fr.umlv.lastproject.database;
+package fr.umlv.lastproject.smart.database;
 
 import fr.umlv.lastproject.smart.layers.PointGeometry;
 
