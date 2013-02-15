@@ -25,9 +25,12 @@
     <string name="removeShortcut">Remove shortcut</string>
 
     <string-array name="items">
-        <item>Survay</item>
-        <item>Distance survay</item>
-        <item>Measure distance</item>
+        <item>Point Survay</item>
+        <item>Line Survay</item>
+        <item>Polygon Survay</item>
+        <item>Import KML</item>
+        <item>Import GeoTIFF</item>
+        <item>Import ShapeFile</item>
     </string-array>
 
     <string name="title_activity_layers">LayersActivity</string>

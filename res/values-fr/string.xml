@@ -23,10 +23,15 @@
     <string name="addShortcut">Ajouter un raccouci</string>
     <string name="removeShortcut">Retirer le raccourci</string>
 
-    <string-array name="items">
-        <item>Relevé</item>
-        <item>Relevé à distance</item>
-        <item>Mesurer une distance</item>
+      <string-array name="items">
+        <item>Relevé de point</item>
+        <item>Relevé de ligne</item>
+        <item>Relevé de polygon</item>
+        <item>Import de KML</item>
+        <item>Import de GeoTIFF</item>
+        <item>Import de ShapeFile</item>
     </string-array>
+    
+    
 
 </resources>
