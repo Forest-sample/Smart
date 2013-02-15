@@ -40,7 +40,7 @@ public class MenuActivity extends Activity {
 	 * 
 	 */
 
-	private MapView mapView;
+	private SmartMapView mapView;
 	private MapController mapController;
 	private OverlayManager overlayManager;
 	private GPS gps;
@@ -73,7 +73,7 @@ public class MenuActivity extends Activity {
 	 * This method is use to init the map
 	 */
 	public void initMap() {
-		mapView = (MapView) findViewById(R.id.mapview);
+		mapView = (SmartMapView) findViewById(R.id.mapview);
 		mapController = mapView.getController();
 		overlayManager = mapView.getOverlayManager();
 		mapView.setTileSource(TileSourceFactory.MAPNIK);
@@ -126,14 +126,14 @@ public class MenuActivity extends Activity {
 		/**
 		 * Exemple d'utilisation d'une mission
 		 */
-		/*Mission.createMission("ma mission thibault yoyo", getApplicationContext(), mapView);
+		Mission.createMission("ma mission thibault yoyo", getApplicationContext(), mapView);
 		Mission.getInstance().startMission();
 		overlayManager.add(Mission.getInstance().getPolygonLayer() ) ;
 		overlayManager.add(Mission.getInstance().getLineLayer() ) ;
 		overlayManager.add(Mission.getInstance().getPointLayer() ) ;
 		Mission.getInstance().startSurvey(GeometryType.POLYGON
 				);
-		Mission.getInstance().stopMission();*/
+		Mission.getInstance().stopMission();
 
 		
 	}

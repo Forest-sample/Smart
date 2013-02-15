@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context=".MenuActivity" >
 
-    <org.osmdroid.views.MapView
+    <fr.umlv.lastproject.smart.SmartMapView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mapview"
         android:layout_width="fill_parent"
