@@ -11,11 +11,13 @@ import org.osmdroid.views.overlay.OverlayManager;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 
 import fr.umlv.lastproject.smart.dataimport.DataImport;
+import fr.umlv.lastproject.smart.form.Mission;
 import fr.umlv.lastproject.smart.layers.GeometryLayer;
-import fr.umlv.lastproject.smart.layers.LineSymbology;
 import fr.umlv.lastproject.smart.layers.PointSymbology;
+import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
 import fr.umlv.lastproject.smart.layers.PolygonSymbology;
 
+import android.R.color;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -92,9 +94,11 @@ public class MenuActivity extends Activity {
 				return super.onScroll(event);
 			}
 		});
+		
 		infoOverlay = new InfoOverlay(findViewById(R.id.table));
 		// centerOverlay = new CenterOverlay(findViewById(R.id.centermap));
 		centerMap = findViewById(R.id.centermap);
+		
 		centerMap.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -105,10 +109,22 @@ public class MenuActivity extends Activity {
 			}
 		});
 		
-		/*GeometryLayer gltest = DataImport.importShapeFile(this, "/storage/sdcard0/Download/shp/TestPoints.shp");
-		Log.d("layer retourne", "Layer retourne"+gltest.toString());
-		gltest.setSymbology(new PointSymbology(20, Color.BLACK));
-		overlayManager.add(gltest) ;*/
+		/*GeometryLayer gltest = DataImport.importShapeFile(this, "/storage/sdcard0/Download/shp/TestPolygon.shp");
+		
+		Log.d("layer retourne", "Layer retourne "+gltest.toString());
+		
+		gltest.setSymbology(new PolygonSymbology(30, Color.BLACK));
+		
+		overlayManager.add(gltest) ;
+		overlayManager.add(gltest);
+		
+		Mission m = new Mission("ma mission", this, mapView);
+		m.startMission();
+		overlayManager.add(m.getPolygonLayer() ) ;
+		overlayManager.add(m.getLineLayer() ) ;
+		overlayManager.add(m.getPointLayer() ) ;
+
+		m.startSurvey(GeometryType.POLYGON); */
 	}
 
 	/**

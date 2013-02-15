@@ -40,6 +40,7 @@ public class ShpImport {
 			Log.d("", "path"+path);
 
 			Log.d("", "path"+fn);
+			
 			ShapeFile shp = new ShapeFile(path, fn ).READ();
 			ShpShape.Type type = shp.getSHP_shapeType();
 
@@ -99,6 +100,7 @@ public class ShpImport {
 			double lat = point.getPoint()[1] ;
 			double lon = point.getPoint()[0] ;
 			gl.addGeometry(new fr.umlv.lastproject.smart.layers.Point(lat, lon));
+			
 		}
 		
 		return gl;
