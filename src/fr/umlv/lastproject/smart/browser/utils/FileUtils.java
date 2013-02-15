@@ -45,7 +45,7 @@ import android.util.Log;
 /**
  * @version 2009-07-03
  * 
- * @author Peli
+ * @author Peli, marc barat
  *
  */
 public class FileUtils {
@@ -68,33 +68,6 @@ public class FileUtils {
 	public static final String[] DIRECTORY_TYPE={"?"};
 	
 
-	/**
-	 * Whether the filename is a video file.
-	 * 
-	 * @param filename
-	 * @return
-	 *//*
-	public static boolean isVideo(String filename) {
-		String mimeType = getMimeType(filename);
-		if (mimeType != null && mimeType.startsWith("video/")) {
-			return true;
-		} else {
-			return false;
-		}
-	}*/
-
-	/**
-	 * Whether the URI is a local one.
-	 * 
-	 * @param uri
-	 * @return
-	 */
-	public static boolean isLocal(String uri) {
-		if (uri != null && !uri.startsWith("http://")) {
-			return true;
-		}
-		return false;
-	}
 
 	/**
 	 * Gets the extension of a file name, like ".png" or ".jpg".
@@ -423,7 +396,7 @@ public class FileUtils {
 	/**
 	 * File (not directories) filter.
 	 * 
-	 * @author paulburke
+	 * @author  marc barat
 	 */	
 	public static void setFileFilter(final String[] filter){
 		fileFilter=new FileFilter() {
@@ -500,13 +473,11 @@ public class FileUtils {
 	 * @param filters either shp, kml or tiff using constants defined in FileUtils.java
 	 * @return The intent for opening a file with Intent.createChooser()
 	 * 
-	 * @author paulburke
+	 * @author paulburke, marc barat
 	 */
 	public static Intent createGetContentIntent(String[] filters,String path) {
 		// Implicitly allow the user to select a particular kind of data
-		//final Intent intent = new Intent(Intent.ACTION_GET_CONTENT); 
-		final Intent intent = new Intent("fr.umlv.lastproject.smart.browser"); 
-		
+		final Intent intent = new Intent("fr.umlv.lastproject.smart.browser"); 		
 		setFileFilter(filters);
 		// The MIME data type filter
 		intent.setType("*/*"); 

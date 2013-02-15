@@ -16,17 +16,17 @@ public class AlertZoomDialog extends AlertDialog.Builder {
 			final MapView mapView) {
 		super(context);
 
-		// On instancie notre layout en tant que View
+		
 		final LayoutInflater factory = LayoutInflater.from(context);
 		final View alertZoomView = factory.inflate(R.layout.alert_zoom, null);
 
-		// On affecte la vue personnalisé que l'on a crée à notre AlertDialog
+		
 		setView(alertZoomView);
 
-		// On donne un titre à l'AlertDialog
-		setTitle("Tiles are missing for this zoom level");
+		
+		setTitle("Tiles missing for this zoom level");
 
-		// On modifie l'icône de l'AlertDialog pour le fun ;)
+		
 		setIcon(android.R.drawable.ic_dialog_alert);
 
 		final TextView tv = (TextView) alertZoomView
@@ -36,27 +36,19 @@ public class AlertZoomDialog extends AlertDialog.Builder {
 		else
 			tv.setText(R.string.zoomOut);
 
-		// On affecte un bouton "OK" à notre AlertDialog et on lui affecte un
-		// évènement
+		
 		setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 
-//				if (zoomIn){
-//					
-//					mapView.getController().setZoom(mapView.getZoomLevel()-1);
-//				}
-//					
-//				else
-//					mapView.getController().zoomOut();
+				//Nothing to do
 
 			}
 		});
 
-		// On crée un bouton "Annuler" à notre AlertDialog et on lui affecte un
-		// évènement
+		
 		setNegativeButton("No", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
-				// Lorsque l'on cliquera sur annuler on ne fait rien
+				//Readjust zoom level based on zoomIn/zoomOut
 				if(zoomIn)mapView.getController().setZoom(mapView.getZoomLevel()-1);
 				else mapView.getController().setZoom(mapView.getZoomLevel()+1);
 

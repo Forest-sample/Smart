@@ -17,12 +17,6 @@
 package fr.umlv.lastproject.smart.browser;
 
 import java.io.File;
-import java.util.logging.Logger;
-
-import fr.umlv.lastproject.smart.R;
-import fr.umlv.lastproject.smart.browser.utils.FileUtils;
-
-
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -31,24 +25,22 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentManager.BackStackEntry;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
+import fr.umlv.lastproject.smart.R;
 
 /**
  * Main Activity that handles the FileListFragments 
  * 
  * @version 2012-10-28
  * 
- * @author paulburke (ipaulpro)
+ * @author paulburke (ipaulpro), marc barat
  * 
  */
 public class FileChooserActivity extends FragmentActivity implements
@@ -84,7 +76,6 @@ public class FileChooserActivity extends FragmentActivity implements
 		if (savedInstanceState == null) {
 			Bundle bundle=getIntent().getExtras();
 			mPath=(String) bundle.get(PATH);
-			//mPath = EXTERNAL_BASE_PATH;
 			addFragment(mPath);
 		} else {
 			mPath = savedInstanceState.getString(PATH);

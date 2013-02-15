@@ -9,7 +9,11 @@ import android.content.Context;
 import android.util.AttributeSet;
 import fr.umlv.lastproject.smart.geotiff.TMSOverlay;
 
-
+/**
+ * MapView with geoTIFFLayers notion
+ * @author Marc
+ *
+ */
 public class SmartMapView extends MapView {
 
 //	private static final String WORLD_MAP_FOLDER = "Test";
@@ -39,21 +43,38 @@ public class SmartMapView extends MapView {
 
 	private final List<TMSOverlay> geoTIFFOverlays;
 
+	/**
+	 * Adds a {@link TMSOverlay} (Tile Map Service Overlay)
+	 * @param overlay
+	 */
 	public void addGeoTIFFOverlay(final TMSOverlay overlay) {
 		geoTIFFOverlays.add(overlay);
 		getOverlays().add(0, overlay);
 
 	}
 
+	/**
+	 * Removes a {@link TMSOverlay}
+	 * @param overlay
+	 */
 	public void removeGeoTIFFOverlay(final TMSOverlay overlay) {
 		getOverlays().remove(overlay);
 	}
 
+	/**
+	 * Clears the map layers
+	 */
 	public void clear() {
 		getOverlays().clear();
 		geoTIFFOverlays.clear();
 	}
 
+	/**
+	 * Gets an unmodifiable view of all the TMS Overlays 
+	 * 
+	 * 
+	 * @return {@link List}<{@link TMSOverlay}> 
+	 */
 	public List<TMSOverlay> getGeoTIFFOverlays() {
 		return Collections.unmodifiableList(this.geoTIFFOverlays);
 	}
