@@ -113,7 +113,7 @@ public class MenuActivity extends Activity {
 		/**
 		 * Exemple d'utilisation d'un shapefile
 		 */
-	/*	GeometryLayer gltest = DataImport.importShapeFile(this, "/storage/sdcard0/Download/shp/TestPolygon.shp");
+		GeometryLayer gltest = DataImport.importShapeFile(this, "/storage/sdcard0/Download/shp/TestPolygon.shp");
 		
 		Log.d("layer retourne", "Layer retourne "+gltest.toString());
 		
@@ -121,7 +121,7 @@ public class MenuActivity extends Activity {
 		
 		overlayManager.add(gltest) ;
 		
-		*/
+		
 		
 		/**
 		 * Exemple d'utilisation d'une mission
