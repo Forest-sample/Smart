@@ -72,6 +72,10 @@ public class GeometryLayer extends Overlay {
 		this.type = type;
 	}
 
+	/**
+	 * 
+	 * @return the type
+	 */
 	public GeometryType getType() {
 		return type;
 	}
@@ -241,6 +245,10 @@ public class GeometryLayer extends Overlay {
 		return type.toString();
 	}
 
+	/**
+	 * 
+	 * @param editable is the layer editable ?
+	 */
 	public void setEditable(boolean editable) {
 		this.editable = editable;
 	}
@@ -264,7 +272,7 @@ public class GeometryLayer extends Overlay {
 
 		return super.onDoubleTap(e, mapView);
 	}
-
+	
 	@Override
 	public boolean onSingleTapUp(MotionEvent e, MapView mapView) {
 
@@ -284,21 +292,37 @@ public class GeometryLayer extends Overlay {
 		return super.onSingleTapUp(e, mapView);
 	}
 
+	/**
+	 * 
+	 * @param listener the listener which will listen
+	 */
 	public void addGeometryLayerSingleTapListener(
 			GeometryLayerSingleTapListener listener) {
 		singleTapListeners.add(listener);
 	}
 
+	/**
+	 * 
+	 * @param listener the listener wich will listen
+	 */
 	public void removeGeometryLayerSingleTapListener(
 			GeometryLayerSingleTapListener listener) {
 		singleTapListeners.remove(listener);
 	}
 
+	/**
+	 * 
+	 * @param listener the listener wich will listen
+	 */
 	public void addGeometryLayerDoubleTapListener(
 			GeometryLayerDoubleTapListener listener) {
 		doubleTapListeners.add(listener);
 	}
 
+	/**
+	 * 
+	 * @param listener the listener which will listen
+	 */
 	public void removeGeometryLayerDoubleTapListener(
 			GeometryLayerDoubleTapListener listener) {
 		doubleTapListeners.remove(listener);

@@ -8,7 +8,11 @@ package fr.umlv.lastproject.smart.layers;
  */
 public class Geometry {
 
-	// Type of geometry
+	/**
+	 * 
+	 * @author thibault
+	 *
+	 */
 	public enum GeometryType {
 		POINT, LINE, POLYGON
 	}
@@ -34,10 +38,18 @@ public class Geometry {
 		this.symbology = symbology;
 	}
 	
+	/**
+	 * 
+	 * @return the type of the geometry
+	 */
 	public GeometryType getType(){
 		return type;
 	}
 	
+	/**
+	 * 
+	 * @param type the type of the geometry
+	 */
 	public void setType(GeometryType type){
 		this.type = type ;
 	}

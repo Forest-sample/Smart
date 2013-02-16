@@ -15,8 +15,8 @@ public class PointRecord {
 	
 	public PointRecord(PointGeometry p) {
 		
-		this.x = p.getLatitude() ;
-		this.y = p.getLongitude() ;
+		this.x = p.getLatitude() /1E6 ;
+		this.y = p.getLongitude() /1E6 ;
 		this.z = -1 ;
 		
 	}

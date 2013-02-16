@@ -161,57 +161,33 @@ public class Mission {
 		if(!status) return;
 		switch (type) {
 		case LINE:
-			
-			survey.startSurvey(lineLayer);
-			survey.addStopListeners(new SurveyStopListener() {
-				@Override
-				public void actionPerformed(Geometry g) {
-					DbManager dbManager = new DbManager() ;
-					dbManager.open(context);
-					dbManager.insertGeometry(new GeometryRecord(g,id));
-					dbManager.close();
-				}
-			});
-						
+			Log.d("", "mission survey line");
+			survey.startSurvey(lineLayer);	
 			break;
-			
 		case POINT :
 			survey.startSurvey(pointLayer);
-			survey.addStopListeners(new SurveyStopListener() {
-				
-				@Override
-				public void actionPerformed(Geometry g) {
-					DbManager dbManager = new DbManager() ;
-					dbManager.open(context);
-					dbManager.insertGeometry(new GeometryRecord(g,id));
-					dbManager.close();
-
-				}
-			});
-			
 			break ;
-			
 		case POLYGON : 
 			survey.startSurvey(polygonLayer);
-			survey.addStopListeners(new SurveyStopListener() {
-				
-				@Override
-				public void actionPerformed(Geometry g) {
-					DbManager dbManager = new DbManager() ;
-					dbManager.open(context);
-					Log.d("","id m : "+id);
-
-					dbManager.insertGeometry(new GeometryRecord(g,id) );
-					
-					dbManager.close();
-
-				}
-			});
 			break ;
-
 		default:
 			break;
-		}		
+		}	
+		
+		survey.addStopListeners(new SurveyStopListener() {
+			@Override
+			public void actionPerformed(Geometry g) {
+				
+				Log.d("", "mission survey line db");
+
+				DbManager dbManager = new DbManager() ;
+				dbManager.open(context);
+				dbManager.insertGeometry(new GeometryRecord(g,id));
+				dbManager.close();
+				survey.stop() ;
+			}
+		});
+
 	}
 	
 	public String getTitle(){

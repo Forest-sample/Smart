@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 
+import android.R.layout;
+import android.graphics.drawable.LayerDrawable;
+
 import fr.umlv.lastproject.smart.layers.Geometry;
 import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
 import fr.umlv.lastproject.smart.layers.GeometryLayer;
@@ -25,11 +28,13 @@ import fr.umlv.lastproject.smart.layers.PolygonGeometry;
  */
 public class Survey {
 	
-	private Geometry geometry ;
-	private GeometryType type ; 
-	private MapController mapController ;
 	private ArrayList<SurveyStopListener> stopListeners = new ArrayList<SurveyStopListener>();
 	private MapView mapView;
+	private  GeometryLayer layer ; 
+	private GeometryLayerDoubleTapListener dlistener ;
+	private GeometryLayerSingleTapListener slistener ;	
+	Survey survey = null ;
+	
 	/**
 	 * 
 	 * @param type the type of the geometry which will be surveyed
@@ -39,31 +44,32 @@ public class Survey {
 		
 	}
 	
+	
 	public void startSurvey(final GeometryLayer layer){
-		
+		this.layer = layer ;
 		layer.setEditable(true);
 
+		
 		if(layer.getType() == GeometryType.POINT){
-			PointGeometry p  ;
-			layer.addGeometryLayerSingleTapListener(new GeometryLayerSingleTapListener() {
+			slistener = 
+					new GeometryLayerSingleTapListener() {
 				@Override
 				public void actionPerformed(PointGeometry p) {
-					p = p ;
 					layer.addGeometry(p);
 					for(int i = 0 ; i < stopListeners.size() ; i++){
 						stopListeners.get(i).actionPerformed(p) ;
 					}
 					layer.setEditable(false);
 					mapView.invalidate();
-
 				}
-			});
+			};
+			layer.addGeometryLayerSingleTapListener(slistener);
 		}
+		
 		
 		if(layer.getType() == GeometryType.LINE){
 			final LineGeometry l = new LineGeometry();
-			
-			layer.addGeometryLayerSingleTapListener(new GeometryLayerSingleTapListener() {
+			slistener = new GeometryLayerSingleTapListener() {
 				
 				@Override
 				public void actionPerformed(PointGeometry p) {
@@ -72,9 +78,10 @@ public class Survey {
 					layer.addGeometry(l);
 					mapView.invalidate();
 				}
-			});
+			};
+			layer.addGeometryLayerSingleTapListener(slistener);
 			
-			layer.addGeometryLayerDoubleTapListener(new GeometryLayerDoubleTapListener() {
+			dlistener = new GeometryLayerDoubleTapListener() {
 				
 				@Override
 				public void actionPerformed(PointGeometry p) {
@@ -88,13 +95,14 @@ public class Survey {
 					mapView.invalidate();
 
 				}
-			});
+			};
+			layer.addGeometryLayerDoubleTapListener(dlistener);
 		}
 		
 		if(layer.getType() == GeometryType.POLYGON){
 			final PolygonGeometry poly = new PolygonGeometry();
 			
-			layer.addGeometryLayerSingleTapListener(new GeometryLayerSingleTapListener() {
+			slistener = new GeometryLayerSingleTapListener() {
 				
 				@Override
 				public void actionPerformed(PointGeometry p) {
@@ -103,9 +111,10 @@ public class Survey {
 					layer.addGeometry(poly);
 					mapView.invalidate();
 				}
-			});
+			};
+			layer.addGeometryLayerSingleTapListener(slistener);
 			
-			layer.addGeometryLayerDoubleTapListener(new GeometryLayerDoubleTapListener() {
+			dlistener = new   GeometryLayerDoubleTapListener() {
 				
 				@Override
 				public void actionPerformed(PointGeometry p) {
@@ -119,7 +128,8 @@ public class Survey {
 					mapView.invalidate();
 
 				}
-			});
+			};
+			layer.addGeometryLayerDoubleTapListener(dlistener);
 		}
 
 	}
@@ -130,5 +140,12 @@ public class Survey {
 	
 	public void removeStopListeners(SurveyStopListener listener){
 		stopListeners.remove(listener);
+	}
+
+	public void stop() {
+		layer.removeGeometryLayerDoubleTapListener(dlistener);
+		layer.removeGeometryLayerSingleTapListener(slistener);
+		stopListeners = new ArrayList<SurveyStopListener>();
+		
 	}
 }

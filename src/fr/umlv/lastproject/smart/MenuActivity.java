@@ -123,6 +123,7 @@ public class MenuActivity extends Activity {
 		mapView.setMapListener(new MapAdapter() {
 			@Override
 			public boolean onScroll(ScrollEvent event) {
+				
 				isMapTracked = false;
 				centerMap.setVisibility(View.VISIBLE);
 				return super.onScroll(event);
