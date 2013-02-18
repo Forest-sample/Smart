@@ -35,8 +35,8 @@
 			<version>r7</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.xmlpursaer.v1</groupId>
-		    <artifactId>xmlparser</artifactId>
+		    <groupId>org.xmlpull.v1</groupId>
+		    <artifactId>xmlpull</artifactId>
 		    <version>1.0.5</version>
 		</dependency>
 
