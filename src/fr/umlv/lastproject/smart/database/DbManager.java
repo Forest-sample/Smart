@@ -329,6 +329,8 @@ public class DbManager {
 
 		ContentValues values = new ContentValues();
 
+		createTableForm(mission.getForm());
+		
 		values.put(MISSIONS_COL_TITLE, mission.getTitle());
 		if (mission.isStatus()) {
 			values.put(MISSIONS_COL_STATUS, 1);

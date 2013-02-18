@@ -25,7 +25,8 @@
     <string name="removeShortcut">Remove shortcut</string>
 
     <string-array name="items">
-		<item>Create mission</item>
+        <item>Create mission</item>
+        <item>Create form</item>
         <item>Point Survay</item>
         <item>Line Survay</item>
         <item>Polygon Survay</item>
@@ -35,13 +36,17 @@
     </string-array>
 
     <string name="title_activity_layers">LayersActivity</string>
-    
     <string name="title_activity_browser">BrowserActivity</string>
     <string name="empty_directory">Empty Directory</string>
     <string name="storage_removed">Storage was removed or unmounted.</string>
     <string name="choose_file">Select a file</string>
-    <string name="error_selecting_file">Error selecting File</string>  
-    <string name="zoomIn">Do you really want to zoom in even if tiles are missing?</string>  
-    <string name="zoomOut">Do you really want to zoom out even if tiles are missing?</string> 
+    <string name="error_selecting_file">Error selecting File</string>
+    <string name="zoomIn">Do you really want to zoom in even if tiles are missing?</string>
+    <string name="zoomOut">Do you really want to zoom out even if tiles are missing?</string>
+    <string name="title_activity_create_form">CreateFormActivity</string>
+    <string name="Coms">Comments</string>
+    <string name="CreateForm">Create Form</string>
+    <string name="AddField">Add a new field</string>
+    <string name="title_activity_add_fieldto_form">AddFieldtoFormActivity</string>
 
 </resources>

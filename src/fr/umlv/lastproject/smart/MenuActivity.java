@@ -23,6 +23,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
+import fr.umlv.lastproject.smart.form.CreateFormActivity;
+import fr.umlv.lastproject.smart.form.Form;
 import fr.umlv.lastproject.smart.form.Mission;
 import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
 
@@ -39,6 +41,12 @@ public class MenuActivity extends Activity {
 	private static final int HOME_VIEW = 1;
 	private static final int LAYERS_VIEW = 2;
 	private SmartMapView mapView;
+	
+	private static final int CREATE_MISSION = 0;
+	private static final int CREATE_FORM = 1;
+	private static final int POINT_SURVAY = 2;
+	private static final int LINE_SURVAY = 3;
+	private static final int POLYGON_SURVAY = 4;
 
 	private MapController mapController;
 	private OverlayManager overlayManager;
@@ -261,25 +269,30 @@ public class MenuActivity extends Activity {
 				Integer index = (Integer) data.getSerializableExtra("position");
 
 				switch (index) {
-				case 0:
+				case CREATE_MISSION:
+					Form f = new Form("FormDefault");
 					Mission.createMission("ma mission thibault yoyo",
-							getApplicationContext(), mapView);
+							this, mapView, f);
 					Mission.getInstance().startMission();
 					overlayManager.add(Mission.getInstance().getPolygonLayer());
 					overlayManager.add(Mission.getInstance().getLineLayer());
 					overlayManager.add(Mission.getInstance().getPointLayer());
 
 					break;
+				case CREATE_FORM:
+					Intent intent = new Intent(MenuActivity.this, CreateFormActivity.class);
+					startActivity(intent);				
 
-				case 1:
+					break;
+				case POINT_SURVAY:
 					Mission.getInstance().startSurvey(GeometryType.POINT);
 					break;
 
-				case 2:
+				case LINE_SURVAY:
 					Mission.getInstance().startSurvey(GeometryType.LINE);
 					break;
 
-				case 3:
+				case POLYGON_SURVAY:
 					Mission.getInstance().startSurvey(GeometryType.POLYGON);
 				default:
 					// Mission.getInstance().stopMission();

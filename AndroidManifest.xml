@@ -30,6 +30,14 @@
             android:name="fr.umlv.lastproject.smart.LayersActivity"
             android:label="@string/title_activity_layers" >
         </activity>
+        <activity
+            android:name="fr.umlv.lastproject.smart.CreateFormActivity"
+            android:label="@string/title_activity_create_form" >
+        </activity>
+        <activity
+            android:name="fr.umlv.lastproject.smart.AddFieldtoFormActivity"
+            android:label="@string/title_activity_add_fieldto_form" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />

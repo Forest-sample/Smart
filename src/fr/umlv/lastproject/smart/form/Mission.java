@@ -55,11 +55,13 @@ public class Mission {
 	 * @param name of the mission
 	 * @param context the context
 	 */
-	private Mission(String name,final Context context, final MapView mapview) {
+	private Mission(String name,final Context context, final MapView mapview, Form f) {
 		
 		this.name = name ;
 		this.context = context;
 		this.mapView = mapview;
+		this.form = f;
+
 		pointLayer = new GeometryLayer(context) ;
 		pointLayer.setType(GeometryType.POINT);
 		pointLayer.setSymbology(new PointSymbology(10, Color.BLACK));
@@ -89,9 +91,9 @@ public class Mission {
 	 * @param mapview of the mission
 	 * @return the new mission
 	 */
-	public static Mission createMission(String name, Context context, MapView mapview){
+	public static Mission createMission(String name, Context context, MapView mapview,  Form f){
 		//if(Mission.getInstance().getStatus()) return null ;
-		mission = new Mission(name, context, mapview);
+		mission = new Mission(name, context, mapview, f);
 		// ecriture en base 
 		DbManager dbm = new DbManager() ;
 		dbm.open(context);
@@ -163,12 +165,36 @@ public class Mission {
 		case LINE:
 			Log.d("", "mission survey line");
 			survey.startSurvey(lineLayer);	
+			survey.addStopListeners(new SurveyStopListener() {
+				@Override
+				public void actionPerformed(Geometry g) {
+					form.openForm(context, g);
+
+				}
+			});
+
 			break;
 		case POINT :
 			survey.startSurvey(pointLayer);
+			survey.addStopListeners(new SurveyStopListener() {
+				@Override
+				public void actionPerformed(Geometry g) {
+					form.openForm(context, g);
+
+				}
+			});
+
 			break ;
 		case POLYGON : 
 			survey.startSurvey(polygonLayer);
+			survey.addStopListeners(new SurveyStopListener() {
+				@Override
+				public void actionPerformed(Geometry g) {
+					form.openForm(context, g);
+
+				}
+			});
+
 			break ;
 		default:
 			break;
