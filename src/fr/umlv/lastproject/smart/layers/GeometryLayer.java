@@ -1,6 +1,7 @@
 package fr.umlv.lastproject.smart.layers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.views.MapView;
@@ -153,7 +154,7 @@ public class GeometryLayer extends Overlay {
 				paint.setStrokeWidth(lineSymbology.getThickness());
 
 				// Récupéartion de la liste de points de la géometrie
-				ArrayList<PointGeometry> linePoints = lineGeometry.getPoints();
+				List<PointGeometry> linePoints = lineGeometry.getPoints();
 
 				for (int j = 0; j < linePoints.size() - 1; j++) {
 
@@ -200,7 +201,7 @@ public class GeometryLayer extends Overlay {
 				paint.setStrokeWidth(polygonSymbology.getThickness());
 
 				// Récupéartion de la liste de points de la géometrie
-				ArrayList<PointGeometry> polygonPoints = polygonGeometry
+				List<PointGeometry> polygonPoints = polygonGeometry
 						.getPoints();
 
 				for (int j = 0; j < polygonPoints.size(); j++) {

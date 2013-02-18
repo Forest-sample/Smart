@@ -2,14 +2,17 @@ package fr.umlv.lastproject.smart.dataimport;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.osmdroid.tileprovider.MapTileProviderBasic;
 import org.osmdroid.views.overlay.Overlay;
+import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.Context;
 import android.util.Log;
 import fr.umlv.lastproject.smart.geotiff.TMSOverlay;
 import fr.umlv.lastproject.smart.geotiff.TMSTileSourceBase;
+import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
 import fr.umlv.lastproject.smart.layers.GeometryLayer;
 import fr.umlv.lastproject.smart.utils.ZIPUtils;
 
@@ -94,6 +97,16 @@ public class DataImport {
 
 	public static GeometryLayer importShapeFile(Context context, String filename) {
 		return ShpImport.getLayerFromShp(filename, context);
+	}
+	
+	public static List<GeometryLayer> importKml(Context context, String filename)
+			throws XmlPullParserException, IOException {
+		return KmlImport.getLayersFromKML(filename, context);
+	}
+
+	public static GeometryLayer importKml(Context context, String filename,
+			GeometryType type) throws XmlPullParserException, IOException {
+		return KmlImport.getLayerFromKML(filename, type, context);
 	}
 
 }

@@ -1,6 +1,7 @@
 package fr.umlv.lastproject.smart.layers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represent the Polygon geometry to draw
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  * 
  */
 public class PolygonGeometry extends Geometry {
-	private ArrayList<PointGeometry> points;
+	private List<PointGeometry> points;
 	
 	public PolygonGeometry(){
 		points = new ArrayList<PointGeometry>();
@@ -22,7 +23,7 @@ public class PolygonGeometry extends Geometry {
 	 * @param points
 	 *            : list of points to draw
 	 */
-	public PolygonGeometry(ArrayList<PointGeometry> points) {
+	public PolygonGeometry(List<PointGeometry> points) {
 		this.points = points;
 		setType(GeometryType.POLYGON);
 
@@ -58,7 +59,7 @@ public class PolygonGeometry extends Geometry {
 	 * 
 	 * @return the list of points
 	 */
-	public ArrayList<PointGeometry> getPoints() {
+	public List<PointGeometry> getPoints() {
 		return this.points;
 	}
 }
