@@ -1,9 +1,12 @@
 package fr.umlv.lastproject.smart.database;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -69,15 +72,22 @@ public class DbManager {
 	private static final String POINTS_COL_ID_GEOMETRY = "idGeometry";
 	private static final int POINTS_NUM_COL_ID_GEOMETRY = 4;
 
+	private static final int TEXT_FIELD = 0;
+	private static final int NUMERIC_FIELD = 1;
+	private static final int BOOLEAN_FIELD = 2;
+	private static final int LIST_FIELD = 3;
+	private static final int PICTURE_FIELD = 4;
+	private static final int HEIGHT_FIELD = 5;
+
 	private DbHelper mDbHelper;
 	private SQLiteDatabase mDb;
 
-	public static String CREATE_TABLE_MISSIONS = "CREATE TABLE IF NOT EXISTS missions ( "
+	private static String CREATE_TABLE_MISSIONS = "CREATE TABLE IF NOT EXISTS missions ( "
 			+ "id INTEGER PRIMARY KEY,"
 			+ "title TEXT UNIQUE,"
 			+ "status INTEGER NOT NULL," + "date TEXT NOT NULL );";
 
-	public static String CREATE_TABLE_GEOMETRIES = "CREATE TABLE IF NOT EXISTS geometries ( "
+	private static String CREATE_TABLE_GEOMETRIES = "CREATE TABLE IF NOT EXISTS geometries ( "
 			+ "id INTEGER PRIMARY KEY,"
 			+ "type INTEGER NOT NULL,"
 			+ "idMission INTEGER NOT NULL,"
@@ -86,7 +96,7 @@ public class DbManager {
 			+ "("
 			+ MISSIONS_COL_ID + "));";
 
-	public static String CREATE_TABLE_POINTS = "CREATE TABLE IF NOT EXISTS points ( "
+	private static String CREATE_TABLE_POINTS = "CREATE TABLE IF NOT EXISTS points ( "
 			+ "id INTEGER PRIMARY KEY,"
 			+ "x REAL NOT NULL,"
 			+ "y REAL NOT NULL,"
@@ -98,7 +108,7 @@ public class DbManager {
 			+ GEOMETRIES_COL_ID + "));";
 
 	/**
-	 * Create the database and the tables
+	 * Create the database and the statics tables
 	 * 
 	 * @author Maelle Cabot
 	 * 
@@ -138,12 +148,6 @@ public class DbManager {
 			SQLiteDatabase dbRetour = null;
 
 			try {
-				// if (!checkDataBase()) {
-				// SQLiteDatabase
-				// .openOrCreateDatabase(DB_PATH + DB_NAME, null);
-				//
-				// }
-
 				dbRetour = SQLiteDatabase.openOrCreateDatabase(DB_PATH
 						+ DB_NAME, null);
 				dbRetour.execSQL(CREATE_TABLE_MISSIONS);
@@ -151,7 +155,6 @@ public class DbManager {
 				dbRetour.execSQL(CREATE_TABLE_POINTS);
 
 			} catch (Exception e) {
-				Log.d("TEST", "SQL invalid");
 			}
 
 			return dbRetour;
@@ -172,6 +175,9 @@ public class DbManager {
 
 	}
 
+	/**
+	 * Close the database
+	 */
 	public void close() {
 		mDb.close();
 	}
@@ -186,35 +192,35 @@ public class DbManager {
 	public int createTableForm(Form f) {
 		SQLiteDatabase db = null;
 		String sql = "CREATE TABLE IF NOT EXISTS " + f.getName()
-				+ "( id INTEGER PRIMARY KEY, ";
+				+ "( id INTEGER PRIMARY KEY, " + "date TEXT NOT NULL, ";
 		List<Field> listFields = f.getFieldsList();
 		for (Field field : listFields) {
 			int typeField = field.getType();
 
 			switch (typeField) {
-			case 0: // TEXT FIELD
+			case TEXT_FIELD:
 				TextField tf = (TextField) field;
 				sql += tf.getLabel() + " TEXT, ";
 				break;
-			case 1: // NUMERIC FIELD
+			case NUMERIC_FIELD:
 				NumericField nf = (NumericField) field;
 				sql += nf.getLabel() + " REAL CHECK (" + nf.getLabel() + " > "
 						+ nf.getMin() + " AND" + nf.getLabel() + " < "
 						+ nf.getMax() + " ),";
 				break;
-			case 2: // BOOLEAN FIELD
+			case BOOLEAN_FIELD:
 				BooleanField bf = (BooleanField) field;
 				sql += bf.getLabel() + " INTEGER,";
 				break;
-			case 3: // LIST FIELD
+			case LIST_FIELD:
 				ListField lf = (ListField) field;
 				sql += lf.getLabel() + " TEXT,";
 				break;
-			case 4: // PICTURE FIELD
+			case PICTURE_FIELD:
 				PictureField pf = (PictureField) field;
 				sql += pf.getLabel() + " TEXT,";
 				break;
-			case 5: // HEIGHT FIELD
+			case HEIGHT_FIELD:
 				HeightField hf = (HeightField) field;
 				sql += hf.getLabel() + " TEXT,";
 				break;
@@ -223,11 +229,10 @@ public class DbManager {
 			}
 		}
 
-		sql += "idMission INTEGER NOT NULL,"
-				+ "FOREIGN KEY (idMission) REFERENCES " + TABLE_MISSIONS + "("
-				+ MISSIONS_COL_ID + "));";
+		sql += "idGeometry INTEGER NOT NULL,"
+				+ "FOREIGN KEY (idGeometry) REFERENCES " + TABLE_GEOMETRIES
+				+ "(" + GEOMETRIES_COL_ID + "));";
 
-		Log.d("TEST", sql);
 		try {
 			db = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null,
 					SQLiteDatabase.OPEN_READWRITE);
@@ -251,43 +256,45 @@ public class DbManager {
 	 *            to insert
 	 * @return 0 if the insertion ok, -1 if it's not
 	 */
-	public int insertFormRecord(FormRecord formRecord) {
+	public int insertFormRecord(FormRecord formRecord, int idGeometry) {
 
 		ContentValues values = new ContentValues();
 
 		List<FieldRecord> fields = new ArrayList<FieldRecord>();
+
 		fields = formRecord.getFields();
+		Log.d("TEST", "f " + fields.toString() + " " + formRecord.getName());
 		for (FieldRecord field : fields) {
 
 			int typeField = field.getField().getType();
 
 			switch (typeField) {
-			case 0: // TEXT FIELD
+			case TEXT_FIELD:
 				TextFieldRecord tf = (TextFieldRecord) field;
 				Log.d("TEST", tf.getField().getLabel() + " " + tf.getValue());
 				values.put(tf.getField().getLabel(), tf.getValue());
 				break;
-			case 1: // NUMERIC FIELD
+			case NUMERIC_FIELD:
 				NumericFieldRecord nf = (NumericFieldRecord) field;
 				Log.d("TEST", nf.getField().getLabel() + " " + nf.getValue());
 
 				values.put(nf.getField().getLabel(), nf.getValue());
 				break;
-			case 2: // BOOLEAN FIELD
+			case BOOLEAN_FIELD:
 				BooleanFieldRecord bf = (BooleanFieldRecord) field;
 				Log.d("TEST", bf.getField().getLabel() + " " + bf.isValue());
 
 				values.put(bf.getField().getLabel(), bf.isValue());
 				break;
-			case 3: // LIST FIELD
+			case LIST_FIELD:
 				ListFieldRecord lf = (ListFieldRecord) field;
 				values.put(lf.getField().getLabel(), lf.getValue());
 				break;
-			case 4: // PICTURE FIELD
+			case PICTURE_FIELD:
 				PictureFieldRecord pf = (PictureFieldRecord) field;
 				values.put(pf.getField().getLabel(), pf.getValue());
 				break;
-			case 5: // HEIGHT FIELD
+			case HEIGHT_FIELD:
 				HeightFieldRecord hf = (HeightFieldRecord) field;
 				Log.d("TEST", hf.getField().getLabel() + " " + hf.getValue());
 
@@ -297,17 +304,16 @@ public class DbManager {
 				break;
 			}
 		}
-
-		values.put("idMission", 1);
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"dd/MM/yyyy HH:mm:ss", Locale.FRENCH);
+		values.put("date", dateFormat.format(new Date()));
+		values.put("idGeometry", idGeometry);
 
 		try {
-			Log.d("TEST", formRecord.getName());
-
 			mDb.insertOrThrow(formRecord.getName(), null, values);
 			return 0;
 
 		} catch (SQLException e) {
-			Log.d("TEST", "doublon");
 			return -1;
 		}
 	}
@@ -321,8 +327,6 @@ public class DbManager {
 	 */
 	public int insertMission(MissionRecord mission) {
 
-		//createTableForm(mission.getForm());
-
 		ContentValues values = new ContentValues();
 
 		values.put(MISSIONS_COL_TITLE, mission.getTitle());
@@ -335,30 +339,31 @@ public class DbManager {
 		try {
 			mDb.insertOrThrow(TABLE_MISSIONS, null, values);
 			int id = getLastIndex(TABLE_MISSIONS);
-			Log.d("","id mission "+id);
 			mission.setId(id);
 			return 0;
 
 		} catch (SQLException e) {
-			Log.d("TEST", "doublon");
 			int id = getMission(Mission.getInstance().getTitle());
-			Log.d("","id mission "+id);
 			mission.setId(id);
-
 			return -1;
 		}
 	}
-	
+
+	/**
+	 * Request the table "missions" with a criterion of name
+	 * 
+	 * @param name
+	 * @return the id of the mission
+	 */
 	public int getMission(String name) {
 
-		Cursor c = mDb
-				.rawQuery(
-						"SELECT "+MISSIONS_COL_ID+" FROM "+TABLE_MISSIONS+" WHERE "+MISSIONS_COL_TITLE+" = '"
-								+ name+"'", null);
+		Cursor c = mDb.rawQuery("SELECT " + MISSIONS_COL_ID + " FROM "
+				+ TABLE_MISSIONS + " WHERE " + MISSIONS_COL_TITLE + " = '"
+				+ name + "'", null);
 
 		c.moveToNext();
 		int id = c.getInt(MISSIONS_NUM_COL_ID);
-		//c.close();
+		c.close();
 		return id;
 	}
 
@@ -367,7 +372,7 @@ public class DbManager {
 	 * 
 	 * @return a list of Mission
 	 */
-	public LinkedList<MissionRecord> getAllMissions() {
+	public List<MissionRecord> getAllMissions() {
 
 		Cursor c = mDb.query(TABLE_MISSIONS, new String[] { MISSIONS_COL_ID,
 				MISSIONS_COL_TITLE, MISSIONS_COL_STATUS, MISSIONS_COL_DATE },
@@ -389,9 +394,9 @@ public class DbManager {
 	 * @return a Mission object
 	 */
 	private MissionRecord cursorToMission(Cursor c) {
-		if (c.getCount() == 0)
+		if (c.getCount() == 0) {
 			return null;
-
+		}
 		MissionRecord mission = new MissionRecord();
 
 		mission.setId(c.getInt(MISSIONS_NUM_COL_ID));
@@ -415,8 +420,8 @@ public class DbManager {
 	public int insertGeometry(GeometryRecord geometry) {
 
 		ContentValues values = new ContentValues();
-		
-		int type ;
+
+		int type;
 		switch (geometry.getType()) {
 		case POINT:
 			type = 0;
@@ -427,25 +432,21 @@ public class DbManager {
 		case POLYGON:
 			type = 2;
 			break;
-
-
 		default:
 			type = 0;
 		}
-		
-		values.put(GEOMETRIES_COL_TYPE, type);
-		Log.d("", "id g :"+geometry.getIdMission());
 
+		values.put(GEOMETRIES_COL_TYPE, type);
 		values.put(GEOMETRIES_COL_ID_MISSION, geometry.getIdMission());
 
 		try {
 			mDb.insertOrThrow(TABLE_GEOMETRIES, null, values);
 			int id = getLastIndex(TABLE_GEOMETRIES);
-			for(PointRecord pr : geometry.getPointsRecord()){
+			for (PointRecord pr : geometry.getPointsRecord()) {
 				pr.setIdGeometry(id);
 				insertPoint(pr);
 			}
-			return 0;
+			return id;
 
 		} catch (SQLException e) {
 			Log.d("TEST", "doublon");
@@ -458,7 +459,7 @@ public class DbManager {
 	 * 
 	 * @return a list of Geometry
 	 */
-	public LinkedList<GeometryRecord> getAllGeometries() {
+	public List<GeometryRecord> getAllGeometries() {
 
 		Cursor c = mDb.query(TABLE_GEOMETRIES, new String[] {
 				GEOMETRIES_COL_ID, GEOMETRIES_COL_TYPE,
@@ -480,12 +481,12 @@ public class DbManager {
 	 * @return a Geometry object
 	 */
 	private GeometryRecord cursorToGeometry(Cursor c) {
-		if (c.getCount() == 0)
+		if (c.getCount() == 0) {
 			return null;
-
+		}
 		GeometryRecord geometry = new GeometryRecord();
 
-		GeometryType type ;
+		GeometryType type;
 		switch (c.getInt(GEOMETRIES_NUM_COL_TYPE)) {
 		case 0:
 			type = GeometryType.POINT;
@@ -497,7 +498,6 @@ public class DbManager {
 			type = GeometryType.POLYGON;
 			break;
 
-
 		default:
 			type = GeometryType.POINT;
 		}
@@ -505,8 +505,6 @@ public class DbManager {
 		geometry.setId(c.getInt(GEOMETRIES_NUM_COL_ID));
 		geometry.setType(type);
 		geometry.setIdMission(c.getInt(GEOMETRIES_NUM_COL_ID_MISSION));
-		
-		
 
 		return geometry;
 	}
@@ -542,7 +540,7 @@ public class DbManager {
 	 * 
 	 * @return a list of Geometry
 	 */
-	public LinkedList<PointRecord> getAllPoints() {
+	public List<PointRecord> getAllPoints() {
 
 		Cursor c = mDb.query(TABLE_POINTS, new String[] { POINTS_COL_ID,
 				POINTS_COL_X, POINTS_COL_Y, POINTS_COL_Z,
@@ -556,7 +554,13 @@ public class DbManager {
 		return points;
 	}
 
-	public LinkedList<PointRecord> getGeometriesPointsOfMission(int idMission) {
+	/**
+	 * Request the table "points" in terms of the mission id
+	 * 
+	 * @param idMission
+	 * @return a list of PointRecord
+	 */
+	public List<PointRecord> getGeometriesPointsOfMission(int idMission) {
 		LinkedList<PointRecord> points = new LinkedList<PointRecord>();
 
 		Cursor c = mDb
@@ -578,9 +582,9 @@ public class DbManager {
 	 * @return a Point object
 	 */
 	private PointRecord cursorToPoint(Cursor c) {
-		if (c.getCount() == 0)
+		if (c.getCount() == 0) {
 			return null;
-
+		}
 		PointRecord point = new PointRecord();
 		point.setId(c.getInt(POINTS_NUM_COL_ID));
 		point.setX(c.getDouble(POINTS_NUM_COL_X));
@@ -590,15 +594,19 @@ public class DbManager {
 
 		return point;
 	}
-	
+
+	/**
+	 * Request the last index assigned to a table
+	 * 
+	 * @param table
+	 * @return the id of the last index
+	 */
 	public int getLastIndex(String table) {
-		Cursor c = mDb
-				.rawQuery(
-						"SELECT last_insert_rowid() FROM "
-								+ table, null);
+		Cursor c = mDb.rawQuery("SELECT last_insert_rowid() FROM " + table,
+				null);
 		c.moveToNext();
 		int id = c.getInt(0);
-		
+
 		return id;
 	}
 

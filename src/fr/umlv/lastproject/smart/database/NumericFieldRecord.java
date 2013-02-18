@@ -2,6 +2,12 @@ package fr.umlv.lastproject.smart.database;
 
 import fr.umlv.lastproject.smart.form.Field;
 
+/**
+ * Class uses to model a record of numeric field
+ * 
+ * @author Maellou
+ * 
+ */
 public class NumericFieldRecord extends FieldRecord {
 
 	private double value;

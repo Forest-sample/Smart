@@ -198,4 +198,8 @@ public class Mission {
 		this.id = id;
 		Log.d("", "id mission setid"+id);
 	}
+	
+	public int getId(){
+		return id;
+	}
 }

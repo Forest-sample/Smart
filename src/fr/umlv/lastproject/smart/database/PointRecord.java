@@ -2,6 +2,12 @@ package fr.umlv.lastproject.smart.database;
 
 import fr.umlv.lastproject.smart.layers.PointGeometry;
 
+/**
+ * Object Point which can be stored in table "points"
+ * 
+ * @author Maellou
+ * 
+ */
 public class PointRecord {
 
 	private int id;
@@ -12,15 +18,14 @@ public class PointRecord {
 
 	public PointRecord() {
 	}
-	
-	public PointRecord(PointGeometry p) {
-		
-		this.x = p.getLatitude() /1E6 ;
-		this.y = p.getLongitude() /1E6 ;
-		this.z = -1 ;
-		
-	}
 
+	public PointRecord(PointGeometry p) {
+
+		this.x = p.getLatitude() / 1E6;
+		this.y = p.getLongitude() / 1E6;
+		this.z = -1;
+
+	}
 
 	public PointRecord(double x, double y, double z) {
 		super();

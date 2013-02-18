@@ -15,12 +15,13 @@ public class ListField extends Field {
 	 * 
 	 */
 	private static final long serialVersionUID = 1340773531544440170L;
+	private static final int LIST_TYPE = 3;
 	private List<String> values;
 
-	public ListField(String label, List<String> values) {
-		super(label, 3);
-		values = new ArrayList<String>();
-		values.addAll(values);
+	public ListField(String label, List<String> list) {
+		super(label, LIST_TYPE);
+		list = new ArrayList<String>();
+		list.addAll(values);
 	}
 
 	public List<String> getValues() {

@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import android.util.Log;
-
 import fr.umlv.lastproject.smart.form.Form;
 import fr.umlv.lastproject.smart.form.Mission;
 
@@ -19,24 +18,22 @@ public class MissionRecord {
 
 	private int id;
 	private String title;
-	private boolean status; // True if the mission is in progress
+
+	// True if the mission is in progress
+	private boolean status;
 	private String date;
 	private Form form;
 
-
 	public MissionRecord() {
 		this.title = Mission.getInstance().getTitle();
-		Log.d("", "id"+this.title);
+		Log.d("", "id" + this.title);
 		this.status = true;
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
 				"dd/MM/yyyy HH:mm:ss", Locale.FRENCH);
 		this.date = dateFormat.format(new Date());
 		this.form = Mission.getInstance().getForm();
 
-		
 	}
-
-	
 
 	public int getId() {
 		return id;
@@ -78,6 +75,5 @@ public class MissionRecord {
 	public void setForm(Form form) {
 		this.form = form;
 	}
-	
 
 }

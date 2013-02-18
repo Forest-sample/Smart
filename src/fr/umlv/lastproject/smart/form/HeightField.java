@@ -12,9 +12,10 @@ public class HeightField extends Field {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static int HEIGHT_TYPE = 5;
 
 	public HeightField() {
-		super("Height", 5);
+		super("Height", HEIGHT_TYPE);
 	}
 
 }
