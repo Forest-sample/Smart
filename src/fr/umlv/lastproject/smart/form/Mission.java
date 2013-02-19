@@ -2,7 +2,6 @@ package fr.umlv.lastproject.smart.form;
 
 import org.osmdroid.views.MapView;
 
-import android.R.string;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
@@ -10,9 +9,9 @@ import fr.umlv.lastproject.smart.database.DbManager;
 import fr.umlv.lastproject.smart.database.GeometryRecord;
 import fr.umlv.lastproject.smart.database.MissionRecord;
 import fr.umlv.lastproject.smart.layers.Geometry;
+import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
 import fr.umlv.lastproject.smart.layers.GeometryLayer;
 import fr.umlv.lastproject.smart.layers.LineSymbology;
-import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
 import fr.umlv.lastproject.smart.layers.PointSymbology;
 import fr.umlv.lastproject.smart.layers.PolygonSymbology;
 import fr.umlv.lastproject.smart.survey.Survey;
@@ -22,7 +21,7 @@ import fr.umlv.lastproject.smart.survey.SurveyStopListener;
 /**
  * This class is used to create a mission 
  * 
- * @author thibault
+ * @author thibault, maelle cabot
  *
  */
 public class Mission {

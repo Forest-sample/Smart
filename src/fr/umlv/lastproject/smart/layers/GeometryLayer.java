@@ -26,14 +26,15 @@ import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
  */
 public class GeometryLayer extends Overlay {
 
+	private static final double VALUE_1E6 = 1E6;
 	private GeometryType type;
 	private ArrayList<Geometry> geometries;
 	private Projection projection;
 	private Paint paint;
 	private Symbology symbology;
 	private boolean editable = false;
-	private ArrayList<GeometryLayerSingleTapListener> singleTapListeners = new ArrayList<GeometryLayerSingleTapListener>();
-	private ArrayList<GeometryLayerDoubleTapListener> doubleTapListeners = new ArrayList<GeometryLayerDoubleTapListener>();
+	private List<GeometryLayerSingleTapListener> singleTapListeners = new ArrayList<GeometryLayerSingleTapListener>();
+	private List<GeometryLayerDoubleTapListener> doubleTapListeners = new ArrayList<GeometryLayerDoubleTapListener>();
 
 	/**
 	 * 
@@ -47,7 +48,7 @@ public class GeometryLayer extends Overlay {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ArrayList<Geometry> getGeometries() {
+	public List<Geometry> getGeometries() {
 		return geometries;
 	}
 
@@ -125,12 +126,12 @@ public class GeometryLayer extends Overlay {
 		paint = new Paint();
 		paint.setColor(getSymbology().getColor());
 
-		for (int i = 0; i < geometries.size(); i++) {
+		for (Geometry geometry : geometries) {
 
 			switch (type) {
 			case POINT:
 				// Récupération de la géometrie et de la symbologie
-				PointGeometry pointGeometry = (PointGeometry) geometries.get(i);
+				PointGeometry pointGeometry = (PointGeometry) geometry;
 				PointSymbology pointSymbology = (PointSymbology) symbology;
 				int radius = pointSymbology.getRadius();
 
@@ -149,7 +150,7 @@ public class GeometryLayer extends Overlay {
 
 			case LINE:
 				// Récupération de la géometrie et de sa symbologie
-				LineGeometry lineGeometry = (LineGeometry) geometries.get(i);
+				LineGeometry lineGeometry = (LineGeometry) geometry;
 				LineSymbology lineSymbology = (LineSymbology) symbology;
 				paint.setStrokeWidth(lineSymbology.getThickness());
 
@@ -195,14 +196,14 @@ public class GeometryLayer extends Overlay {
 
 				Log.d("", "polygon draw");
 				// Récupération de la géometrie et de sa symbologie
-				PolygonGeometry polygonGeometry = (PolygonGeometry) geometries
-						.get(i);
+				PolygonGeometry polygonGeometry = (PolygonGeometry) geometry;
+
 				PolygonSymbology polygonSymbology = (PolygonSymbology) symbology;
 				paint.setStrokeWidth(polygonSymbology.getThickness());
 
 				// Récupéartion de la liste de points de la géometrie
-				List<PointGeometry> polygonPoints = polygonGeometry
-						.getPoints();
+				List<PointGeometry> polygonPoints = polygonGeometry.getPoints();
+
 
 				for (int j = 0; j < polygonPoints.size(); j++) {
 
@@ -262,8 +263,8 @@ public class GeometryLayer extends Overlay {
 			float y = e.getY();
 
 			IGeoPoint p = mapView.getProjection().fromPixels(x, y);
-			float latitude = (float) (p.getLatitudeE6() / 1E6);
-			float longitude = (float) (p.getLongitudeE6() / 1E6);
+			float latitude = (float) (p.getLatitudeE6() / VALUE_1E6);
+			float longitude = (float) (p.getLongitudeE6() / VALUE_1E6);
 
 			for (int i = 0; i < singleTapListeners.size(); i++) {
 				doubleTapListeners.get(i).actionPerformed(
@@ -282,8 +283,8 @@ public class GeometryLayer extends Overlay {
 			float y = e.getY();
 
 			IGeoPoint p = mapView.getProjection().fromPixels(x, y);
-			float latitude = (float) (p.getLatitudeE6() / 1E6);
-			float longitude = (float) (p.getLongitudeE6() / 1E6);
+			float latitude = (float) (p.getLatitudeE6() / VALUE_1E6);
+			float longitude = (float) (p.getLongitudeE6() / VALUE_1E6);
 
 			for (int i = 0; i < singleTapListeners.size(); i++) {
 				singleTapListeners.get(i).actionPerformed(

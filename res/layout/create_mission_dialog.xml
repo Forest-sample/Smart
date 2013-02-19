@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/createMissionLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/spinner"
+    android:orientation="vertical" >
+
+    <TableRow
+        android:id="@+id/createMissionRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dip" >
+
+        <TextView
+            android:id="@+id/missionNameLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:text="@string/missionName" />
+
+        <EditText
+            android:id="@+id/missionNameValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="text"
+            android:padding="10dip" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/selectMissionRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dip" >
+
+        <TextView
+            android:id="@+id/selectFormLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:padding="10dip"
+            android:text="@string/selectForm" />
+
+       
+
+            <RadioGroup
+                android:id="@+id/radioForm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <RadioButton
+                    android:id="@+id/defaultForm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/defaultForm" />
+
+                <RadioButton
+                    android:id="@+id/otherForm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/othertForm" />
+            </RadioGroup>
+
+        
+    </TableRow>
+
+    <Button
+            android:id="@+id/selectFormButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dip"
+            android:text="@string/formBrowser"
+            android:visibility="gone" />
+    
+    <TextView
+        android:id="@+id/formPath"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:maxWidth="50dp"
+        android:padding="10dip"
+        android:visibility="gone" />
+
+</TableLayout>

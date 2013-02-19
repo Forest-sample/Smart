@@ -1,11 +1,10 @@
 package fr.umlv.lastproject.smart;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -15,12 +14,24 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import fr.umlv.lastproject.smart.utils.SmartConstants;
 
+/**
+ * This class is the Home Activity, where all SMART fonctionnalities is
+ * available
+ * 
+ * @author Fad's
+ * 
+ */
 public class HomeActivity extends Activity {
 
 	private ListView listView;
-	private ArrayList<HashMap<String, String>> listItem;
+	private List<ListViewItem> listItem;
+	private String[] items;
+	private boolean enabled;
+
+	// public static final Integer[] images = { R.drawable.smart,
+	//             R.drawable.smart, R.drawable.orange, R.drawable.mixed };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,73 +39,64 @@ public class HomeActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_home);
 
-		listView = (ListView) findViewById(R.id.listView);
+		// Retry the mission status
+		enabled = getIntent().getExtras().getBoolean("missionCreated");
 
-		// ArrayList qui permet de remplir la ListView
-		listItem = new ArrayList<HashMap<String, String>>();
+		// Retry the list of functionalities names
+		items = getResources().getStringArray(R.array.items);
 
-		String[] items = getResources().getStringArray(R.array.items);
-		int[] itemsIcon = new int[] { R.drawable.centermap, R.drawable.smart,
-				R.drawable.layers, R.drawable.home };
+		listItem = new ArrayList<ListViewItem>();
+		for (int i = 0; i < items.length; i++) {
+			ListViewItem item;
 
-		int index = 0;
-		// Création des items pour la listView
-		for (String item : items) {
-			ListViewItem itemToAdd = new ListViewItem(item,
-					String.valueOf(itemsIcon[index]));
-			listItem.add(itemToAdd.getItem());
+			switch (i) {
+			case SmartConstants.CREATE_MISSION:
+				if (enabled) {
+					item = new ListViewItem(R.drawable.centermap,
+							getString(R.string.stopMission), enabled);
+				} else
+					item = new ListViewItem(R.drawable.centermap, items[i],
+							!enabled);
+				break;
+
+			case SmartConstants.POINT_SURVEY:
+				item = new ListViewItem(R.drawable.centermap, items[i], enabled);
+				break;
+
+			case SmartConstants.LINE_SURVEY:
+				item = new ListViewItem(R.drawable.centermap, items[i], enabled);
+				break;
+
+			case SmartConstants.POLYGON_SURVEY:
+				item = new ListViewItem(R.drawable.centermap, items[i], enabled);
+				break;
+			default:
+				item = new ListViewItem(R.drawable.centermap, items[i], true);
+				break;
+			}
+
+			listItem.add(item);
+			item.setImageId(R.drawable.smart);
 		}
 
-		// Création d'un SimpleAdapter qui se chargera de mettre les items
-		// présent dans notre list (listItem) dans la vue listview_items
-		SimpleAdapter simpleAdapter = new SimpleAdapter(this.getBaseContext(),
-				listItem, R.layout.listview_items,
-				new String[] { "img", "name" }, new int[] { R.id.function_icon,
-						R.id.function_name });
-
-		// On attribut à notre listView l'adapter que l'on vient de créer
-		listView.setAdapter(simpleAdapter);
-
-		registerForContextMenu(listView);
-
-		// Listener d'évènement sur notre listView
+		listView = (ListView) findViewById(R.id.listView);
+		SmartItemAdapter adapter = new SmartItemAdapter(this,
+				R.layout.listview_home_items, listItem);
+		listView.setAdapter(adapter);
+		listView.setClickable(false);
 		listView.setOnItemClickListener(new OnItemClickListener() {
+
 			@Override
-			public void onItemClick(AdapterView<?> a, View v, int position,
-					long id) {
-				// on récupère la HashMap contenant les infos de notre item
-				// (name, img)
-
-				@SuppressWarnings("unchecked")
-				HashMap<String, Drawable> map = (HashMap<String, Drawable>) listView
-						.getItemAtPosition(position);
-
+			public void onItemClick(AdapterView<?> adapter, View view,
+					int position, long id) {
 				Intent intentReturn = new Intent(HomeActivity.this,
 						MenuActivity.class);
-				intentReturn.putExtra("function",
-						(CharSequence) map.get("name"));
+				intentReturn.putExtra("function", items[position]);
 				intentReturn.putExtra("position", position);
 				setResult(RESULT_OK, intentReturn);
+				view.setEnabled(false);
 				finish();
 
-				// AlertDialog.Builder adb = new AlertDialog.Builder(
-				// HomeActivity.this);
-				// adb.setTitle("Sélection Item");
-				// adb.setMessage("Votre choix : " + map.get("name"));
-				// adb.setPositiveButton("Ok", null);
-				// adb.setOnKeyListener(new OnKeyListener() {
-				//
-				// @Override
-				// public boolean onKey(DialogInterface dialog, int keyCode,
-				// KeyEvent event) {
-				//
-				// Intent intent = new Intent(HomeActivity.this,
-				// LayersActivity.class);
-				// startActivity(intent);
-				// return false;
-				// }
-				// });
-				// adb.show();
 			}
 		});
 	}

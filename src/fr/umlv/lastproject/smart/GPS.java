@@ -1,6 +1,8 @@
 package fr.umlv.lastproject.smart;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import android.location.Criteria;
 import android.location.Location;
@@ -17,8 +19,9 @@ public class GPS {
 	private float accuracy;
 	private float bearing;
 	private float speed;
+	private Date time;
 
-	private ArrayList<IGPSListener> GPSListeners = new ArrayList<IGPSListener>();
+	private List<IGPSListener> GPSListeners = new ArrayList<IGPSListener>();
 
 	/**
 	 * GPS Constructor
@@ -27,6 +30,9 @@ public class GPS {
 	 *            : LocationManager of the GPS
 	 */
 	public GPS(LocationManager lm) {
+		if(lm==null){
+			throw new IllegalArgumentException();
+		}
 		this.locationManager = lm;
 		this.criteria = new Criteria();
 		this.criteria.setAltitudeRequired(false);
@@ -91,6 +97,7 @@ public class GPS {
 
 					@Override
 					public void onLocationChanged(Location location) {
+						
 
 						longitude = location.getLongitude();
 						latitude = location.getLatitude();
@@ -98,11 +105,12 @@ public class GPS {
 						accuracy = location.getAccuracy();
 						bearing = location.getBearing();
 						speed = location.getSpeed();
+						time=new Date(location.getTime());
 
 						for (int i = 0; i < GPSListeners.size(); i++) {
 							GPSListeners.get(i).actionPerformed(
 									new GPSEvent(latitude, longitude, altitude,
-											accuracy, bearing, speed));
+											accuracy, bearing, speed,time));
 						}
 
 					}
@@ -117,6 +125,10 @@ public class GPS {
 	 */
 	public void addGPSListener(IGPSListener listener) {
 		GPSListeners.add(listener);
+	}
+	
+	public void removeGPSListener(IGPSListener listener){
+		GPSListeners.remove(listener);
 	}
 
 	/**

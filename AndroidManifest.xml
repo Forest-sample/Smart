@@ -38,6 +38,16 @@
             android:name="fr.umlv.lastproject.smart.form.AddFieldtoFormActivity"
             android:label="@string/title_activity_add_fieldto_form" >
         </activity>
+        <activity
+            android:name="fr.umlv.lastproject.smart.browser.FileChooserActivity"
+            android:label="@string/title_activity_browser" >
+            <intent-filter>
+                <action android:name="fr.umlv.lastproject.smart.browser"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.OPENABLE"/>
+                <data android:mimeType="*/*"/>
+            </intent-filter>
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />

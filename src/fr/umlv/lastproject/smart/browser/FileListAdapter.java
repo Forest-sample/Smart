@@ -42,8 +42,9 @@ import android.widget.TextView;
  */
 public class FileListAdapter extends BaseAdapter {
 
-	private final static int ICON_FOLDER = R.drawable.ic_folder;
-	private final static int ICON_FILE = R.drawable.ic_file;
+	private static final int ICON_FOLDER = R.drawable.ic_folder;
+	private static final int ICON_FILE = R.drawable.ic_file;
+
 
 	private List<File> mFiles = new ArrayList<File>();
 	private LayoutInflater mInflater;

@@ -2,6 +2,7 @@ package fr.umlv.lastproject.smart;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.io.IOException;
 
 import org.osmdroid.events.MapAdapter;
 import org.osmdroid.events.ScrollEvent;
@@ -19,14 +20,18 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ImageButton;
 import fr.umlv.lastproject.smart.database.DbManager;
 import fr.umlv.lastproject.smart.database.FormRecord;
@@ -36,11 +41,20 @@ import fr.umlv.lastproject.smart.form.BooleanField;
 import fr.umlv.lastproject.smart.form.CreateFormActivity;
 import fr.umlv.lastproject.smart.form.Form;
 import fr.umlv.lastproject.smart.form.ListField;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
+import android.widget.Toast;
+import fr.umlv.lastproject.smart.GPSTrack.TRACK_MODE;
+import fr.umlv.lastproject.smart.browser.utils.FileUtils;
+import fr.umlv.lastproject.smart.dialog.AlertTrackDialog;
 import fr.umlv.lastproject.smart.form.Mission;
 import fr.umlv.lastproject.smart.form.NumericField;
 import fr.umlv.lastproject.smart.form.PictureField;
 import fr.umlv.lastproject.smart.form.TextField;
 import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
+import fr.umlv.lastproject.smart.utils.SmartConstants;
+
 
 public class MenuActivity extends Activity {
 
@@ -71,7 +85,13 @@ public class MenuActivity extends Activity {
 	private View centerMap;
 	private boolean isMapTracked = true;
 	private GeoPoint lastPosition = new GeoPoint(0, 0);
+	private boolean missionCreated = false;
 
+	private TextView formPath;
+	private String missionName;
+	
+	private GPSTrack gpsTrack;
+	private static final int GPS_TRACK=5;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -84,8 +104,10 @@ public class MenuActivity extends Activity {
 		home.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent home = new Intent(MenuActivity.this, HomeActivity.class);
-				startActivityForResult(home, HOME_VIEW);
+				Intent homeActivity = new Intent(MenuActivity.this,
+						HomeActivity.class);
+				homeActivity.putExtra("missionCreated", missionCreated);
+				startActivityForResult(homeActivity, SmartConstants.HOME_VIEW);
 			}
 		});
 
@@ -93,9 +115,10 @@ public class MenuActivity extends Activity {
 		layers.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent home = new Intent(MenuActivity.this,
+				Intent layersActivity = new Intent(MenuActivity.this,
 						LayersActivity.class);
-				startActivityForResult(home, LAYERS_VIEW);
+				startActivityForResult(layersActivity,
+						SmartConstants.LAYERS_VIEW);
 			}
 		});
 	}
@@ -135,7 +158,7 @@ public class MenuActivity extends Activity {
 		mapView.setTileSource(TileSourceFactory.MAPNIK);
 		mapView.setClickable(true);
 		mapView.setMultiTouchControls(true);
-		mapController.setZoom(15);
+		mapController.setZoom(SmartConstants.DEFAULT_ZOOM);
 		overlayManager.add(new ScaleBarOverlay(this));
 
 		directedLocationOverlay = new DirectedLocationOverlay(this);
@@ -226,7 +249,8 @@ public class MenuActivity extends Activity {
 			alertDialog.show();
 		}
 
-		gps.start(5000, 10);
+		gps.start(SmartConstants.GPS_REFRESH_TIME,
+				SmartConstants.GPS_REFRESH_DISTANCE);
 		gps.addGPSListener(new IGPSListener() {
 
 			@Override
@@ -273,39 +297,111 @@ public class MenuActivity extends Activity {
 
 		return super.onOptionsItemSelected(item);
 	}
+	
+	public void openMisisonDialog() {
+		LayoutInflater inflater = LayoutInflater.from(this);
+		final View createMissionDialog = inflater.inflate(
+				R.layout.create_mission_dialog, null);
+
+		final Context c = this;
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setView(createMissionDialog);
+		builder.setTitle(R.string.mission);
+
+		final Button openBrowser = (Button) createMissionDialog
+				.findViewById(R.id.selectFormButton);
+		formPath = (TextView) createMissionDialog.findViewById(R.id.formPath);
+
+		final TextView textViewMissionName = ((TextView) createMissionDialog
+				.findViewById(R.id.missionNameValue));
+
+		RadioGroup radioForm = (RadioGroup) createMissionDialog
+				.findViewById(R.id.radioForm);
+
+		radioForm.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				if (openBrowser.getVisibility() == View.GONE) {
+					openBrowser.setVisibility(View.VISIBLE);
+					formPath.setVisibility(View.VISIBLE);
+				} else {
+					openBrowser.setVisibility(View.GONE);
+					formPath.setVisibility(View.GONE);
+				}
+
+			}
+		});
+
+		openBrowser.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = FileUtils.createGetContentIntent(
+						FileUtils.XML_TYPE,
+						Environment.getExternalStorageDirectory() + "");
+				startActivityForResult(intent, SmartConstants.BROWSER_ACTIVITY);
+			}
+		});
+
+		builder.setPositiveButton(R.string.validate, new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				missionName = textViewMissionName.getText().toString();
+				Form f = new Form("pouet");
+				f.addField(new TextField("toto"));
+				Mission.createMission(missionName, c,
+						mapView, f);
+				missionCreated = Mission.getInstance().startMission();
+				overlayManager.add(Mission.getInstance().getPolygonLayer());
+				overlayManager.add(Mission.getInstance().getLineLayer());
+				overlayManager.add(Mission.getInstance().getPointLayer());
+			}
+		});
+		builder.show();
+	}
+
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-		if (requestCode == 1) {
-			if (resultCode == RESULT_OK) {
-				String s = (String) data.getSerializableExtra("function");
+		if (resultCode == RESULT_OK) {
+			switch (requestCode) {
+			case SmartConstants.HOME_VIEW:
 				Integer index = (Integer) data.getSerializableExtra("position");
 
 				switch (index) {
-				case CREATE_MISSION:
-					Form f = new Form("MonForm");
-					f.addField(new TextField("titi"));
-					f.addField(new NumericField("toto", 5, 10));
-					f.addField(new BooleanField("alors"));
-					List<String> l = new LinkedList<String>();
-					l.add("pouet");
-					l.add("pouet2");
+				case SmartConstants.CREATE_MISSION:
+					if (missionCreated) {
+						missionCreated = Mission.getInstance().stopMission();
+
+					} else {
+						openMisisonDialog();
+
+					}
+//					Form f = new Form("MonForm");
+//					f.addField(new TextField("titi"));
+//					f.addField(new NumericField("toto", 5, 10));
+//					f.addField(new BooleanField("alors"));
+//					List<String> l = new LinkedList<String>();
+//					l.add("pouet");
+//					l.add("pouet2");
 
 					//f.addField(new ListField("liste", l));
 
 
 					
 					
-					Mission.createMission("ma mission thibault yoyo",
-							this, mapView, f);
-					Mission.getInstance().startMission();
-					overlayManager.add(Mission.getInstance().getPolygonLayer());
-					overlayManager.add(Mission.getInstance().getLineLayer());
-					overlayManager.add(Mission.getInstance().getPointLayer());
+//					Mission.createMission("ma mission thibault yoyo",
+//							this, mapView, f);
+//					Mission.getInstance().startMission();
+//					overlayManager.add(Mission.getInstance().getPolygonLayer());
+//					overlayManager.add(Mission.getInstance().getLineLayer());
+//					overlayManager.add(Mission.getInstance().getPointLayer());
 
 					break;
-				case CREATE_FORM:
+				case SmartConstants.CREATE_FORM:
 					LayoutInflater factory = LayoutInflater.from(this);
 					final View alertDialogView = factory.inflate(
 							fr.umlv.lastproject.smart.R.layout.name_form,
@@ -337,21 +433,35 @@ public class MenuActivity extends Activity {
 					});
 					adb.show();
 					
-					
-					
-								
-
 					break;
-				case POINT_SURVAY:
+				case SmartConstants.POINT_SURVEY:
 					Mission.getInstance().startSurvey(GeometryType.POINT);
 					break;
 
-				case LINE_SURVAY:
+				case SmartConstants.LINE_SURVEY:
 					Mission.getInstance().startSurvey(GeometryType.LINE);
 					break;
 
-				case POLYGON_SURVAY:
+				case SmartConstants.POLYGON_SURVEY:
 					Mission.getInstance().startSurvey(GeometryType.POLYGON);
+					break;
+				case GPS_TRACK:
+					if(gpsTrack==null){
+						final AlertTrackDialog trackDialog=new AlertTrackDialog(this);
+						trackDialog.show();
+						break;
+					}
+					else{
+						try {
+							gpsTrack.stopTrack();
+							gpsTrack=null;
+						} catch (IOException e) {
+							gpsTrack=null;
+							Toast.makeText(this, R.string.track_error, Toast.LENGTH_LONG).show();
+						}
+						
+					}
+					break;
 				default:
 					// Mission.getInstance().stopMission();
 					break;
@@ -360,5 +470,9 @@ public class MenuActivity extends Activity {
 			}
 		}
 	}
-
+	public void createGPSTrack(final String name, final TRACK_MODE trackMode) {
+		gpsTrack=new GPSTrack(trackMode, name, locationManager, mapView);
+		gpsTrack.startTrack();
+		
+	}
 }

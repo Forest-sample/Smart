@@ -32,9 +32,9 @@ public class MimeTypes {
 	
 	public void put(String type, String extension) {
 		// Convert extensions to lower case letters for easier comparison
-		extension = extension.toLowerCase();
-		
-		mMimeTypes.put(type, extension);
+		//extension = extension.toLowerCase();
+		final String newExtension=extension.toLowerCase();
+		mMimeTypes.put(type, newExtension);
 	}
 	
 	public String getMimeType(String filename) {
@@ -57,7 +57,9 @@ public class MimeTypes {
 		
 		String mimetype = mMimeTypes.get(extension);
 		
-		if(mimetype==null) mimetype = "*/*";
+		if(mimetype==null) {
+			mimetype = "*/*";
+		}
 		
 		return mimetype;
 	}

@@ -6,7 +6,11 @@ import org.osmdroid.views.overlay.TilesOverlay;
 import android.content.Context;
 import android.graphics.Color;
 
-
+/**
+ * Main class to import GeotTIFF Tiles
+ * @author Marc
+ *
+ */
 public class TMSOverlay extends TilesOverlay {
 
 	private final int zoomLevelMax, zoomLevelMin;

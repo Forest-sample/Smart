@@ -35,7 +35,7 @@ public class ZIPUtils {
 	 *         zoom
 	 * @throws IOException
 	 */
-	public Object[] compress(final String directory) throws IOException {
+	public static Object[] compress(final String directory) throws IOException {
 
 		if (directory == null)
 			throw new IllegalArgumentException();
@@ -89,7 +89,7 @@ public class ZIPUtils {
 
 	}
 
-	private List<String> listFiles(String directory, boolean root) {
+	private static List<String> listFiles(String directory, boolean root) {
 		final File file = new File(directory);
 
 		final List<String> files = new ArrayList<String>();
@@ -110,7 +110,7 @@ public class ZIPUtils {
 	 * 
 	 * @return
 	 */
-	private Object[] getTilesMetaData(final String directory) {
+	private static Object[] getTilesMetaData(final String directory) {
 		final Object[] metaData = new Object[4];
 
 		final File file = new File(directory);
@@ -144,7 +144,7 @@ public class ZIPUtils {
 
 	}
 
-	private String getExtension(File file) {
+	private static String getExtension(File file) {
 		String extension = null;
 		if (file.isFile())
 			return FileUtils.getExtension(file.toString());

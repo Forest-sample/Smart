@@ -68,16 +68,10 @@ public class MimeTypeParser {
 			String tag = mXpp.getName();
 
 			if (eventType == XmlPullParser.START_TAG) {
-				if (tag.equals(TAG_MIMETYPES)) {
-					
-				} else if (tag.equals(TAG_TYPE)) {
+				 if (tag.equals(TAG_TYPE)) {
 					addMimeTypeStart();
 				}
-			} else if (eventType == XmlPullParser.END_TAG) {
-				if (tag.equals(TAG_MIMETYPES)) {
-					
-				}
-			}
+			} 
 
 			eventType = mXpp.next();
 		}

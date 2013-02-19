@@ -19,6 +19,7 @@
     <string name="exitMsg">Êtes-vous sûr de vouloir quitter SMART ?</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
+    <string name="option">Option</string>
     
     <string name="addShortcut">Ajouter un raccouci</string>
     <string name="removeShortcut">Retirer le raccourci</string>
@@ -33,6 +34,7 @@
         <item>Import de GeoTIFF</item>
         <item>Import de ShapeFile</item>
     </string-array>
+    <string name="stopMission">Arrêter la mission</string>
     
       <string-array name="typeFields">
         <item>Texte</item>
@@ -50,6 +52,24 @@
     <string name="error_selecting_file">Erreur lors de sélection du fichier</string>  
     <string name="zoomIn">Do you really want to zoom in even if tiles are missing?</string>  
     <string name="zoomOut">Do you really want to zoom out even if tiles are missing?</string> 
+    <string name="zoomTitle">Tuiles manquantes pour ce niveau de zoom</string>
+     <string name="trackTitle">Créer un nouveau tracé GPS</string>
+     <string name="track_text_name">Nom de la nouvelle trace GPS</string>
+    <string name="track_text_param">Entrez une valeur pour le mode sélectionné</string>
+    <string name="track_radio_time">Temps (s)</string>
+    <string name="track_radio_distance">Distance (m)</string>
+    <string name="create_button">Créer</string>
+    <string name="cancel_button">Annuler</string>
+     
+     <string name="missionName">Nom :</string>
+     <string name="selectForm">Formulaire :</string>
+     <string name="formBrowser">Selectionner le formulaire</string>
+     <string name="mission">Mission</string>
+     
+     <string name="track_name_missing">Saisir un nom pour la trace</string> 
+   <string name="track_param_missing">Saisir un paramètre pour le mode sélectionné</string> 
+      <string name="track_param_false">Le paramètre doit être un nombre entier</string> 
+      <string name="track_error">Erreur en fin de trace</string> 
     
     <string name="Coms">Commentaires</string>
     <string name="ComsDefault">Champ par défaut : Commentaires</string>

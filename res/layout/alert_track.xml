@@ -1,0 +1,66 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TrackActivity" >
+
+    <TextView
+        android:id="@+id/tracktextname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:editable="false"
+        android:text="@string/track_text_name" />
+
+    <EditText
+        android:id="@+id/trackname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="text"
+        android:minWidth="150dp" />
+
+    <TextView
+        android:id="@+id/tracktextparam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:editable="false"
+        android:ems="10"
+        android:inputType="none"
+        android:text="@string/track_text_param" />
+
+        <RadioGroup
+            android:id="@+id/trackradiogroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <RadioButton
+                android:id="@+id/radioButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:tag="TIME"
+                android:checked="true"
+                android:text="@string/track_radio_time" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tag="DISTANCE"
+                android:text="@string/track_radio_distance" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/trackparameter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:inputType="number"
+            android:minWidth="150dp" />
+    
+
+</LinearLayout>

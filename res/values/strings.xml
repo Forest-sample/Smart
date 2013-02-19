@@ -21,11 +21,12 @@
     <string name="no">No</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="option">Option</string>
     <string name="addShortcut">Add shortcut</string>
     <string name="removeShortcut">Remove shortcut</string>
 
     <string-array name="items">
-        <item>Create mission</item>
+        <item>Start mission</item>
         <item>Create form</item>
         <item>Point Survay</item>
         <item>Line Survay</item>
@@ -33,7 +34,9 @@
         <item>Import KML</item>
         <item>Import GeoTIFF</item>
         <item>Import ShapeFile</item>
+
     </string-array>
+    <string name="stopMission">Stop mission</string>
     
      <string-array name="typeFields">
         <item>Text</item>
@@ -53,6 +56,25 @@
     <string name="zoomIn">Do you really want to zoom in even if tiles are missing?</string>
     <string name="zoomOut">Do you really want to zoom out even if tiles are missing?</string>
     <string name="title_activity_create_form">CreateFormActivity</string>
+    <string name="zoomTitle">Tiles missing for this zoom level"</string>
+    
+    <string name="missionName">Name :</string>
+    <string name="selectForm">Form :</string>
+    <string name="formBrowser">Select form file</string>
+    <string name="mission">Mission</string>
+    
+    <string name="defaultForm">Default</string>
+    <string name="othertForm">Other</string>
+      <string name="track_text_name">Enter a name for this track</string>
+    <string name="track_text_param">Enter a value for the mode selected </string>
+    <string name="track_radio_time">Time (s)</string>
+    <string name="track_radio_distance">Distance (m)</string>
+    <string name="create_button">Create</string>
+    <string name="cancel_button">Cancel</string>
+   <string name="track_name_missing">Must enter a name for the track</string> 
+   <string name="track_param_missing"> Must enter a param for the mode selected</string> 
+      <string name="track_param_false">Param must be an integer</string> 
+      <string name="track_error">Error while stopping track</string> 
     
     <string name="Coms">Comments</string>
         <string name="ComsDefault">Default field : Comments</string>

@@ -1,10 +1,15 @@
 package fr.umlv.lastproject.smart.form;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 import java.util.LinkedList;
 import java.util.List;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,14 +25,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 import fr.umlv.lastproject.smart.R;
 import fr.umlv.lastproject.smart.database.BooleanFieldRecord;
 import fr.umlv.lastproject.smart.database.DbManager;
-import fr.umlv.lastproject.smart.database.FieldRecord;
 import fr.umlv.lastproject.smart.database.FormRecord;
 import fr.umlv.lastproject.smart.database.GeometryRecord;
 import fr.umlv.lastproject.smart.database.HeightFieldRecord;
@@ -59,6 +61,14 @@ public class Form implements Serializable {
 	private static final int LIST_FIELD = 3;
 	private static final int PICTURE_FIELD = 4;
 	private static final int HEIGHT_FIELD = 5;
+	
+	private final String FORM ="form" ;
+	private final String FIELD="field" ;
+	private final String TYPE="type" ;
+	private final String TITLE="title"; 
+	private final String VALUES="values" ;
+	private final String MIN="min" ;
+	private final String MAX="max" ;
 
 	private TableLayout layoutDynamic;
 
@@ -156,6 +166,7 @@ public class Form implements Serializable {
 						case TEXT_FIELD:
 							TextFieldRecord text = (TextFieldRecord) formRecord.getFields().get(i);
 							text.setValue(((EditText) editTextList.get(i)).getText().toString());
+							
 							break;
 						case NUMERIC_FIELD:
 							final NumericFieldRecord num = (NumericFieldRecord) formRecord.getFields().get(i);
@@ -202,7 +213,68 @@ public class Form implements Serializable {
 		});
 		adb.show();
 	}
-
+	/**
+	 * 
+	 * @param s the file to load
+	 * @throws XmlPullParserException if the xml is malformatted
+	 * @throws FileNotFoundException if the file does not exist
+	 */
+	public void read(String s) throws XmlPullParserException, FileNotFoundException{
+		
+		XmlPullParserFactory xml = XmlPullParserFactory.newInstance() ;
+		xml.setNamespaceAware(true);
+		XmlPullParser xpp = xml.newPullParser();
+		FileInputStream fis = new FileInputStream(new File(s));
+		xpp.setInput(fis,"UTF-8");
+		int eventype = xpp.getEventType() ;
+		
+		while(eventype != XmlPullParser.END_DOCUMENT){
+			
+			if(eventype == XmlPullParser.START_TAG){
+				String tag = xpp.getName();
+				if(tag == FORM){
+					for(int i =0 ; i< xpp.getAttributeCount() ; i++){
+						if(xpp.getAttributeName(i) == TITLE ){
+							setName(xpp.getAttributeValue(i)) ;
+						}
+					}
+				}else if(tag == FIELD){
+					
+					
+					String type = null ;
+					String title = null ; ;
+					int max = 0 ;
+					int min = 0 ;
+					String values = null ;
+					
+					for(int i = 0 ; i < xpp.getAttributeCount() ; i++){
+						if(xpp.getAttributeType(i) == TYPE){
+							type = xpp.getAttributeValue(i);
+						}else if(xpp.getAttributeType(i) == TITLE){
+							title = xpp.getAttributeValue(i) ;
+						}else if(xpp.getAttributeType(i)== MAX){
+							max = Integer.valueOf(xpp.getAttributeValue(i));
+						}else if(xpp.getAttributeType(i)== MIN){
+							min = Integer.getInteger(xpp.getAttributeValue(i)) ;
+						}else if(xpp.getAttributeType(i)==VALUES){
+							values= xpp.getAttributeValue(i) ;
+						}
+					}
+					/*if(type == null) 
+					
+					if( type == "photo" ){
+						addField(new HeightField("")) ;
+					}else if(type == "height"){
+						addField(new HeightFieldRecord(field, value))
+					}else if(type == "")*/
+										
+				}
+				
+			}
+			
+		}
+	}
+	
 	public void buildForm(TableLayout l, final Context c){
 
 		editTextList = new LinkedList<Object>();

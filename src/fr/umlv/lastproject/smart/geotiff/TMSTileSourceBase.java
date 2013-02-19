@@ -4,6 +4,11 @@ import org.osmdroid.ResourceProxy.string;
 import org.osmdroid.tileprovider.MapTile;
 import org.osmdroid.tileprovider.tilesource.BitmapTileSourceBase;
 
+/**
+ * 
+ * @author Marc
+ *
+ */
 public class TMSTileSourceBase extends BitmapTileSourceBase{
 
 	public TMSTileSourceBase(String aName, string aResourceId,
@@ -14,6 +19,9 @@ public class TMSTileSourceBase extends BitmapTileSourceBase{
 		
 	}
 	
+	/**
+	 * Default implementation doesn't work with TMS specification
+	 */
 	@Override
 	public String getTileRelativeFilenameString(MapTile tile) {
  		final StringBuilder sb = new StringBuilder();

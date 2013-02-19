@@ -2,87 +2,74 @@ package fr.umlv.lastproject.smart.dataimport;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import org.osmdroid.tileprovider.MapTileProviderBasic;
-import org.osmdroid.views.overlay.Overlay;
-import org.xmlpull.v1.XmlPullParserException;
+import org.osmdroid.tileprovider.constants.OpenStreetMapTileProviderConstants;
 
 import android.content.Context;
-import android.util.Log;
 import fr.umlv.lastproject.smart.geotiff.TMSOverlay;
 import fr.umlv.lastproject.smart.geotiff.TMSTileSourceBase;
-import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
 import fr.umlv.lastproject.smart.layers.GeometryLayer;
 import fr.umlv.lastproject.smart.utils.ZIPUtils;
 
-public class DataImport {
-
+public final class DataImport {
+	
+	
 	/**
-	 * Used to import geoTIFF files previously cached and imported in
-	 * /mnt/sdcard/osmdroid
-	 * 
-	 * The zipFile must contain a folder and in this folder subdirectories with
-	 * images (png, jpg) Tiles should be generated with MapTiler
-	 * 
-	 * @param pathName
-	 *            name of the folder containing the tiles (folder hierarchy MUST
-	 *            be TMS Like)
-	 * @param context
-	 *            the context of the activity calling
-	 * @param tileNameExtension
-	 *            the format of tile images e.g png
-	 * @return {@link Overlay}
+	 * Utility class/ can't instantiate
 	 */
-
+	private DataImport(){
+		
+	}
+	
+	
 	private static final int TILE_SIZE = 256;
 
 	/**
 	 * Import Tiles giving a path containing the tiles
-	 * 
 	 * @param pathName
 	 * @param context
 	 * @return
 	 * @throws IOException
 	 */
 	public static TMSOverlay importGeoTIFFFileFolder(final String pathName,
-			final Context context) throws IOException {
+			final Context context)
+			throws IOException {
 
-		if (pathName == null)
-			throw new IllegalArgumentException(
-					"pathName null in importGeoTIFFFile");
+		if (pathName == null || context==null){
+			throw new IllegalArgumentException();
+		}
+			
 		final File f = new File(pathName);
 
-		if (!f.exists())
+		if (!f.exists()){
 			throw new IllegalArgumentException("pathName doesn't exist");
-		final ZIPUtils zip = new ZIPUtils();
-		final Object[] metadata = zip.compress(pathName);
+
+		}
+		
+		final Object[] metadata = ZIPUtils.compress(pathName);
 		final String folderName = (String) metadata[0];
 		final String tileExtension = (String) metadata[1];
 		final int minZoom = Integer.parseInt(metadata[2].toString());
 		final int maxZoom = Integer.parseInt(metadata[3].toString());
-		return importGeoTIFFFileZIP(folderName, context, minZoom, maxZoom,
-				tileExtension);
+		return importGeoTIFFFileZIP(folderName, context, minZoom, maxZoom, tileExtension);
 
 	}
-
+	
 	/**
 	 * Import tiles when a zip file already exists
-	 * 
 	 * @param folderName
 	 * @param context
 	 * @param tileNameExtension
 	 * @return
 	 */
 	public static TMSOverlay importGeoTIFFFileZIP(final String folderName,
-			final Context context, final int minZoom, final int maxZoom,
-			final String tileExtension) {
-
+			final Context context, final int minZoom, final int maxZoom, final String tileExtension){
+		if(folderName==null || minZoom<OpenStreetMapTileProviderConstants.MINIMUM_ZOOMLEVEL || maxZoom>OpenStreetMapTileProviderConstants.MAXIMUM_ZOOMLEVEL || tileExtension==null){
+			throw new IllegalArgumentException();
+		}
+		
 		final MapTileProviderBasic mProvider = new MapTileProviderBasic(context);
-		Log.d("TEST", "Folder Name : " + folderName);
-		Log.d("TEST", "Extension : " + tileExtension);
-		Log.d("TEST", "Min Zoom : " + minZoom);
-		Log.d("TEST", "Max zoom : " + maxZoom);
 		final TMSTileSourceBase tmsSource = new TMSTileSourceBase(folderName,
 				null, minZoom, maxZoom, TILE_SIZE, tileExtension);
 
@@ -94,19 +81,22 @@ public class DataImport {
 
 		return mTilesOverlay;
 	}
-
-	public static GeometryLayer importShapeFile(Context context, String filename) {
+	
+	/**
+	 * 
+	 * @param context
+	 * @param filename
+	 * @return
+	 */
+	public static GeometryLayer importShapeFile(Context context, String filename){
+		if(context==null || filename==null){
+			throw new IllegalArgumentException();
+		}
 		return ShpImport.getLayerFromShp(filename, context);
 	}
-	
-	public static List<GeometryLayer> importKml(Context context, String filename)
-			throws XmlPullParserException, IOException {
-		return KmlImport.getLayersFromKML(filename, context);
-	}
 
-	public static GeometryLayer importKml(Context context, String filename,
-			GeometryType type) throws XmlPullParserException, IOException {
-		return KmlImport.getLayerFromKML(filename, type, context);
-	}
+	
+	
+
 
 }
