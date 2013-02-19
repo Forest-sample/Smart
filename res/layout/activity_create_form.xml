@@ -4,57 +4,65 @@
     android:layout_height="match_parent"
     tools:context=".CreateFormActivity" >
 
-     <TextView 	android:id = "@+id/title" 
+    <TextView 	android:id = "@+id/title" 
     android:layout_width = "fill_parent"
 	android:layout_height = "wrap_content"
 	android:gravity ="center"
+	android:textStyle="bold"
+	android:padding="10dp"
 	android:text="@string/CreateForm"/>
     
     
-	<TableRow android:id="@+id/tableRow1"
+	<LinearLayout android:id="@+id/tableRow1"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content" 
+    android:layout_below="@+id/title"
+    android:paddingLeft="10dp">
         
 		<TextView android:layout_width = "fill_parent"
 		android:layout_height = "wrap_content"
-		android:padding="10dip"
 		android:id = "@+id/commentairesLabel" 
-		android:text="@string/Coms"/>
+		android:text="@string/ComsDefault"/>
 		
 		<EditText 
 		android:inputType="textMultiLine"
 		android:layout_width = "match_parent"
 		android:layout_height = "wrap_content"
-		android:padding="10dip"
 		android:id = "@+id/commentaires" />
 	
-	</TableRow>
+	</LinearLayout>
 	
-	
-	<TableRow android:id="@+id/tableRow3"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+	<LinearLayout
+	    android:id="@+id/tableRow3"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/tableRow1"
+	    android:layout_centerHorizontal="true" >
 		
 	<Button  android:id="@+id/buttonAdd"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="27dp"
 	android:gravity ="center"
     android:text="@string/AddField"/>
 	
 	<Button  android:id="@+id/buttonValidate"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="27dp"
 	android:gravity ="center"
     android:text="@string/validate"/>
 	
-	</TableRow>
+	</LinearLayout>
 
-	<TableLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-	android:id = "@+id/layoutDynamicCreateFormulaire"
-	android:orientation = "vertical"
-	android:layout_width = "fill_parent"
-	android:layout_height = "fill_parent" />
+	<TableLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/layoutDynamicCreateFormulaire"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_below="@+id/tableRow3"
+	    android:orientation="vertical"
+	    android:paddingLeft="10dp"
+	    android:paddingTop="10dp">
+	
+	</TableLayout>
 
 </RelativeLayout>

@@ -12,23 +12,14 @@ public class NumericField extends Field {
 	 * 
 	 */
 	private static final long serialVersionUID = -5108601667354465487L;
-	private int length;
+	private static int NUMERIC_TYPE = 1;
 	private int min;
 	private int max;
 
-	public NumericField(String label, int length, int min, int max) {
-		super(label, 1);
-		this.length = length;
+	public NumericField(String label, int min, int max) {
+		super(label, NUMERIC_TYPE);
 		this.min = min;
 		this.max = max;
-	}
-
-	public int getLength() {
-		return length;
-	}
-
-	public void setLength(int length) {
-		this.length = length;
 	}
 
 	public int getMin() {

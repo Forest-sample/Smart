@@ -4,20 +4,113 @@
     android:layout_height="match_parent"
     tools:context=".AddFieldtoFormActivity" >
 
-    <TextView 	android:id = "@+id/champTitle" 
-    android:layout_width = "fill_parent"
-	android:layout_height = "wrap_content"
-	android:gravity ="center"
-	android:text="@string/AddField"/>
     
+
 	<Spinner android:id="@+id/spinner" 
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content"/>   
 	
-	<TableLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-	android:id = "@+id/layoutDynamicAddField"
-	android:orientation = "vertical"
-	android:layout_width = "fill_parent"
-	android:layout_height = "fill_parent" />
+	<TableLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/layoutDynamicAddField"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/spinner"
+	    android:orientation="vertical" >
+	
+	    <TableRow
+        android:id="@+id/tableRowName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dip" >
+        
+        	<TextView android:layout_width = "fill_parent"
+			android:layout_height = "wrap_content"
+			android:padding="10dip"
+			android:id = "@+id/LabelName" 
+			android:text="@string/Name"/>
+		
+			<EditText 
+			android:inputType="text"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_weight="1" 
+			android:padding="10dip"
+			android:id = "@+id/valueName" />
+	
+		</TableRow>
+		
+	    <TableRow
+        android:id="@+id/tableRowMax"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dip" 
+        android:visibility="gone">
+        
+        	<TextView android:layout_width = "fill_parent"
+			android:layout_height = "wrap_content"
+			android:padding="10dip"
+			android:id = "@+id/LabelMax" 
+			android:text="Max"/>
+		
+			<EditText 
+			android:inputType="number"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_weight="1" 
+			android:padding="10dip"
+			android:id = "@+id/valueMax" />
+	
+		</TableRow>
+		
+	    <TableRow
+        android:id="@+id/tableRowMin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dip" 
+        android:visibility="gone">
+        
+        	<TextView android:layout_width = "fill_parent"
+			android:layout_height = "wrap_content"
+			android:padding="10dip"
+			android:id = "@+id/LabelMin" 
+			android:text="Min"/>
+		
+			<EditText 
+			android:inputType="number"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_weight="1" 
+			android:padding="10dip"
+			android:id = "@+id/valueMin" />
+	
+		</TableRow>
+		
+	    <TableRow
+        android:id="@+id/tableRowList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dip" 
+        android:visibility="gone">
+        
+        	<TextView android:layout_width = "fill_parent"
+			android:layout_height = "wrap_content"
+			android:padding="10dip"
+			android:id = "@+id/LabelListe" 
+			android:text="@string/List"/>
+		
+			<EditText 
+			android:inputType="textMultiLine"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_weight="1" 
+			android:padding="10dip"
+			android:id = "@+id/valueList" />
+	
+		</TableRow>
+	    
+	</TableLayout>
+	    
+	    
 
 </RelativeLayout>

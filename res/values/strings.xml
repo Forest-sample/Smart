@@ -34,6 +34,15 @@
         <item>Import GeoTIFF</item>
         <item>Import ShapeFile</item>
     </string-array>
+    
+     <string-array name="typeFields">
+        <item>Text</item>
+        <item>Numeric</item>
+        <item>Boolean</item>
+        <item>List</item>
+        <item>Picture</item>
+        <item>Height</item>
+    </string-array>
 
     <string name="title_activity_layers">LayersActivity</string>
     <string name="title_activity_browser">BrowserActivity</string>
@@ -44,9 +53,15 @@
     <string name="zoomIn">Do you really want to zoom in even if tiles are missing?</string>
     <string name="zoomOut">Do you really want to zoom out even if tiles are missing?</string>
     <string name="title_activity_create_form">CreateFormActivity</string>
+    
     <string name="Coms">Comments</string>
+        <string name="ComsDefault">Default field : Comments</string>
+    
     <string name="CreateForm">Create Form</string>
     <string name="AddField">Add a new field</string>
     <string name="title_activity_add_fieldto_form">AddFieldtoFormActivity</string>
+    <string name="Name">Name</string>
+    <string name="List">List</string>
+       
 
 </resources>

@@ -14,6 +14,7 @@ public class HeightFieldRecord extends FieldRecord {
 
 	public HeightFieldRecord(Field field, double value) {
 		super(field);
+		
 		this.value = value;
 	}
 

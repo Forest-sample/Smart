@@ -205,7 +205,7 @@ public class DbManager {
 			case NUMERIC_FIELD:
 				NumericField nf = (NumericField) field;
 				sql += nf.getLabel() + " REAL CHECK (" + nf.getLabel() + " > "
-						+ nf.getMin() + " AND" + nf.getLabel() + " < "
+						+ nf.getMin() + " AND " + nf.getLabel() + " < "
 						+ nf.getMax() + " ),";
 				break;
 			case BOOLEAN_FIELD:

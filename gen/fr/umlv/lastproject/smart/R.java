@@ -10,6 +10,7 @@ package fr.umlv.lastproject.smart;
 public final class R {
     public static final class array {
         public static final int items=0x7f070000;
+        public static final int typeFields=0x7f070001;
     }
     public static final class attr {
     }
@@ -18,52 +19,66 @@ public final class R {
         public static final int list_padding=0x7f050000;
     }
     public static final class drawable {
-        public static final int centermap=0x7f020000;
-        public static final int home=0x7f020001;
-        public static final int ic_chooser=0x7f020002;
-        public static final int ic_file=0x7f020003;
-        public static final int ic_folder=0x7f020004;
-        public static final int ic_launcher=0x7f020005;
-        public static final int layers=0x7f020006;
-        public static final int smart=0x7f020007;
+        public static final int basket=0x7f020000;
+        public static final int centermap=0x7f020001;
+        public static final int home=0x7f020002;
+        public static final int ic_chooser=0x7f020003;
+        public static final int ic_file=0x7f020004;
+        public static final int ic_folder=0x7f020005;
+        public static final int ic_launcher=0x7f020006;
+        public static final int layers=0x7f020007;
+        public static final int smart=0x7f020008;
     }
     public static final class id {
-        public static final int altitude=0x7f0a0019;
-        public static final int altitudeValue=0x7f0a001a;
-        public static final int buttonAdd=0x7f0a0008;
-        public static final int buttonValidate=0x7f0a0009;
-        public static final int centermap=0x7f0a0012;
-        public static final int champTitle=0x7f0a0000;
-        public static final int commentaires=0x7f0a0006;
-        public static final int commentairesLabel=0x7f0a0005;
-        public static final int explorer_fragment=0x7f0a001e;
-        public static final int file_icon=0x7f0a001f;
-        public static final int file_name=0x7f0a0020;
-        public static final int function_icon=0x7f0a0021;
-        public static final int function_name=0x7f0a0022;
-        public static final int home=0x7f0a000f;
-        public static final int latitude=0x7f0a0014;
-        public static final int latitudeValue=0x7f0a0015;
-        public static final int layers=0x7f0a0010;
-        public static final int layoutDynamicAddField=0x7f0a0002;
-        public static final int layoutDynamicCreateFormulaire=0x7f0a000a;
-        public static final int layoutDynamicFormulaire=0x7f0a000c;
-        public static final int listView=0x7f0a000d;
-        public static final int longitude=0x7f0a0016;
-        public static final int longitudeValue=0x7f0a0017;
-        public static final int mainlayout=0x7f0a000b;
-        public static final int mapview=0x7f0a0011;
-        public static final int menu_settings=0x7f0a0023;
-        public static final int precision=0x7f0a001b;
-        public static final int precisionValue=0x7f0a001c;
-        public static final int spinner=0x7f0a0001;
-        public static final int table=0x7f0a0013;
-        public static final int tableRow1=0x7f0a0004;
-        public static final int tableRow2=0x7f0a0018;
-        public static final int tableRow3=0x7f0a0007;
-        public static final int title=0x7f0a0003;
-        public static final int top=0x7f0a000e;
-        public static final int zoomView=0x7f0a001d;
+        public static final int LabelListe=0x7f0a000c;
+        public static final int LabelMax=0x7f0a0006;
+        public static final int LabelMin=0x7f0a0009;
+        public static final int LabelName=0x7f0a0003;
+        public static final int altitude=0x7f0a0024;
+        public static final int altitudeValue=0x7f0a0025;
+        public static final int buttonAdd=0x7f0a0013;
+        public static final int buttonValidate=0x7f0a0014;
+        public static final int centermap=0x7f0a001d;
+        public static final int commentaires=0x7f0a0011;
+        public static final int commentairesLabel=0x7f0a0010;
+        public static final int explorer_fragment=0x7f0a0029;
+        public static final int file_icon=0x7f0a002a;
+        public static final int file_name=0x7f0a002b;
+        public static final int function_icon=0x7f0a002c;
+        public static final int function_name=0x7f0a002d;
+        public static final int home=0x7f0a001a;
+        public static final int latitude=0x7f0a001f;
+        public static final int latitudeValue=0x7f0a0020;
+        public static final int layers=0x7f0a001b;
+        public static final int layoutDynamicAddField=0x7f0a0001;
+        public static final int layoutDynamicCreateFormulaire=0x7f0a0015;
+        public static final int layoutDynamicFormulaire=0x7f0a0017;
+        public static final int listView=0x7f0a0018;
+        public static final int longitude=0x7f0a0021;
+        public static final int longitudeValue=0x7f0a0022;
+        public static final int mainlayout=0x7f0a0016;
+        public static final int mapview=0x7f0a001c;
+        public static final int menu_settings=0x7f0a0030;
+        public static final int nameForm=0x7f0a002f;
+        public static final int nomForm=0x7f0a002e;
+        public static final int precision=0x7f0a0026;
+        public static final int precisionValue=0x7f0a0027;
+        public static final int spinner=0x7f0a0000;
+        public static final int table=0x7f0a001e;
+        public static final int tableRow1=0x7f0a000f;
+        public static final int tableRow2=0x7f0a0023;
+        public static final int tableRow3=0x7f0a0012;
+        public static final int tableRowList=0x7f0a000b;
+        public static final int tableRowMax=0x7f0a0005;
+        public static final int tableRowMin=0x7f0a0008;
+        public static final int tableRowName=0x7f0a0002;
+        public static final int title=0x7f0a000e;
+        public static final int top=0x7f0a0019;
+        public static final int valueList=0x7f0a000d;
+        public static final int valueMax=0x7f0a0007;
+        public static final int valueMin=0x7f0a000a;
+        public static final int valueName=0x7f0a0004;
+        public static final int zoomView=0x7f0a0028;
     }
     public static final class layout {
         public static final int activity_add_field_to_form=0x7f030000;
@@ -76,6 +91,7 @@ public final class R {
         public static final int chooser=0x7f030007;
         public static final int file=0x7f030008;
         public static final int listview_items=0x7f030009;
+        public static final int name_form=0x7f03000a;
     }
     public static final class menu {
         public static final int activity_add_fieldto_form=0x7f090000;
@@ -85,9 +101,12 @@ public final class R {
         public static final int activity_smart=0x7f090004;
     }
     public static final class string {
-        public static final int AddField=0x7f060021;
+        public static final int AddField=0x7f060022;
         public static final int Coms=0x7f06001f;
-        public static final int CreateForm=0x7f060020;
+        public static final int ComsDefault=0x7f060020;
+        public static final int CreateForm=0x7f060021;
+        public static final int List=0x7f060025;
+        public static final int Name=0x7f060024;
         public static final int accuracy=0x7f060005;
         public static final int addShortcut=0x7f060014;
         public static final int altitude=0x7f060004;
@@ -111,7 +130,7 @@ public final class R {
         public static final int removeShortcut=0x7f060015;
         public static final int showInfoZone=0x7f06000d;
         public static final int storage_removed=0x7f060019;
-        public static final int title_activity_add_fieldto_form=0x7f060022;
+        public static final int title_activity_add_fieldto_form=0x7f060023;
         public static final int title_activity_browser=0x7f060017;
         public static final int title_activity_create_form=0x7f06001e;
         public static final int title_activity_home=0x7f060013;

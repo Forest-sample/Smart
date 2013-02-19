@@ -1,5 +1,8 @@
 package fr.umlv.lastproject.smart;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.osmdroid.events.MapAdapter;
 import org.osmdroid.events.ScrollEvent;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -18,14 +21,25 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import fr.umlv.lastproject.smart.database.DbManager;
+import fr.umlv.lastproject.smart.database.FormRecord;
+import fr.umlv.lastproject.smart.database.GeometryRecord;
+import fr.umlv.lastproject.smart.database.TextFieldRecord;
+import fr.umlv.lastproject.smart.form.BooleanField;
 import fr.umlv.lastproject.smart.form.CreateFormActivity;
 import fr.umlv.lastproject.smart.form.Form;
+import fr.umlv.lastproject.smart.form.ListField;
 import fr.umlv.lastproject.smart.form.Mission;
+import fr.umlv.lastproject.smart.form.NumericField;
+import fr.umlv.lastproject.smart.form.PictureField;
+import fr.umlv.lastproject.smart.form.TextField;
 import fr.umlv.lastproject.smart.layers.Geometry.GeometryType;
 
 public class MenuActivity extends Activity {
@@ -270,7 +284,19 @@ public class MenuActivity extends Activity {
 
 				switch (index) {
 				case CREATE_MISSION:
-					Form f = new Form("FormDefault");
+					Form f = new Form("MonForm");
+					f.addField(new TextField("titi"));
+					f.addField(new NumericField("toto", 5, 10));
+					f.addField(new BooleanField("alors"));
+					List<String> l = new LinkedList<String>();
+					l.add("pouet");
+					l.add("pouet2");
+
+					//f.addField(new ListField("liste", l));
+
+
+					
+					
 					Mission.createMission("ma mission thibault yoyo",
 							this, mapView, f);
 					Mission.getInstance().startMission();
@@ -280,8 +306,40 @@ public class MenuActivity extends Activity {
 
 					break;
 				case CREATE_FORM:
-					Intent intent = new Intent(MenuActivity.this, CreateFormActivity.class);
-					startActivity(intent);				
+					LayoutInflater factory = LayoutInflater.from(this);
+					final View alertDialogView = factory.inflate(
+							fr.umlv.lastproject.smart.R.layout.name_form,
+							null);
+					final AlertDialog.Builder adb = new AlertDialog.Builder(this);
+				
+					adb.setView(alertDialogView);
+					adb.setTitle(getResources().getString(R.string.CreateForm));
+					
+					adb.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							
+							EditText et = (EditText) alertDialogView
+									.findViewById(fr.umlv.lastproject.smart.R.id.nameForm);
+					
+							
+							Intent intent = new Intent(MenuActivity.this, CreateFormActivity.class);
+							intent.putExtra("nameForm", et.getText().toString());
+							
+							startActivity(intent);	
+
+						}
+					});
+
+					adb.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+
+						}
+					});
+					adb.show();
+					
+					
+					
+								
 
 					break;
 				case POINT_SURVAY:

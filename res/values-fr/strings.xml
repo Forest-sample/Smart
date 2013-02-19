@@ -23,7 +23,7 @@
     <string name="addShortcut">Ajouter un raccouci</string>
     <string name="removeShortcut">Retirer le raccourci</string>
 
-      <string-array name="items">
+    <string-array name="items">
         <item>Créer mission</item>
         <item>Créer un formulaire</item>
         <item>Relevé de point</item>
@@ -32,6 +32,15 @@
         <item>Import de KML</item>
         <item>Import de GeoTIFF</item>
         <item>Import de ShapeFile</item>
+    </string-array>
+    
+      <string-array name="typeFields">
+        <item>Texte</item>
+        <item>Numérique</item>
+        <item>Boolean</item>
+        <item>Liste</item>
+        <item>Photo</item>
+        <item>Hauteur</item>
     </string-array>
     
     <string name="title_activity_browser">BrowserActivity</string>
@@ -43,7 +52,12 @@
     <string name="zoomOut">Do you really want to zoom out even if tiles are missing?</string> 
     
     <string name="Coms">Commentaires</string>
+    <string name="ComsDefault">Champ par défaut : Commentaires</string>
+    
     <string name="CreateForm">Création d\'un formulaire</string>
-    <string name="AddField">Ajouter un champs</string>
+    <string name="AddField">Ajouter un champ</string>
+    <string name="Name">Nom</string>
+    <string name="List">Liste</string>
+    
 
 </resources>

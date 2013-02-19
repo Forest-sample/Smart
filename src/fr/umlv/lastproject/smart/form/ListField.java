@@ -20,8 +20,8 @@ public class ListField extends Field {
 
 	public ListField(String label, List<String> list) {
 		super(label, LIST_TYPE);
-		list = new ArrayList<String>();
-		list.addAll(values);
+		values = new ArrayList<String>();
+		values.addAll(list);
 	}
 
 	public List<String> getValues() {

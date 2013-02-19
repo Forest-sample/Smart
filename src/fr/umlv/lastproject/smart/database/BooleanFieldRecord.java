@@ -13,6 +13,7 @@ public class BooleanFieldRecord extends FieldRecord {
 	private boolean value;
 
 	public BooleanFieldRecord(Field field, boolean value) {
+		
 		super(field);
 		this.value = value;
 	}

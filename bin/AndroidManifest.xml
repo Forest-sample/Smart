@@ -31,11 +31,11 @@
             android:label="@string/title_activity_layers" >
         </activity>
         <activity
-            android:name="fr.umlv.lastproject.smart.CreateFormActivity"
+            android:name="fr.umlv.lastproject.smart.form.CreateFormActivity"
             android:label="@string/title_activity_create_form" >
         </activity>
         <activity
-            android:name="fr.umlv.lastproject.smart.AddFieldtoFormActivity"
+            android:name="fr.umlv.lastproject.smart.form.AddFieldtoFormActivity"
             android:label="@string/title_activity_add_fieldto_form" >
         </activity>
     </application>
